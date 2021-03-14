@@ -1,6 +1,8 @@
 package dhbw.server.entities;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "nutzer")
@@ -26,10 +28,24 @@ public class Nutzer {
     private String nut_titel;
 
     @Column
-    private Boolean nut_istadmin;
-
-    @Column
     private String nut_passwort;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "nutzer_roles",
+            joinColumns = @JoinColumn(name = "nut_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+
+    private Set<Role> roles = new HashSet<>();
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
     public Integer getNut_id() {
         return nut_id;
@@ -77,14 +93,6 @@ public class Nutzer {
 
     public void setNut_titel(String nut_titel) {
         this.nut_titel = nut_titel;
-    }
-
-    public Boolean getNut_istadmin() {
-        return nut_istadmin;
-    }
-
-    public void setNut_istadmin(Boolean nut_istadmin) {
-        this.nut_istadmin = nut_istadmin;
     }
 
     public String getNut_passwort() {

@@ -53,4 +53,9 @@ public class AppController {
         return "users";
     }
 
+    @GetMapping("/accessdenied")
+    public String accessDenied() {
+        return "access_denied";
+    }
+
 }

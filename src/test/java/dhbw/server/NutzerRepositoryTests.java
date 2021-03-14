@@ -30,7 +30,6 @@ public class NutzerRepositoryTests {
         nutzer.setNut_vorname("Foo");
         nutzer.setNut_nachname("Kumar");
         nutzer.setNut_anrede("Frau");
-        nutzer.setNut_istadmin(true);
         nutzer.setNut_titel(null);
 
         Nutzer savedUser = repo.save(nutzer);
