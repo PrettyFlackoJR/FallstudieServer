@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
-public class AppController {
+public class AnwendungsController {
 
     @Autowired
     private NutzerRepository nutzerRepository;
 
-    @GetMapping
+    @GetMapping("/index")
     public String viewHomePage() {
         return "index";
     }

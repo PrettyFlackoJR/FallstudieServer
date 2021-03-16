@@ -1,0 +1,26 @@
+body {
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+main {
+    margin: 2rem;
+}
+
+header {
+    background-color: #131921;
+    padding: 0.5rem;
+    font-size: large;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    color: white;
+    text-align: center;
+}
+
+footer {
+    padding: 2rem;
+    background-color: #131921;
+    color: white;
+    text-align: center;
+}
