@@ -24,6 +24,11 @@ public class AnwendungsController {
         return "index";
     }
 
+    @GetMapping("/vorlesungsplaner")
+    public String viewVorlesungsplaner() {
+        return "homepage";
+    }
+
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new Nutzer());

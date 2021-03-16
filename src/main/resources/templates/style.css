@@ -24,3 +24,39 @@ footer {
     color: white;
     text-align: center;
 }
+
+a{
+    text-decoration: none;
+    color: #7c8991;
+    font-weight: 500;
+}
+
+a:hover{
+    color: #e3001b;
+}
+
+ul{
+    list-style-type: none;
+}
+
+.navbar{
+    background: lightgrey;
+    padding: 3rem 2rem;
+    height: 0rem;
+    min-height: 12vh;
+}
+
+.button{
+    text-align: center;
+    padding: 8px 20px;
+    display: inline-block;
+    font-size: 14px;
+    background-color: #7c8991;
+    color: white;
+    border: 1px solid grey;
+    border-radius: 25px;
+}
+/*index-Seite - Styling*/
+.second__section{
+
+}
