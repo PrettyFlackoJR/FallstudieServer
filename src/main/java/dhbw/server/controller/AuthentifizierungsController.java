@@ -26,6 +26,11 @@ public class AuthentifizierungsController {
         return "index";
     }
 
+    @GetMapping("/login")
+    public String login(){
+        return "/login";
+    }
+
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new Nutzer());
