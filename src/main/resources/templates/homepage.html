@@ -1,29 +1,55 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>Vorlesungsplaner</title>
+    <meta charset="ISO-8859-1">
+    <meta charset="utf-8" />
+    <title>DH-Planner</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
 </head>
 <body>
 <header>
-    Herzlich Willkommen im Vorlesungsplaner
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="images/DHPlanner.PNG" alt="DHBW Planner"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="homepage.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Vorlesungsplaner
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/vorlesungsplaner">Neuen Vorlesungszeitraum definieren</a>
+                            <a class="dropdown-item" href="/vorlesungsplaner">Neuen Vorlesungstermin planen</a>
+                            <a class="dropdown-item" href="/vorlesungsplaner">Bestehende Vorlesungstermine modifizieren</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 </header>
 
-<main>
-    <section id="first__section">
-        <div class="main__content">
-
-        </div>
-
-    </section>
-    <aside id="side__bar">
-        <p class="side__bar-text">
-
-        </p>
-    </aside>
+</aside>
 </main>
 <footer>
     © Vorlesungsplaner
 </footer>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files
+      as needed -->
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
