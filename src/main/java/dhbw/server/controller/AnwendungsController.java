@@ -19,6 +19,7 @@ public class AnwendungsController {
     @Autowired
     private NutzerRepository nutzerRepository;
 
+
     @GetMapping("/index")
     public String viewHomePage() {
         return "index";
