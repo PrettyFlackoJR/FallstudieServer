@@ -4,7 +4,7 @@
 <head>
     <meta charset="ISO-8859-1">
     <meta charset="utf-8" />
-    <title>Sign Up - CodeJava</title>
+    <title>Registrieren</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="../static/style.css" />
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
@@ -35,7 +35,7 @@
     </nav>
 </header>
 <div class="container text-center">
-    <form th:action="@{/process_register}" th:object="${user}"
+    <form name="f" th:action="@{/process_register}" th:object="${user}"
           method="post" style="max-width: 600px; margin: 0 auto;">
         <div class="m-3">
             <div class="form-group row">
@@ -85,14 +85,20 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-4 col-form-label">Admin?: </label>
+                <label class="col-4 col-form-label">Admin? </label>
                 <div class="col-8">
                     <input type="checkbox" th:name="admin" checked="checked" value="true"/>
                 </div>
             </div>
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Admin Passwort:  </label>
+                <div class="col-8">
+                    <input type="password" th:name="admin_pw">
+                </div>
+            </div>
 
             <div>
-                <button type="submit" class="btn btn-primary">Sign Up</button>
+                <button type="submit" class="btn btn-primary">Jetzt registrieren</button>
             </div>
         </div>
     </form>
