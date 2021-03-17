@@ -2,8 +2,11 @@ package dhbw.server.controller;
 
 import dhbw.server.entities.Nutzer;
 import dhbw.server.entities.Nutzer_Role;
+import dhbw.server.entities.Vorlesung_Von_Nutzer;
+import dhbw.server.repositories.Kurs_Von_NutzerRepository;
 import dhbw.server.repositories.NutzerRepository;
 import dhbw.server.repositories.Nutzer_RolesRepository;
+import dhbw.server.repositories.Vorlesung_Von_NutzerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -20,6 +23,10 @@ public class AuthentifizierungsController {
     private NutzerRepository nutzerRepository;
     @Autowired
     private Nutzer_RolesRepository nutzerRolesRepository;
+    @Autowired
+    private Kurs_Von_NutzerRepository kursVonNutzerRepository;
+    @Autowired
+    private Vorlesung_Von_NutzerRepository vorlesungVonNutzerRepository;
 
     @GetMapping
     public String viewHomePage() {
