@@ -53,26 +53,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/vorlesungsplaner").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/vorlesungsplaner/*").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/vorlesungsplaner/**").hasAnyAuthority("ADMIN", "USER")
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/vorlesungsplaner")
-                .failureHandler(new AuthenticationFailureHandler() {
-
-                    @Override
-                    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-                                                        AuthenticationException exception) throws IOException, ServletException {
-                        String email = request.getParameter("username");
-                        String error = exception.getMessage();
-                        System.out.println("A failed login attempt with email: "
-                                + email + ". Reason: " + error);
-
-                        String redirectUrl = request.getContextPath() + "/login?error";
-                        response.sendRedirect(redirectUrl);
-                    }
+                .failureHandler((request, response, exception) -> {
+                    String redirectUrl = request.getContextPath() + "/login?error";
+                    response.sendRedirect(redirectUrl);
                 })
                 .permitAll()
                 .and()
