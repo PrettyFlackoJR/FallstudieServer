@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="ISO-8859-1">
     <meta charset="utf-8" />
@@ -25,6 +26,9 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/logout}">Logout <span class="sr-only">(current)</span></a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="homepage.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Vorlesungsplaner
@@ -44,7 +48,7 @@
 </aside>
 </main>
 <footer>
-    Â© Vorlesungsplaner
+    © Vorlesungsplaner
 </footer>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://code.jquery.com/jquery.js"></script>

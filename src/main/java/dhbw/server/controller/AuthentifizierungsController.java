@@ -30,6 +30,10 @@ public class AuthentifizierungsController {
     public String login() {
         return "login";
     }
+    @GetMapping("/logout")
+    public String logout() {
+        return "login";
+    }
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
