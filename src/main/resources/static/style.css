@@ -8,19 +8,18 @@ main {
 }
 
 header {
-    background-color: #131921;
-    padding: 0.5rem;
+    background-color: #7c8991;
     font-size: large;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    color: white;
     text-align: center;
+    font-weight: bold;
+    height: 120px;
+    padding-top: 2.5rem;
+    color: white;
 }
 
 footer {
     padding: 2rem;
-    background-color: #131921;
+    background-color: #7c8991;
     color: white;
     text-align: center;
 }
@@ -40,10 +39,11 @@ ul{
 }
 
 .navbar{
-    background: lightgrey;
-    padding: 3rem 2rem;
+    background: #7c8991;
+    padding: 0;
     height: 0rem;
-    min-height: 12vh;
+    color: white;
+    width: 100%;
 }
 
 .button{
@@ -51,15 +51,34 @@ ul{
     padding: 8px 20px;
     display: inline-block;
     font-size: 14px;
-    background-color: #7c8991;
+    background-color: lightgrey;
     color: white;
-    border: 1px solid grey;
+    border: 1px black;
     border-radius: 25px;
 }
 /*index-Seite - Styling*/
-.second__section{
-
+#first__section{
+    padding: 2rem;
 }
+
+#side__bar{
+    background-color: #c9bbbb;
+    padding: 1rem;
+    border-radius: 5px;
+    border-width: 5px;
+}
+
+.container-fluid, img-fluid{
+    background-color: #7c8991;
+    color: white;
+    padding: 0rem;
+    margin: 0;
+}
+
+.nav-item active{
+    color: white;
+}
+
 .modal-body2{
     margin-top: 50px;
     margin-bottom 50px;
