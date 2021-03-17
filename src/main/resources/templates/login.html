@@ -8,7 +8,7 @@
 <body>
 <div class="modal-body2">
     <div class="form-title text-center">
-        <div class="row text-center">
+        <div>
             <div class="warning" th:if="${param.error}">Falsche E-Mail oder Passwort.</div>
             <div class="logoutmsg" th:if="${param.logout}">Auf Wiedersehen, [[${#request.userPrincipal.principal.fullName}]]</div>
         </div>
