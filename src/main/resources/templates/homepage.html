@@ -7,7 +7,6 @@
     <title>DH-Planner</title>
     <link rel="stylesheet" type="text/css" href="../static/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
 </head>
 <body>
@@ -29,6 +28,9 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/login?logout}">Logout <span class="sr-only">(current)</span></a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/kalender}">Kalender <span class="sr-only">(current)</span></a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="homepage.html" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Vorlesungsplaner
@@ -44,8 +46,11 @@
         </div>
     </nav>
 </header>
-
 </aside>
+<section>
+    <h1>hier kommt der kalender</h1>
+    <div id='calendar'></div>
+</section>
 </main>
 <footer>
     © Vorlesungsplaner
