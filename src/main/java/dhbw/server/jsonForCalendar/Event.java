@@ -1,4 +1,4 @@
-package dhbw.server.json;
+package dhbw.server.jsonForCalendar;
 
 public class Event {
 
