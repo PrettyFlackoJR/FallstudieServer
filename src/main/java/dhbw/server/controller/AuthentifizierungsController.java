@@ -44,6 +44,7 @@ public class AuthentifizierungsController {
     public String logout() {
         return "login";
     }
+    
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new Nutzer());
