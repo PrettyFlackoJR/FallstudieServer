@@ -56,6 +56,10 @@ ul{
     border: 1px black;
     border-radius: 25px;
 }
+
+td{
+    padding: 1rem;
+}
 /*index-Seite - Styling*/
 #first__section{
     padding: 2rem;
