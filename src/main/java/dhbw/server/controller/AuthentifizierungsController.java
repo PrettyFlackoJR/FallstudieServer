@@ -1,8 +1,8 @@
 package dhbw.server.controller;
 
+import dhbw.server.UserService;
 import dhbw.server.entities.Nutzer;
 import dhbw.server.entities.Nutzer_Role;
-import dhbw.server.entities.Vorlesung_Von_Nutzer;
 import dhbw.server.repositories.Kurs_Von_NutzerRepository;
 import dhbw.server.repositories.NutzerRepository;
 import dhbw.server.repositories.Nutzer_RolesRepository;
@@ -27,6 +27,8 @@ public class AuthentifizierungsController {
     private Kurs_Von_NutzerRepository kursVonNutzerRepository;
     @Autowired
     private Vorlesung_Von_NutzerRepository vorlesungVonNutzerRepository;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     public String viewHomePage() {
@@ -51,10 +53,25 @@ public class AuthentifizierungsController {
 
     @Transactional
     @PostMapping("/process_register")
-    public String processRegister(@RequestParam(value = "admin") boolean admin, Nutzer user) {
+    public String processRegister(@RequestParam(required = false, value = "admin") Boolean b,
+                                  Nutzer user,
+                                  Model model) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getNut_passwort());
         user.setNut_passwort(encodedPassword);
+
+        boolean admin = false;
+        if (b != null) {
+            admin = true;
+        }
+
+        try {
+            Nutzer nutzer = userService.registerNewUserAccount(user);
+        } catch (Exception e) {
+            model.addAttribute("user", new Nutzer());
+            model.addAttribute("errorMessage", "Error: " + e.getMessage());
+            return "signup_form";
+        }
 
         nutzerRepository.save(user);
 
