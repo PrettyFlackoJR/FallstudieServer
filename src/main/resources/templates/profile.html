@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+<html xmlns:th="http://www.thymeleaf.org">
+<head xmlns:th="http://www.w3.org/1999/xhtml">
+    <meta charset="utf-8"/>
+    <title>Profil</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<header>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <img th:src="@{/images/DHPlannerKlein.PNG}" alt="DHBW Planner" width="140" height="100">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                    Mein Profil
+                </ul>
+                <ul class="nav-item">
+                    <a class="nav-link" th:href="@{/login?logout}">Logout <span class="sr-only">(current)</span></a>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<main>
+    <section id="first__section">
+        <div class="container text-center">
+            <div>
+                <form th:action="@{/logout}" method="post">
+                    <p>
+                        Welcome <b>[[${#request.userPrincipal.principal.fullName}]]</b>
+                    </p>
+                    <input type="submit" value="Sign Out" />
+                </form>
+            </div>
+            <div>
+                <h1>List of Users</h1>
+            </div>
+
+            <div>
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>User ID</th>
+                        <th>E-mail</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user: ${listUsers}">
+                        <td th:text="${user.nut_id}">User ID</td>
+                        <td th:text="${user.nut_email}">E-mail</td>
+                        <td th:text="${user.nut_vorname}">First Name</td>
+                        <td th:text="${user.nut_nachname}">Last Name</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
+<footer>
+    © Vorlesungsplaner
+</footer>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files
+      as needed -->
+<script src="js/bootstrap.min.js"></script>
+</body>

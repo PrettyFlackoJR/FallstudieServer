@@ -60,6 +60,11 @@ ul{
 td{
     padding: 1rem;
 }
+
+.container-fluid{
+    padding: 1rem;
+}
+
 /*index-Seite - Styling*/
 #first__section{
     padding: 2rem;
