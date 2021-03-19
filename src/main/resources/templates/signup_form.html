@@ -56,8 +56,13 @@
                 <div class="form-group row">
                     <label class="col-4 col-form-label">Titel: </label>
                     <div class="col-8">
-                        <input type="text" th:field="*{nut_titel}" class="form-control"
-                               required minlength="2" maxlength="20"/>
+                        <select th:field="*{nut_titel}">
+                            <option th:value="''" th:text="''"></option>
+                            <option th:value="'Prof.'" th:text="Prof."></option>
+                            <option th:value="'Dr.'" th:text="Dr."></option>
+                            <option th:value="'Prof. Dr.'" th:text="'Prof. Dr.'"></option>
+                            <option th:value="'Dipl.-Ing..'" th:text="'Dipl.-Ing.'"></option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -90,19 +95,6 @@
                                required minlength="2" maxlength="20"/>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label class="col-4 col-form-label">Admin? </label>
-                    <div class="col-8">
-                        <input type="checkbox" th:name="admin" checked="checked" value="true"/>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-4 col-form-label">Admin Passwort: </label>
-                    <div class="col-8">
-                        <input type="password" th:name="admin_pw">
-                    </div>
-                </div>
-
                 <div>
                     <button type="submit" class="btn btn-primary">Jetzt registrieren</button>
                 </div>
