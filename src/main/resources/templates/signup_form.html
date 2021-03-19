@@ -39,6 +39,9 @@
 </header>
 <main>
     <div class="container text-center">
+        <div th:if="${errorMessage != null}"
+             th:utext="${errorMessage}" class="error">
+        </div>
         <form name="f" th:action="@{/process_register}" th:object="${user}"
               method="post" style="max-width: 600px; margin: 0 auto;">
             <div class="m-3">
