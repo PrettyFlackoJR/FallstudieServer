@@ -1,12 +1,11 @@
 package dhbw.server.repositories;
 
 import dhbw.server.entities.Nutzer;
+import dhbw.server.entities.Vorlesung;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-public interface VorlesungRepository extends JpaRepository<Nutzer, Integer> {
+public interface VorlesungRepository extends JpaRepository<Vorlesung, Integer> {
 
-    @Query("SELECT vor_name FROM Vorlesung WHERE vor_id = ?1")
-    public Vorlesung findNameById(Integer id);
 }
 

@@ -48,9 +48,9 @@ public class CalendarService {
         for (Termin termin : termine) {
             Event event = new Event();
             Optional<Vorlesung_Von_Nutzer> vorlesungVonNutzer = vorlesungVonNutzerRepository.
-                    findById(termin.getTer_vor_von_nut_id());
+                    findById(termin.getTer_vvn_id());
             Optional<Vorlesung> vorlesung = vorlesungRepository.findById(vorlesungVonNutzer.
-                    get().getVor_von_nut_vol_id());
+                    get().getVvn_vor_id());
             event.setTitle(vorlesung.get().getVor_kuerzel());
             event.setStart(String.valueOf(termin.getTer_datum()));
             event.setEnd(null);

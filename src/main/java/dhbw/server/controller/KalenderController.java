@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -24,7 +25,8 @@ public class KalenderController {
 
     @GetMapping(path = "/process_kalender", produces = {"application/json", "text/json"})
     @ResponseBody
-    public Calendar processKalender() {
+    public Calendar processKalender(@RequestParam(name = "kurs") String kurs) {
+        System.out.println(kurs);
         return calendarService.showCalendar();
     }
 

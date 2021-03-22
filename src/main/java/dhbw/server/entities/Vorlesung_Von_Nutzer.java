@@ -8,46 +8,46 @@ public class Vorlesung_Von_Nutzer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer vor_von_nut_id;
+    private Integer vvn_id;
 
     @Column
-    private Integer vor_von_nut_nut_id;
+    private Integer vvn_nut_id;
 
     @Column
-    private Integer vor_von_nut_vol_id;
+    private Integer vvn_vor_id;
 
     @Column
-    private Float vor_von_nut_stunden;
+    private Float vvn_stnd;
 
-    public Integer getVor_von_nut_id() {
-        return vor_von_nut_id;
+    public Integer getVvn_id() {
+        return vvn_id;
     }
 
-    public void setVor_von_nut_id(Integer vor_von_nut_id) {
-        this.vor_von_nut_id = vor_von_nut_id;
+    public void setVvn_id(Integer vvn_id) {
+        this.vvn_id = vvn_id;
     }
 
-    public Integer getVor_von_nut_nut_id() {
-        return vor_von_nut_nut_id;
+    public Integer getVvn_nut_id() {
+        return vvn_nut_id;
     }
 
-    public void setVor_von_nut_nut_id(Integer vor_von_nut_nut_id) {
-        this.vor_von_nut_nut_id = vor_von_nut_nut_id;
+    public void setVvn_nut_id(Integer vvn_nut_id) {
+        this.vvn_nut_id = vvn_nut_id;
     }
 
-    public Integer getVor_von_nut_vol_id() {
-        return vor_von_nut_vol_id;
+    public Integer getVvn_vor_id() {
+        return vvn_vor_id;
     }
 
-    public void setVor_von_nut_vol_id(Integer vor_von_nut_vol_id) {
-        this.vor_von_nut_vol_id = vor_von_nut_vol_id;
+    public void setVvn_vor_id(Integer vvn_vol_id) {
+        this.vvn_vor_id = vvn_vol_id;
     }
 
-    public Float getVor_von_nut_stunden() {
-        return vor_von_nut_stunden;
+    public Float getVvn_stnd() {
+        return vvn_stnd;
     }
 
-    public void setVor_von_nut_stunden(Float vor_von_nut_stunden) {
-        this.vor_von_nut_stunden = vor_von_nut_stunden;
+    public void setVvn_stnd(Float vvn_stnd) {
+        this.vvn_stnd = vvn_stnd;
     }
 }

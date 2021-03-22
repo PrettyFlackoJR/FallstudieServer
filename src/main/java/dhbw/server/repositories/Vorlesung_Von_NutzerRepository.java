@@ -7,6 +7,4 @@ import org.springframework.stereotype.Component;
 @Component
 public interface Vorlesung_Von_NutzerRepository extends JpaRepository<Vorlesung_Von_Nutzer, Integer> {
 
-
-
 }

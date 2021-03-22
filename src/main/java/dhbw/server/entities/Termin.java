@@ -16,7 +16,7 @@ public class Termin {
     private LocalDate ter_datum;
 
     @Column
-    private Integer ter_vor_von_nut_id;
+    private Integer ter_vvn_id;
 
     @Column
     private LocalTime ter_start;
@@ -43,12 +43,12 @@ public class Termin {
         this.ter_datum = ter_datum;
     }
 
-    public Integer getTer_vor_von_nut_id() {
-        return ter_vor_von_nut_id;
+    public Integer getTer_vvn_id() {
+        return ter_vvn_id;
     }
 
-    public void setTer_vor_von_nut_id(Integer ter_vor_von_nut_id) {
-        this.ter_vor_von_nut_id = ter_vor_von_nut_id;
+    public void setTer_vvn_id(Integer ter_vvn_id) {
+        this.ter_vvn_id = ter_vvn_id;
     }
 
     public LocalTime getTer_start() {
