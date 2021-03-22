@@ -16,6 +16,9 @@ public class Vorlesung_Von_Nutzer {
     @Column
     private Integer vor_von_nut_vol_id;
 
+    @Column
+    private Float vor_von_nut_stunden;
+
     public Integer getVor_von_nut_id() {
         return vor_von_nut_id;
     }
@@ -38,5 +41,13 @@ public class Vorlesung_Von_Nutzer {
 
     public void setVor_von_nut_vol_id(Integer vor_von_nut_vol_id) {
         this.vor_von_nut_vol_id = vor_von_nut_vol_id;
+    }
+
+    public Float getVor_von_nut_stunden() {
+        return vor_von_nut_stunden;
+    }
+
+    public void setVor_von_nut_stunden(Float vor_von_nut_stunden) {
+        this.vor_von_nut_stunden = vor_von_nut_stunden;
     }
 }
