@@ -6,7 +6,7 @@
     <title>DH-Planner</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="kalender.css">
-    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.css' rel='stylesheet' />
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.css' rel='stylesheet'/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
@@ -32,8 +32,8 @@
                             Vorlesungsplaner
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/vorlesungsplaner">Neuen Vorlesungstermin planen</a>
-                            <a class="dropdown-item" href="/vorlesungsplaner">Bestehende Vorlesungstermine
+                            <a class="dropdown-item" href="#unterKalender">Neuen Vorlesungstermin planen</a>
+                            <a class="dropdown-item" href="#unterKalender">Bestehende Vorlesungstermine
                                 modifizieren</a>
                         </div>
                     </li>
@@ -41,8 +41,8 @@
                         <a class="nav-link" th:href="@{/profile}">Mein Profil <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                        <form  th:action="@{/logout}" method="post">
-                            <input class="button" type="submit" value="Sign Out" />
+                        <form th:action="@{/logout}" method="post">
+                            <input class="button" type="submit" value="Sign Out"/>
                         </form>
                     </li>
                 </ul>
@@ -58,7 +58,8 @@
         <table>
             <tr>
                 <th>
-                    <div class="unterKalender">
+                    <p>Neuen Vorlesungstermin erstellen</p>
+                    <div id="unterKalender">
                         <select id="kurs">
                             <option th:value="'0'" th:text="'Kurs auswählen'"></option>
                             <option th:value="'A'" th:text="'Kurs A'"></option>
@@ -70,7 +71,8 @@
                     </div>
                 </th>
                 <th>
-                    <div class="unterKalender">
+                    <p>Bestehende Vorlesungstermine</p>
+                    <div id="unterKalender">
                         <table class="table table-striped">
                             <thead>
                             <tr>
@@ -105,20 +107,20 @@
 <script src="js/bootstrap.min.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.js'></script>
 <script>
-   // function pruefeKurs() {
-        document.addEventListener('DOMContentLoaded', async function () {
-            var calendarEl = document.getElementById('calendar');
+    // function pruefeKurs() {
+    document.addEventListener('DOMContentLoaded', async function () {
+        var calendarEl = document.getElementById('calendar');
 
-            const url = "http://localhost:8080/vorlesungsplaner/kalender/process_kalender";
-         //   let kurs = document.getElementById(kurs)
-            const res = await fetch(url);
-            const json = await res.json();
+        const url = "http://localhost:8080/vorlesungsplaner/kalender/process_kalender";
+        //   let kurs = document.getElementById(kurs)
+        const res = await fetch(url);
+        const json = await res.json();
 
-            var calendar = new FullCalendar.Calendar(calendarEl, json);
+        var calendar = new FullCalendar.Calendar(calendarEl, json);
 
-            calendar.render();
-        });
-   // }
+        calendar.render();
+    });
+    // }
 </script>
 </body>
 </html>

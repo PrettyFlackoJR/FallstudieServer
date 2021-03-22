@@ -52,7 +52,7 @@ ul{
     display: inline-block;
     font-size: 14px;
     background-color: lightgrey;
-    color: #7c8991;
+    color: black;
     border: 1px black;
     border-radius: 25px;
 }
@@ -111,6 +111,25 @@ td{
     color: orange;
     position: center;
 }
-.ueberKalender{
-    margin-bottom: 50px;
+
+.label{
+    text-align: left;
+    font-weight: bold;
+}
+
+.form-group row{
+    text-align: left;
+    align-content: flex-start;
+}
+
+.loginformular{
+    padding: 1rem;
+}
+
+.d-flex flex-column text-center{
+    margin-top: 2rem;
+}
+
+h4{
+    padding-top: 1rem;
 }
