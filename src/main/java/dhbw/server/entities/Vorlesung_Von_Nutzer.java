@@ -19,6 +19,9 @@ public class Vorlesung_Von_Nutzer {
     @Column
     private Float vvn_stnd;
 
+    @Column
+    private Integer vvn_kurs_id;
+
     public Integer getVvn_id() {
         return vvn_id;
     }
@@ -49,5 +52,13 @@ public class Vorlesung_Von_Nutzer {
 
     public void setVvn_stnd(Float vvn_stnd) {
         this.vvn_stnd = vvn_stnd;
+    }
+
+    public Integer getVvn_kurs_id() {
+        return vvn_kurs_id;
+    }
+
+    public void setVvn_kurs_id(Integer vvn_kurs_id) {
+        this.vvn_kurs_id = vvn_kurs_id;
     }
 }
