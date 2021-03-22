@@ -40,7 +40,6 @@ public class CalendarService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalEmail = authentication.getName();
         int nutzerId = userService.getUserId(currentPrincipalEmail);
-        System.out.println("ID: " + nutzerId);
 
         // VVN IDs mit Nutzer ID holen
         ArrayList<Integer> vvnIds = getVvnIds(nutzerId, kurs);
@@ -48,9 +47,10 @@ public class CalendarService {
         // Alle Termine ermitteln
         ArrayList<Termin> termine = new ArrayList<>();
         for (Integer vvnId : vvnIds) {
-           termine.addAll(terminRepository.findAllByVvnId(vvnId));
+            termine.addAll(terminRepository.findAllByVvnId(vvnId));
         }
 
+        System.out.println("Termine: " + termine);
         // Events für den Kalender erstellen
         ArrayList<Event> events = getEvents(termine);
 
