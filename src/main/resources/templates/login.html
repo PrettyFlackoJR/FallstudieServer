@@ -43,7 +43,7 @@
         <h4>Login</h4>
     </div>
     <div class="d-flex flex-column text-center">
-        <form name="f" th:action="@{/login}" method="post">
+        <form class="loginformular" name="f" th:action="@{/login}" method="post">
             <div class="form-group">
                 <label for="username">E-Mail</label>
                 <input type="text" class="form-control" id="username" name="username"
@@ -55,15 +55,14 @@
                        placeholder="Password">
             </div>
             <div class="form-actions" style="margin-top: 12px;">
-                <button type="submit" class="btn btn-primary" onclick="validate()">Einloggen</button>
+                <button type="submit" class="button" onclick="validate()">Einloggen</button>
             </div>
         </form>
         </div>
     </div>
 </div>
 <div class="modal-footer d-flex justify-content-center">
-    <div class="signup-section">Noch nicht angemeldet? <a th:href="@{/register}" class="text-info">Jetzt registrieren</a>.</div>
-</div>
+    <div class="signup-section">Noch nicht angemeldet? <a th:href="@{/register}">Jetzt registrieren</a>.</div>
 </div>
 </main>
 <footer>

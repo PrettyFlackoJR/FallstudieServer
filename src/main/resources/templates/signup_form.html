@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" xmlns="http://www.w3.org/1999/html">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
@@ -37,70 +37,80 @@
     </nav>
 </header>
 <main>
-    <div class="container text-center">
+    <tr class="container text-center">
         <div th:if="${errorMessage != null}"
              th:utext="${errorMessage}" class="error">
         </div>
+        <div class="modal-body2">
+            <div class="form-title text-center">
+                <h4>Registrierung</h4>
+            </div>
+        <div class="d-flex flex-column text-center">
         <form name="f" th:action="@{/process_register}" th:object="${user}"
               method="post" style="max-width: 600px; margin: 0 auto;">
-            <div class="m-3">
-                <div class="form-group row">
-                    <label class="col-4 col-form-label">Anrede: </label>
-                    <div class="col-8">
-                        <select th:field="*{nut_anrede}">
-                            <option th:value="'Herr'" th:text="Herr"></option>
-                            <option th:value="'Frau'" th:text="Frau"></option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-4 col-form-label">Titel: </label>
-                    <div class="col-8">
-                        <select th:field="*{nut_titel}">
-                            <option th:value="''" th:text="''"></option>
-                            <option th:value="'Prof.'" th:text="Prof."></option>
-                            <option th:value="'Dr.'" th:text="Dr."></option>
-                            <option th:value="'Prof. Dr.'" th:text="'Prof. Dr.'"></option>
-                            <option th:value="'Dipl.-Ing..'" th:text="'Dipl.-Ing.'"></option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-4 col-form-label">E-Mail: </label>
-                    <div class="col-8">
+            <table>
+                <tbody>
+                <tr>
+                    <td><label class="label">Anrede: </label></td>
+                    <td>
+                            <select th:field="*{nut_anrede}">
+                                <option value="0"> Bitte wählen</option>
+                                <option th:value="'Herr'" th:text="Herr"></option>
+                                <option th:value="'Frau'" th:text="Frau"></option>
+                                <option th:value="'Divers'" th:text="Divers"></option>
+                            </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label class="label">Titel: </label></td>
+                    <td><select th:field="*{nut_titel}">
+                        <option th:value="''" th:text="''"></option>
+                        <option th:value="'Prof.'" th:text="Prof."></option>
+                        <option th:value="'Dr.'" th:text="Dr."></option>
+                        <option th:value="'Prof. Dr.'" th:text="'Prof. Dr.'"></option>
+                        <option th:value="'Dipl.-Ing..'" th:text="'Dipl.-Ing.'"></option>
+                    </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label class="label">E-Mail: </label></td>
+                    <td>
                         <input type="email" th:field="*{nut_email}" class="form-control" required/>
-                    </div>
-                </div>
+                    </td>
+                </tr>
 
-                <div class="form-group row">
-                    <label class="col-4 col-form-label">Passwort: </label>
-                    <div class="col-8">
-                        <input type="password" th:field="*{nut_passwort}" class="form-control"
-                               required minlength="6" maxlength="10"/>
-                    </div>
-                </div>
+                <tr>
+                    <td><label class="label">Passwort: </label></td>
+                   <td><input type="password" th:field="*{nut_passwort}" class="form-control"
+                              required minlength="6" maxlength="10"/>
+                   </td>
+                </tr>
 
-                <div class="form-group row">
-                    <label class="col-4 col-form-label">Vorname: </label>
-                    <div class="col-8">
-                        <input type="text" th:field="*{nut_vorname}" class="form-control"
+                <tr>
+                    <td><label class="label">Vorname: </label></td>
+                    <td><input type="text" th:field="*{nut_vorname}" class="form-control"
                                required minlength="2" maxlength="20"/>
-                    </div>
-                </div>
+                    </td>
+                </tr>
 
-                <div class="form-group row">
-                    <label class="col-4 col-form-label">Nachname: </label>
-                    <div class="col-8">
+                <tr>
+                    <td><label class="label">Nachname: </label></td>
+                    <td>
                         <input type="text" th:field="*{nut_nachname}" class="form-control"
                                required minlength="2" maxlength="20"/>
-                    </div>
-                </div>
-                <div>
-                    <button type="submit" class="btn btn-primary">Jetzt registrieren</button>
-                </div>
-            </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button type="submit" class="button">Jetzt registrieren</button></td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
         </form>
-    </div>
+        </div>
+        </div>
 </main>
 <footer>
     © Vorlesungsplaner

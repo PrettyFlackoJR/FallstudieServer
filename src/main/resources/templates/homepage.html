@@ -5,7 +5,8 @@
     <meta charset="utf-8"/>
     <title>DH-Planner</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.css' rel='stylesheet' />
+    <link rel="stylesheet" type="text/css" href="kalender.css">
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.css' rel='stylesheet'/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
@@ -25,31 +26,24 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/vorlesungsplaner}">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <form th:action="@{/logout}" method="post">
-                            <input type="submit" value="Sign Out" />
-                        </form>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="@{}">Mein Profil <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/kalender}">Kalender <span class="sr-only">(current)</span></a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="homepage.html" id="navbarDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Vorlesungsplaner
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/vorlesungsplaner">Neuen Vorlesungszeitraum definieren</a>
-                            <a class="dropdown-item" href="/vorlesungsplaner">Neuen Vorlesungstermin planen</a>
-                            <a class="dropdown-item" href="/vorlesungsplaner">Bestehende Vorlesungstermine
+                            <a class="dropdown-item" href="#unterKalender">Neuen Vorlesungstermin planen</a>
+                            <a class="dropdown-item" href="#unterKalender">Bestehende Vorlesungstermine
                                 modifizieren</a>
                         </div>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/profile}">Mein Profil <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <form th:action="@{/logout}" method="post">
+                            <input class="button" type="submit" value="Sign Out"/>
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -57,24 +51,51 @@
     </nav>
 </header>
 <main>
-    <div class="ueberKalender">
-        <select>
-            <option th:value="'Herr'" th:text="'Kurs A'"></option>
-            <option th:value="'Frau'" th:text="'Kurs B'"></option>
-        </select>
-        <button class="button">
-            <i class="fas fa-plus-square">Termin hinzufügen</i>
-        </button>
-    </div>
     <section id="calendar__section">
         <div id='calendar'></div>
     </section>
-    <div>
-        <select class="form-control" id="dropOperator" th:field="*{vorlesungen}">
-            <option value="0">select operator</option>
-            <option th:each="vor_von_nut_id : ${vorlesungen}" th:value="${vor_von_nut_id}" th:text="${vor_von_nut_id.vor_von_nut_stunden}"></option>
-        </select>
-    </div>
+    <section id="calendar__newDate__modifyDate">
+        <table>
+            <tr>
+                <th>
+                    <p>Neuen Vorlesungstermin erstellen</p>
+                    <div id="unterKalender">
+                        <select id="kurs">
+                            <option th:value="'0'" th:text="'Kurs auswählen'"></option>
+                            <option th:value="'A'" th:text="'Kurs A'"></option>
+                            <option th:value="'B'" th:text="'Kurs B'"></option>
+                        </select>
+                        <button class="button">
+                            <i class="fas fa-plus-square">Termin hinzufügen</i>
+                        </button>
+                    </div>
+                </th>
+                <th>
+                    <p>Bestehende Vorlesungstermine</p>
+                    <div id="unterKalender">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">Vorlesungsfach</th>
+                                <th scope="col">Datum</th>
+                                <th scope="col">Startzeit</th>
+                                <th scope="col">Endzeit</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">WI</th>
+                                <td>07.05.2021</td>
+                                <td>09:00</td>
+                                <td>12:15</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </th>
+            </tr>
+        </table>
+    </section>
 </main>
 <footer>
     © Vorlesungsplaner
@@ -86,69 +107,20 @@
 <script src="js/bootstrap.min.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.js'></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    // function pruefeKurs() {
+    document.addEventListener('DOMContentLoaded', async function () {
         var calendarEl = document.getElementById('calendar');
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            initialDate: '2021-03-07',
-            headerToolbar: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
-            },
-            events: [
-                {
-                    title: 'All Day Event',
-                    start: '2021-03-01'
-                },
-                {
-                    title: 'Long Event',
-                    start: '2021-03-07',
-                    end: '2021-03-10'
-                },
-                {
-                    groupId: '999',
-                    title: 'Repeating Event',
-                    start: '2021-03-09T16:00:00'
-                },
-                {
-                    groupId: '999',
-                    title: 'Repeating Event',
-                    start: '2021-03-16T16:00:00'
-                },
-                {
-                    title: 'Conference',
-                    start: '2021-03-11',
-                    end: '2021-03-13'
-                },
-                {
-                    title: 'Meeting',
-                    start: '2021-03-12T10:30:00',
-                    end: '2021-03-12T12:30:00'
-                },
-                {
-                    title: 'Lunch',
-                    start: '2021-03-12T12:00:00'
-                },
-                {
-                    title: 'Meeting',
-                    start: '2021-03-12T14:30:00'
-                },
-                {
-                    title: 'Birthday Party',
-                    start: '2021-03-13T07:00:00'
-                },
-                {
-                    title: 'Click for Google',
-                    url: 'http://google.com/',
-                    start: '2021-03-28'
-                }
-            ]
-        });
+        const url = "http://localhost:8080/vorlesungsplaner/kalender/process_kalender";
+        //   let kurs = document.getElementById(kurs)
+        const res = await fetch(url);
+        const json = await res.json();
+
+        var calendar = new FullCalendar.Calendar(calendarEl, json);
 
         calendar.render();
     });
+    // }
 </script>
 </body>
 </html>
