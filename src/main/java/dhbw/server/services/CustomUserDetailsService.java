@@ -1,5 +1,6 @@
-package dhbw.server;
+package dhbw.server.services;
 
+import dhbw.server.CustomUserDetails;
 import dhbw.server.entities.Nutzer;
 import dhbw.server.repositories.NutzerRepository;
 import org.springframework.beans.factory.annotation.Autowired;

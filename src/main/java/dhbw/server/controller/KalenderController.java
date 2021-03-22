@@ -1,38 +1,31 @@
 package dhbw.server.controller;
 
-import dhbw.server.entities.Nutzer;
-import dhbw.server.entities.Termin;
-import dhbw.server.entities.Vorlesung_Von_Nutzer;
-import dhbw.server.repositories.Kurs_Von_NutzerRepository;
-import dhbw.server.repositories.TerminRepository;
-import dhbw.server.repositories.Vorlesung_Von_NutzerRepository;
+import dhbw.server.jsonForCalendar.Calendar;
+import dhbw.server.services.CalendarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequestMapping("/vorlesungsplaner/kalender")
 public class KalenderController {
 
     @Autowired
-    private TerminRepository terminRepository;
-    @Autowired
-    private Vorlesung_Von_NutzerRepository vorlesungVonNutzerRepository;
+    private CalendarService calendarService;
 
+    @GetMapping
+    public String kalender(Model model) {
 
-    @GetMapping("/termin")
-    public String showTerminAdding(Model model) {
-        model.addAttribute("termin", new Termin());
-
-        return "signup_form";
+        return "kalender";
     }
-    @GetMapping("/listVorlesungen")
-    public String listVorlesungen(Model model) {
 
-        return "homepage";
+    @GetMapping(path = "/process_kalender", produces = {"application/json", "text/json"})
+    @ResponseBody
+    public Calendar processKalender() {
+        return calendarService.showCalendar();
     }
 
 }
