@@ -35,4 +35,9 @@ public class UserService {
         return nutzerRepository.findByEmail(email) != null;
     }
 
+    public int getUserId(String email) {
+        Nutzer nutzer = nutzerRepository.findByEmail(email);
+        return nutzer.getNut_id();
+    }
+
 }
