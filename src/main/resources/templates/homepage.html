@@ -5,6 +5,7 @@
     <meta charset="utf-8"/>
     <title>DH-Planner</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="kalender.css">
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.css' rel='stylesheet' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
@@ -25,31 +26,24 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/vorlesungsplaner}">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <form th:action="@{/logout}" method="post">
-                            <input type="submit" value="Sign Out" />
-                        </form>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="@{}">Mein Profil <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/kalender}">Kalender <span class="sr-only">(current)</span></a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="homepage.html" id="navbarDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Vorlesungsplaner
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/vorlesungsplaner">Neuen Vorlesungszeitraum definieren</a>
                             <a class="dropdown-item" href="/vorlesungsplaner">Neuen Vorlesungstermin planen</a>
                             <a class="dropdown-item" href="/vorlesungsplaner">Bestehende Vorlesungstermine
                                 modifizieren</a>
                         </div>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/profile}">Mein Profil <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <form  th:action="@{/logout}" method="post">
+                            <input class="button" type="submit" value="Sign Out" />
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -57,24 +51,49 @@
     </nav>
 </header>
 <main>
-    <div class="ueberKalender">
-        <select id="kurs">
-            <option th:value="'A'" th:text="'Kurs A'"></option>
-            <option th:value="'B'" th:text="'Kurs B'"></option>
-        </select>
-        <button class="button">
-            <i class="fas fa-plus-square">Termin hinzufügen</i>
-        </button>
-    </div>
     <section id="calendar__section">
         <div id='calendar'></div>
     </section>
-    <div>
-        <select class="form-control" id="dropOperator" th:field="*{vorlesungen}">
-            <option value="0">select operator</option>
-            <option th:each="vor_von_nut_id : ${vorlesungen}" th:value="${vor_von_nut_id}" th:text="${vor_von_nut_id.vvn_stnd}"></option>
-        </select>
-    </div>
+    <section id="calendar__newDate__modifyDate">
+        <table>
+            <tr>
+                <th>
+                    <div class="unterKalender">
+                        <select id="kurs">
+                            <option th:value="'0'" th:text="'Kurs auswählen'"></option>
+                            <option th:value="'A'" th:text="'Kurs A'"></option>
+                            <option th:value="'B'" th:text="'Kurs B'"></option>
+                        </select>
+                        <button class="button">
+                            <i class="fas fa-plus-square">Termin hinzufügen</i>
+                        </button>
+                    </div>
+                </th>
+                <th>
+                    <div class="unterKalender">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">Vorlesungsfach</th>
+                                <th scope="col">Datum</th>
+                                <th scope="col">Startzeit</th>
+                                <th scope="col">Endzeit</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">WI</th>
+                                <td>07.05.2021</td>
+                                <td>09:00</td>
+                                <td>12:15</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </th>
+            </tr>
+        </table>
+    </section>
 </main>
 <footer>
     © Vorlesungsplaner
