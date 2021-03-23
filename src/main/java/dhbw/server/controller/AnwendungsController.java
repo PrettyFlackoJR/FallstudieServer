@@ -33,17 +33,6 @@ public class AnwendungsController {
         return "homepage";
     }
 
-    @GetMapping("/users")
-    public String listUsers(Model model) {
-        // Beispiel um email des eingeloggten users zu bekommen
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalEmail = authentication.getName();
-
-        List<Nutzer> nutzerList = nutzerRepository.findAll();
-        model.addAttribute("listUsers", nutzerList);
-        return "users";
-    }
-
     @GetMapping("/profile")
     public String showProfile(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
