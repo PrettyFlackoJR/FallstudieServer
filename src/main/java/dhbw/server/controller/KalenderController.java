@@ -25,9 +25,9 @@ public class KalenderController {
 
     @GetMapping(path = "/process_kalender", produces = {"application/json", "text/json"})
     @ResponseBody
-    public Calendar processKalender(@RequestParam(name = "kurs") String kurs) {
-        System.out.println(kurs);
-        return calendarService.showCalendar();
+    public Calendar processKalender(@RequestParam(required = false, name = "kurs") String kurs) {
+        String kurs2 = "A";
+        return calendarService.showCalendar(kurs2);
     }
 
 }

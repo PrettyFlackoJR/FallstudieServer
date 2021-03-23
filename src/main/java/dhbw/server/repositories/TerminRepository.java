@@ -11,6 +11,6 @@ import java.util.ArrayList;
 public interface TerminRepository extends JpaRepository<Termin, Integer> {
 
     @Query("SELECT t FROM Termin t WHERE t.ter_vvn_id = ?1")
-    public ArrayList<Termin> findAllByUserId(int id);
+    public ArrayList<Termin> findAllByVvnId(Integer vvnId);
 
 }

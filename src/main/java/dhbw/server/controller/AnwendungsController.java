@@ -44,4 +44,11 @@ public class AnwendungsController {
         return "users";
     }
 
+    @GetMapping("/profile")
+    public String showProfile(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalEmail = authentication.getName();
+        return "profile";
+    }
+
 }
