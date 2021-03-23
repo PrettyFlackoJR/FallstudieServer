@@ -63,21 +63,32 @@
             <option th:value="'A'" th:text="'Kurs A'"></option>
             <option th:value="'B'" th:text="'Kurs B'"></option>
         </select>
-        <button id="refresh" class="button" type="button" onclick="kursNeuladen()">
-            <i class="fas fa-plus-square">Aktualisieren</i>
-        </button>
-        <button class="button">
-            <i class="fas fa-plus-square">Termin hinzufügen</i>
-        </button>
     </div>
-    <section id="calendar__section">
-        <div id='calendar'></div>
-    </section>
     <div>
-        <select class="form-control" id="dropOperator" th:field="*{vorlesungen}">
-            <option value="0">select operator</option>
-            <option th:each="vor_von_nut_id : ${vorlesungen}" th:value="${vor_von_nut_id}" th:text="${vor_von_nut_id.vvn_stnd}"></option>
-        </select>
+    <select id="vorlesung">
+        <option th:value="'A'" th:text="'Vorlesung A'"></option>
+        <option th:value="'B'" th:text="'Vorlesung B'"></option>
+    </select>
+    </div>
+    <div>
+        <label for="start">Start date:</label>
+
+        <input type="date" id="start" name="trip-start"
+               value="2018-07-22"
+               min="2018-01-01" max="2018-12-31">
+
+        <label for="start">End date:</label>
+
+        <input type="date" id="end" name="trip-end"
+               value="2018-07-22"
+               min="2018-01-01" max="2018-12-31">
+
+    </div>
+    <div>
+        <p>Verbleibende Stunden: </p>
+    </div>
+    <div>
+        <button>Abschicken</button>
     </div>
 </main>
 <footer>

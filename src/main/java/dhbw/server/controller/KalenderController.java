@@ -22,7 +22,6 @@ public class KalenderController {
 
         return "kalender";
     }
-
     @GetMapping(path = "/process_kalender", produces = {"application/json", "text/json"})
     @ResponseBody
     public Calendar processKalender(@RequestParam(required = false, name = "kurs") String kurs) {
