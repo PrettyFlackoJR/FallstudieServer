@@ -101,6 +101,24 @@
                     </td>
                 </tr>
                 <tr>
+                    <td><label class="label">Vorlesungen: </label></td>
+                   <td> <select id="kurs">
+                        <option th:value="'A'" th:text="'Kurs A'"></option>
+                        <option th:value="'B'" th:text="'Kurs B'"></option>
+                    </select>
+                    <div>
+                        <input type="checkbox" id="scales" name="scales"
+                               checked>
+                        <label for="scales">Scales</label>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" id="horns" name="horns">
+                        <label for="horns">Horns</label>
+                    </div>
+                    </td>
+                </tr>
+                <tr>
                     <td><button type="submit" class="button">Jetzt registrieren</button></td>
 
                 </tr>

@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
-    <title>DH-Planner</title>
+    <title>Termin</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.css' rel='stylesheet' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -11,7 +11,7 @@
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
 
 </head>
-<body onload="onLoad()">
+<body>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -65,10 +65,10 @@
         </select>
     </div>
     <div>
-    <select id="vorlesung">
-        <option th:value="'A'" th:text="'Vorlesung A'"></option>
-        <option th:value="'B'" th:text="'Vorlesung B'"></option>
-    </select>
+        <select id="vorlesung">
+            <option th:value="'A'" th:text="'Vorlesung A'"></option>
+            <option th:value="'B'" th:text="'Vorlesung B'"></option>
+        </select>
     </div>
     <div>
         <label for="start">Start date:</label>
@@ -94,7 +94,6 @@
 <footer>
     © Vorlesungsplaner
 </footer>
-<script src="homeScript.js"></script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://code.jquery.com/jquery.js"></script>
 <!-- Include all compiled plugins (below), or include individual files

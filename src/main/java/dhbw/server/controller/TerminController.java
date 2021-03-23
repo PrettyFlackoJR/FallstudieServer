@@ -5,11 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/vorlesungsplaner/termin")
+@RequestMapping("/vorlesungsplaner")
 public class TerminController {
-
     @GetMapping("/termin_add")
-    public String login() {
+    public String termin_add() {
         return "termin_add";
     }
 }
