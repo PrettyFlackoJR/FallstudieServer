@@ -50,7 +50,6 @@ public class CalendarService {
             termine.addAll(terminRepository.findAllByVvnId(vvnId));
         }
 
-        System.out.println("Termine: " + termine);
         // Events für den Kalender erstellen
         ArrayList<Event> events = getEvents(termine);
 
@@ -58,6 +57,10 @@ public class CalendarService {
                 headerToolbar, events);
 
         return calendar;
+    }
+
+    public void addTermin(Termin termin) {
+        terminRepository.save(termin);
     }
 
     private ArrayList<Event> getEvents(ArrayList<Termin> termine) {
