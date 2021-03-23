@@ -86,12 +86,12 @@
 <script src="js/bootstrap.min.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.js'></script>
 <script>
-   // function pruefeKurs() {
+    function pruefeKurs() {
         document.addEventListener('DOMContentLoaded', async function () {
             var calendarEl = document.getElementById('calendar');
 
             const url = "http://localhost:8080/vorlesungsplaner/kalender/process_kalender";
-         //   let kurs = document.getElementById(kurs)
+            let kurs = document.getElementById(kurs)
             const res = await fetch(url);
             const json = await res.json();
 
@@ -99,7 +99,7 @@
 
             calendar.render();
         });
-   // }
+    }
 </script>
 </body>
 </html>
