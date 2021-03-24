@@ -25,14 +25,13 @@ public class KalenderController {
 
     @GetMapping(path = "/process_kalender", produces = {"application/json", "text/json"})
     @ResponseBody
-    public Calendar processKalender(@RequestParam(required = false, name = "kurs") String kurs) {
-        String kurs2 = "A";
-        return calendarService.showCalendar(kurs2);
+    public Calendar processKalender(@RequestParam(name = "kurs") String kurs) {
+        return calendarService.showCalendar(kurs);
     }
 
     @GetMapping("/termin_add")
     public String termin_add(@RequestParam(required = false, name = "kurs") String kurs, Model model) {
-        List<Vorlesung_Von_Nutzer> vvns = vorlesungsService.showVVN(kurs);
+        List<Vorlesung_Von_Nutzer> vvns = vorlesungsService.getVvns(kurs);
         List<Vorlesung> vorlesungen = vorlesungsService.getVorlesungen(vvns);
         List<Vorlesung_Namen> vvn_namen = null;
         for (Vorlesung_Von_Nutzer vvn: vvns) {
