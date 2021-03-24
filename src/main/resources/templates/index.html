@@ -28,9 +28,12 @@
                     Herzlich Willkommen im DH-Planner der DHBW Stuttgart
                 </ul>
                 <ul class="navbar-nav ml-auto">
-                    <button class="button"><a th:href="@{/register}">Registrierung</a></button>
-                    <button class="button"><a
-                            th:href="@{/login}">Login</a></button>
+                    <form  th:action="@{/register}" method="get">
+                        <input class="button" type="submit" value="Registrierung" />
+                    </form>
+                    <form  th:action="@{/login}" method="get">
+                        <input class="button" type="submit" value="Login" />
+                    </form>
                 </ul>
             </div>
         </div>

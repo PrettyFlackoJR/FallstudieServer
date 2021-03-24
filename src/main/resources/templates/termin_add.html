@@ -32,13 +32,13 @@
                             Vorlesungsplaner
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/vorlesungsplaner">Neuen Vorlesungstermin planen</a>
-                            <a class="dropdown-item" href="/vorlesungsplaner">Bestehende Vorlesungstermine
+                            <a class="dropdown-item" th:href="@{vorlesungsplaner/termin_add}">Neuen Vorlesungstermin planen</a>
+                            <a class="dropdown-item" href="#unterKalender">Bestehende Vorlesungstermine
                                 modifizieren</a>
                         </div>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/profile}">Mein Profil <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/vorlesungsplaner/profile">Mein Profil <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
                         <form  th:action="@{/logout}" method="post">
@@ -56,17 +56,26 @@
         <table>
             <tbody>
             <tr>
-                <td><label class="label">Vorlesung: </label></td>
+                <td><label class="label" th:object="${vorlesungen}">Kurs: </label></td>
                 <td> <select id="kurs">
                     <option value="0">select operator</option>
-                    <option th:each="vvn_name: ${vvn_namen}" th:value="${vvn_name.vvn_id}" th:text="${vvn_name.vor_name}"></option>
+                    <option th:each="vvns: ${vorlesungen}" th:value="${vvns.vvn_id}" th:text="${vvns.vvn_id}"></option>
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label class="label">Vorlesung: </label></td>
+                <td> <select id="vorlesung123">
+                    <option th:value="'0'" th:text="'Vorlesungsfach auswählen'"></option>
+                    <option th:text="'Vorlesung A'"></option>
+                    <option th:text="'Vorlesung B'"></option>
                 </select>
                 </td>
             </tr>
             <tr>
                 <td><label for="start">Start date:</label></td>
 
-                <td><input type="date" th:field="*{ter_datum}"id="start" name="trip-start"
+                <td><input type="datetime-local" id="start" name="trip-start"
                            value="2018-07-22"
                            min="2018-01-01" max="2018-12-31"></td>
 
@@ -80,10 +89,10 @@
 
             </tr>
             <tr>
-               <td> <p>Verbleibende Stunden: </p></td>
+               <td> <p>Anzahl verbleibender Vorlesungsstunden: </p></td>
             </tr>
             <tr>
-                <td><button type="submit" class="button">Jetzt registrieren</button></td>
+                <td><button type="submit" class="button">Termin zum Vorlesungsplan hinzufügen</button></td>
             </tr>
 
             </tbody>
