@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <html xmlns:th="http://www.thymeleaf.org">
-<head xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
     <meta charset="utf-8"/>
     <title>Mein Profil</title>
     <link rel="stylesheet" type="text/css" href="http://localhost:8080/style.css">
@@ -28,23 +28,22 @@
                     Profilübersicht
                 </ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="homepage.html" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/vorlesungsplaner">
                             Vorlesungsplaner
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" th:href="@{termin_add}">Neuen Vorlesungstermin planen</a>
-                            <a class="dropdown-item" href="/vorlesungsplaner">Bestehende Vorlesungstermine
-                                modifizieren</a>
-                        </div>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/vorlesungsplaner/profile">Mein Profil <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/admin">
+                            Administrationsbereich
+                        </a>
                     </li>
                     <li class="nav-item active">
-                        <form  th:action="@{/logout}" method="post">
-                            <input class="button" type="submit" value="Sign Out" />
+                        <a class="nav-link" href="/profile">Mein Profil <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <form th:action="@{/logout}" method="post">
+                            <input class="button" type="submit" value="Sign Out"/>
                         </form>
                     </li>
                 </ul>

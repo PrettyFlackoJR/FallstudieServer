@@ -5,11 +5,10 @@
     <meta charset="utf-8"/>
     <title>Termin</title>
     <link rel="stylesheet" type="text/css" href="http://localhost:8080/style.css">
-    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.css' rel='stylesheet' />
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.css' rel='stylesheet'/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
-
 </head>
 <body>
 <header>
@@ -26,23 +25,22 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="homepage.html" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/vorlesungsplaner">
                             Vorlesungsplaner
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" th:href="@{vorlesungsplaner/termin_add}">Neuen Vorlesungstermin planen</a>
-                            <a class="dropdown-item" href="#unterKalender">Bestehende Vorlesungstermine
-                                modifizieren</a>
-                        </div>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/vorlesungsplaner/profile">Mein Profil <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/admin">
+                            Administrationsbereich
+                        </a>
                     </li>
                     <li class="nav-item active">
-                        <form  th:action="@{/logout}" method="post">
-                            <input class="button" type="submit" value="Sign Out" />
+                        <a class="nav-link" href="/profile">Mein Profil <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <form th:action="@{/logout}" method="post">
+                            <input class="button" type="submit" value="Sign Out"/>
                         </form>
                     </li>
                 </ul>
@@ -57,9 +55,10 @@
             <tbody>
             <tr>
                 <td><label class="label">Vorlesung: </label></td>
-                <td> <select id="kurs">
+                <td><select id="kurs">
                     <option value="0">select operator</option>
-                    <option th:each="vvn_name: ${vvn_namen}" th:value="${vvn_name.vvn_id}" th:text="${vvn_name.vor_name}"></option>
+                    <option th:each="vvn_name: ${vvn_namen}" th:value="${vvn_name.vvn_id}"
+                            th:text="${vvn_name.vor_name}"></option>
                 </select>
                 </td>
             </tr>
@@ -80,10 +79,12 @@
 
             </tr>
             <tr>
-               <td> <p>Anzahl verbleibender Vorlesungsstunden: </p></td>
+                <td><p>Anzahl verbleibender Vorlesungsstunden: </p></td>
             </tr>
             <tr>
-                <td><button type="submit" class="button">Termin zum Vorlesungsplan hinzufügen</button></td>
+                <td>
+                    <button type="submit" class="button">Termin zum Vorlesungsplan hinzufügen</button>
+                </td>
             </tr>
 
             </tbody>

@@ -26,12 +26,7 @@ public class AnwendungsController {
         return "homepage";
     }
 
-    @GetMapping("/profile")
-    public String showProfile(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalEmail = authentication.getName();
-        return "profile";
-    }
+
 
 
 }

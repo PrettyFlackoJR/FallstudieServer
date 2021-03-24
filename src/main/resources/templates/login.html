@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8"/>
     <title>Einloggen</title>
-    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
 </head>
@@ -26,11 +26,8 @@
                     Loginseite DH-Planner der DHBW Stuttgart
                 </ul>
                 <ul class="navbar-nav ml-auto">
-                    <form  th:action="@{/register}" method="get">
-                        <input class="button" type="submit" value="Wechsel zur Registrierung" />
-                    </form>
-                    <form  th:action="@{/}" method="get">
-                        <input class="button" type="submit" value="Zurück zur Startseite" />
+                    <form th:action="@{/}" method="get">
+                        <input class="button" type="submit" value="Zurück zur Startseite"/>
                     </form>
                 </ul>
             </div>
@@ -38,36 +35,36 @@
     </nav>
 </header>
 <main>
-<div class="modal-body2">
-    <div class="form-title text-center">
-        <div>
-            <div class="warning" th:if="${param.error}">Falsche E-Mail oder Passwort.</div>
-            <div class="logoutmsg" th:if="${param.logout}">Auf Wiedersehen.</div>
+    <div class="modal-body2">
+        <div class="form-title text-center">
+            <div>
+                <div class="warning" th:if="${param.error}">Falsche E-Mail oder Passwort.</div>
+                <div class="logoutmsg" th:if="${param.logout}">Auf Wiedersehen.</div>
+            </div>
+            <h4>Login</h4>
         </div>
-        <h4>Login</h4>
-    </div>
-    <div class="d-flex flex-column text-center">
-        <form class="loginformular" name="f" th:action="@{/login}" method="post">
-            <div class="form-group">
-                <label for="username">E-Mail</label>
-                <input type="text" class="form-control" id="username" name="username"
-                       placeholder="E-Mail">
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password"
-                       placeholder="Password">
-            </div>
-            <div class="form-actions" style="margin-top: 12px;">
-                <button type="submit" class="button" onclick="validate()">Einloggen</button>
-            </div>
-        </form>
+        <div class="d-flex flex-column text-center">
+            <form class="loginformular" name="f" th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label for="username">E-Mail</label>
+                    <input type="text" class="form-control" id="username" name="username"
+                           placeholder="E-Mail">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password"
+                           placeholder="Password">
+                </div>
+                <div class="form-actions" style="margin-top: 12px;">
+                    <button type="submit" class="button" onclick="validate()">Einloggen</button>
+                </div>
+            </form>
         </div>
     </div>
-</div>
-<div class="modal-footer d-flex justify-content-center">
-    <div class="signup-section">Noch nicht angemeldet? <a th:href="@{/register}">Jetzt registrieren</a>.</div>
-</div>
+    </div>
+    <div class="modal-footer d-flex justify-content-center">
+        <div class="signup-section">Noch nicht angemeldet? <a th:href="@{/register}">Jetzt registrieren</a>.</div>
+    </div>
 </main>
 <footer>
     © Vorlesungsplaner
