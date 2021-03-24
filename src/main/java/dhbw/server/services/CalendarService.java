@@ -15,6 +15,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -40,16 +42,13 @@ public class CalendarService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalEmail = authentication.getName();
         int nutzerId = userService.getUserId(currentPrincipalEmail);
-
         // VVN IDs mit Nutzer ID holen
         ArrayList<Integer> vvnIds = getVvnIds(nutzerId, kurs);
-
         // Alle Termine ermitteln
         ArrayList<Termin> termine = new ArrayList<>();
         for (Integer vvnId : vvnIds) {
             termine.addAll(terminRepository.findAllByVvnId(vvnId));
         }
-
         // Events für den Kalender erstellen
         ArrayList<Event> events = getEvents(termine);
 
@@ -61,6 +60,25 @@ public class CalendarService {
 
     public void addTermin(Termin termin) {
         terminRepository.save(termin);
+    }
+
+    public void modifyTermin(Event event) {
+        Optional<Termin> termin = terminRepository.findById(event.getTer_id());
+        String str = event.getStart();
+        String str2 = event.getEnd();
+        LocalDate date = LocalDate.parse(str.split("T")[0]);
+        LocalTime start = LocalTime.parse(str.split("T")[1]);
+        LocalTime end = LocalTime.parse(str2.split("T")[1]);
+
+        termin.get().setTer_datum(date);
+        termin.get().setTer_start(start);
+        termin.get().setTer_ende(end);
+
+        terminRepository.save(termin.get());
+    }
+
+    public void deleteTermin(Integer id) {
+        terminRepository.deleteById(id);
     }
 
     private ArrayList<Event> getEvents(ArrayList<Termin> termine) {
@@ -82,6 +100,8 @@ public class CalendarService {
 
             end = termin.getTer_datum() + "T" + termin.getTer_ende();
             event.setEnd(end);
+
+            event.setTer_id(termin.getTer_id());
 
             events.add(event);
         }
