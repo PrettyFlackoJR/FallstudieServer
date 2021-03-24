@@ -54,60 +54,55 @@
     </nav>
 </header>
 <main>
-    <div class="ueberKalender">
-        <select id="kurs1">
-            <option class="choose_course" value="0">Bitte Kurs für die Terminanzeige auswählen</option>
-            <option th:value="'A'" th:text="'Kurs A'"></option>
-            <option th:value="'B'" th:text="'Kurs B'"></option>
-        </select>
-        <button class="button" id="refresh">
-            <i class="fas fa-plus-square">Aktualisieren</i>
-        </button>
-    </div>
-    <section id="calendar__section">
-        <div id='calendar'></div>
-    </section>
-    <section id="calendar__newDate__modifyDate">
-        <table>
-            <tr>
-                <th>
-                    <div class="ueberKalender">
-                        <select id="kurs">
-                            <option th:value="'0'" th:text="'Kurs auswählen'"></option>
-                            <option th:value="'A'" th:text="'Kurs A'"></option>
-                            <option th:value="'B'" th:text="'Kurs B'"></option>
-                        </select>
-                        <button class="button">
-                            <a href="/vorlesungsplaner/termin_add"><i class="fas fa-plus-square">Termin
-                                hinzufügen</i></a>
-                        </button>
-                    </div>
-                </th>
-                <th>
-                    <div id="unterKalender">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th scope="col">Vorlesungsfach</th>
-                                <th scope="col">Datum</th>
-                                <th scope="col">Startzeit</th>
-                                <th scope="col">Endzeit</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <th scope="row">WI</th>
-                                <td>07.05.2021</td>
-                                <td>09:00</td>
-                                <td>12:15</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </th>
-            </tr>
-        </table>
-    </section>
+    <table>
+        <thead>
+        <div class="ueberKalender">
+            <select id="kurs1">
+                <option class="choose_course" value="0">Bitte Kurs für die Terminanzeige auswählen</option>
+                <option th:value="'A'" th:text="'Kurs A'"></option>
+                <option th:value="'B'" th:text="'Kurs B'"></option>
+            </select>
+            <button class="button" id="refresh">
+                <i class="fas fa-plus-square">Aktualisieren</i>
+            </button>
+            <button class="button">
+                <a href="/vorlesungsplaner/termin_add"><i class="fas fa-plus-square">Termin
+                    hinzufügen</i></a>
+            </button>
+        </div>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <section id="calendar__section">
+                    <div id='calendar'></div>
+                </section>
+            </td>
+            <td>
+                <section id="calendar__newDate__modifyDate">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Vorlesungsfach</th>
+                            <th scope="col">Datum</th>
+                            <th scope="col">Startzeit</th>
+                            <th scope="col">Endzeit</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">WI</th>
+                            <td>07.05.2021</td>
+                            <td>09:00</td>
+                            <td>12:15</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </main>
 <footer>
     © Vorlesungsplaner
