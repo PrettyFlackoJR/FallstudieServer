@@ -56,33 +56,25 @@
         <table>
             <tbody>
             <tr>
-                <td><label class="label">Kurs: </label></td>
+                <td><label class="label" th:object="${vorlesungen}">Kurs: </label></td>
                 <td> <select id="kurs">
-                    <option th:value="'A'" th:text="'Kurs A'"></option>
-                    <option th:value="'B'" th:text="'Kurs B'"></option>
+                    <option value="0">select operator</option>
+                    <option th:each="vvns: ${vorlesungen}" th:value="${vvns.vvn_id}" th:text="${vvns.vvn_id}"></option>
                 </select>
                 </td>
             </tr>
             <tr>
                 <td><label class="label">Vorlesung: </label></td>
-                <td> <select id="vorlesung">
-                    <option th:value="'A'" th:text="'Vorlesung A'"></option>
-                    <option th:value="'B'" th:text="'Vorlesung B'"></option>
-                </select>
-                </td>
-            </tr>
-            <tr>
-                <td><label class="label">Kurs: </label></td>
-                <td> <select id="kurs">
-                    <option th:value="'A'" th:text="'Kurs A'"></option>
-                    <option th:value="'B'" th:text="'Kurs B'"></option>
+                <td> <select id="vorlesung123">
+                    <option th:text="'Vorlesung A'"></option>
+                    <option th:text="'Vorlesung B'"></option>
                 </select>
                 </td>
             </tr>
             <tr>
                 <td><label for="start">Start date:</label></td>
 
-                <td><input type="date" id="start" name="trip-start"
+                <td><input type="datetime-local" id="start" name="trip-start"
                            value="2018-07-22"
                            min="2018-01-01" max="2018-12-31"></td>
 
@@ -90,17 +82,16 @@
             <tr>
                 <td><label for="end">End date:</label></td>
 
-                <td><input type="date" id="end" name="trip-start"
+                <td><input type="datetime-local" id="end" name="trip-end"
                            value="2018-07-22"
                            min="2018-01-01" max="2018-12-31"></td>
 
             </tr>
             <tr>
-                <p>Verbleibende Stunden: </p>
+               <td> <p>Verbleibende Stunden: </p></td>
             </tr>
             <tr>
                 <td><button type="submit" class="button">Jetzt registrieren</button></td>
-
             </tr>
 
             </tbody>

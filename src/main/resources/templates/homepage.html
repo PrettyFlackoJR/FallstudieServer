@@ -66,12 +66,6 @@ co                            <a class="dropdown-item" href="/vorlesungsplaner/t
         <section id="calendar__section">
             <div id='calendar'></div>
         </section>
-        <div>
-            <select class="form-control" id="dropOperator" th:field="*{vorlesungen}">
-                <option value="0">select operator</option>
-                <option th:each="vor_von_nut_id : ${vorlesungen}" th:value="${vor_von_nut_id}" th:text="${vor_von_nut_id.vvn_stnd}"></option>
-            </select>
-        </div>
         <section id="calendar__newDate__modifyDate">
             <table>
                 <tr>
