@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8"/>
     <title>DH-Planner</title>
+    <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="kalender.css">
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.css' rel='stylesheet' />
@@ -26,19 +27,22 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                    DH-Planner der DHBW Stuttgart
+                </ul>
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="homepage.html" id="navbarDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Vorlesungsplaner
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-co                            <a class="dropdown-item" href="/vorlesungsplaner/termin_add">Neuen Vorlesungstermin planen</a>
-                            <a class="dropdown-item" href="/vorlesungsplaner">Bestehende Vorlesungstermine
+                            <a class="dropdown-item" th:href="@{vorlesungsplaner/termin_add}">Neuen Vorlesungstermin planen</a>
+                            <a class="dropdown-item" href="#unterKalender">Bestehende Vorlesungstermine
                                 modifizieren</a>
                         </div>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/profile}">Mein Profil <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/vorlesungsplaner/profile">Mein Profil <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
                         <form  th:action="@{/logout}" method="post">
@@ -53,14 +57,12 @@ co                            <a class="dropdown-item" href="/vorlesungsplaner/t
     <main>
         <div class="ueberKalender">
             <select id="kurs1">
+                <option class="choose_course" value="0">Bitte Kurs für die Terminanzeige auswählen</option>
                 <option th:value="'A'" th:text="'Kurs A'"></option>
                 <option th:value="'B'" th:text="'Kurs B'"></option>
             </select>
             <button class="button" id="refresh">
                 <i class="fas fa-plus-square">Aktualisieren</i>
-            </button>
-            <button class="button">
-                <i class="fas fa-plus-square">Termin hinzufügen</i>
             </button>
         </div>
         <section id="calendar__section">
@@ -70,19 +72,19 @@ co                            <a class="dropdown-item" href="/vorlesungsplaner/t
             <table>
                 <tr>
                     <th>
-                        <div class="unterKalender">
+                        <div class="ueberKalender">
                             <select id="kurs">
                                 <option th:value="'0'" th:text="'Kurs auswählen'"></option>
                                 <option th:value="'A'" th:text="'Kurs A'"></option>
                                 <option th:value="'B'" th:text="'Kurs B'"></option>
                             </select>
                             <button class="button">
-                                <i class="fas fa-plus-square">Termin hinzufügen</i>
+                                <a href="/vorlesungsplaner/termin_add"><i class="fas fa-plus-square">Termin hinzufügen</i></a>
                             </button>
                         </div>
                     </th>
                     <th>
-                        <div class="unterKalender">
+                        <div id="unterKalender">
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
