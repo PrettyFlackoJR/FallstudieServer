@@ -17,6 +17,7 @@ async function kursNeuladen() {
 
     let kurs = document.getElementById("kurs1");
     let kursValue = kurs.options[kurs.selectedIndex].value;
+    console.log(kursValue);
     const url = "http://localhost:8080/vorlesungsplaner/kalender/process_kalender?kurs="+kursValue;
     const res = await fetch(url);
     console.log(url);

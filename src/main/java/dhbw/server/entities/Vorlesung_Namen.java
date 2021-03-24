@@ -1,4 +1,4 @@
-package dhbw.server.services;
+package dhbw.server.entities;
 
 public class Vorlesung_Namen {
 

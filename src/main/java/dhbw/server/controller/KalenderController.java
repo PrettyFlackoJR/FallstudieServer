@@ -5,7 +5,7 @@ import dhbw.server.entities.Vorlesung;
 import dhbw.server.entities.Vorlesung_Von_Nutzer;
 import dhbw.server.jsonForCalendar.Calendar;
 import dhbw.server.services.CalendarService;
-import dhbw.server.services.Vorlesung_Namen;
+import dhbw.server.entities.Vorlesung_Namen;
 import dhbw.server.services.VorlesungsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
