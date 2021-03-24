@@ -4,7 +4,7 @@
 <head xmlns:th="http://www.w3.org/1999/xhtml">
     <meta charset="utf-8"/>
     <title>Mein Profil</title>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="http://localhost:8080/style.css">
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
@@ -12,7 +12,6 @@
 </head>
 <body>
 <header>
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <img th:src="@{/images/DHPlannerKlein.PNG}" alt="DHBW Planner" width="140" height="100">
@@ -26,26 +25,26 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/vorlesungsplaner}">Home <span class="sr-only">(current)</span></a>
-                    </li>
+                    Profilübersicht
+                </ul>
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="homepage.html" id="navbarDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Vorlesungsplaner
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/vorlesungsplaner">Neuen Vorlesungstermin planen</a>
+                            <a class="dropdown-item" th:href="@{termin_add}">Neuen Vorlesungstermin planen</a>
                             <a class="dropdown-item" href="/vorlesungsplaner">Bestehende Vorlesungstermine
                                 modifizieren</a>
                         </div>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/profile}">Mein Profil <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/vorlesungsplaner/profile">Mein Profil <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                        <form th:action="@{/logout}" method="post">
-                            <input type="submit" value="Sign Out" />
+                        <form  th:action="@{/logout}" method="post">
+                            <input class="button" type="submit" value="Sign Out" />
                         </form>
                     </li>
                 </ul>

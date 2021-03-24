@@ -26,31 +26,24 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/vorlesungsplaner}">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <form th:action="@{/logout}" method="post">
-                            <input type="submit" value="Sign Out" />
-                        </form>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="@{}">Mein Profil <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/kalender}">Kalender <span class="sr-only">(current)</span></a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="homepage.html" id="navbarDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Vorlesungsplaner
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/vorlesungsplaner">Neuen Vorlesungszeitraum definieren</a>
-                            <a class="dropdown-item" href="/vorlesungsplaner/termin/termin_add">Neuen Vorlesungstermin planen</a>
-                            <a class="dropdown-item" href="/vorlesungsplaner">Bestehende Vorlesungstermine
+                            <a class="dropdown-item" th:href="@{vorlesungsplaner/termin_add}">Neuen Vorlesungstermin planen</a>
+                            <a class="dropdown-item" href="#unterKalender">Bestehende Vorlesungstermine
                                 modifizieren</a>
                         </div>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/vorlesungsplaner/profile">Mein Profil <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <form  th:action="@{/logout}" method="post">
+                            <input class="button" type="submit" value="Sign Out" />
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -58,38 +51,45 @@
     </nav>
 </header>
 <main>
-    <div class="ueberKalender">
-        <select id="kurs">
-            <option th:value="'A'" th:text="'Kurs A'"></option>
-            <option th:value="'B'" th:text="'Kurs B'"></option>
-        </select>
-    </div>
-    <div>
-        <select id="vorlesung">
-            <option th:value="'A'" th:text="'Vorlesung A'"></option>
-            <option th:value="'B'" th:text="'Vorlesung B'"></option>
-        </select>
-    </div>
-    <div>
-        <label for="start">Start date:</label>
+    <form name="f" th:action="@{/process_termin}" th:object="${termin}"
+          method="post" style="max-width: 600px; margin: 0 auto;">
+        <table>
+            <tbody>
+            <tr>
+                <td><label class="label">Vorlesung: </label></td>
+                <td> <select id="kurs">
+                    <option value="0">select operator</option>
+                    <option th:each="vvn_name: ${vvn_namen}" th:value="${vvn_name.vvn_id}" th:text="${vvn_name.vor_name}"></option>
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="start">Start date:</label></td>
 
-        <input type="date" id="start" name="trip-start"
-               value="2018-07-22"
-               min="2018-01-01" max="2018-12-31">
+                <td><input type="datetime-local" id="start" name="trip-start"
+                           value="2018-07-22"
+                           min="2018-01-01" max="2018-12-31"></td>
 
-        <label for="start">End date:</label>
+            </tr>
+            <tr>
+                <td><label for="end">End date:</label></td>
 
-        <input type="date" id="end" name="trip-end"
-               value="2018-07-22"
-               min="2018-01-01" max="2018-12-31">
+                <td><input type="datetime-local" id="end" name="trip-end"
+                           value="2018-07-22"
+                           min="2018-01-01" max="2018-12-31"></td>
 
-    </div>
-    <div>
-        <p>Verbleibende Stunden: </p>
-    </div>
-    <div>
-        <button>Abschicken</button>
-    </div>
+            </tr>
+            <tr>
+               <td> <p>Anzahl verbleibender Vorlesungsstunden: </p></td>
+            </tr>
+            <tr>
+                <td><button type="submit" class="button">Termin zum Vorlesungsplan hinzufügen</button></td>
+            </tr>
+
+            </tbody>
+
+        </table>
+    </form>
 </main>
 <footer>
     © Vorlesungsplaner

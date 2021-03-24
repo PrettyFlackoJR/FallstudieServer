@@ -5,6 +5,7 @@ import dhbw.server.entities.Vorlesung_Von_Nutzer;
 import dhbw.server.repositories.NutzerRepository;
 import dhbw.server.repositories.VorlesungRepository;
 import dhbw.server.repositories.Vorlesung_Von_NutzerRepository;
+import dhbw.server.services.VorlesungsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,17 +20,9 @@ import java.util.List;
 @RequestMapping("/vorlesungsplaner")
 public class AnwendungsController {
 
-    @Autowired
-    private NutzerRepository nutzerRepository;
-    @Autowired
-    private Vorlesung_Von_NutzerRepository vorlesungVonNutzerRepository;
-    @Autowired
-    private VorlesungRepository vorlesungRepository;
 
     @GetMapping
     public String viewVorlesungsplaner(Model model) {
-        List<Vorlesung_Von_Nutzer> vorlesungList =vorlesungVonNutzerRepository.findAll();
-        model.addAttribute("vorlesungen", vorlesungList);
         return "homepage";
     }
 
