@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+
 @Service
 public class UserService {
 
@@ -38,6 +40,20 @@ public class UserService {
     public int getUserId(String email) {
         Nutzer nutzer = nutzerRepository.findByEmail(email);
         return nutzer.getNut_id();
+    }
+
+    public ArrayList<Nutzer> getAllNutzer() {
+        return (ArrayList<Nutzer>) nutzerRepository.findAll();
+    }
+
+    public void addEditorRole(Integer nutzerId) {
+        Nutzer_Role nutzer_role = new Nutzer_Role(nutzerId, 3);
+        nutzerRolesRepository.save(nutzer_role);
+    }
+
+    public void removeEditorRole(Integer nutzerId) {
+        Nutzer_Role nutzer_role = nutzerRolesRepository.findByNutzerId(nutzerId);
+        nutzerRolesRepository.delete(nutzer_role);
     }
 
 }
