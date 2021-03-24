@@ -26,8 +26,7 @@ public class VorlesungsService {
     private KursRepository kursRepository;
 
 
-    public List<Vorlesung_Von_Nutzer> getVvns(String kurs) {
-        List<Vorlesung_Von_Nutzer> vorlesungList =vorlesungVonNutzerRepository.findAll();
+    public ArrayList<Vorlesung_Von_Nutzer> getVvns(String kurs) {
 
         // Nutzer ID mit E-Mail holen
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -36,13 +35,14 @@ public class VorlesungsService {
 
         // VVN IDs mit Nutzer ID und Kurs ID holen
         Integer kursId = kursRepository.findByKursName(kurs);
+        System.out.println(kursId);
         ArrayList<Vorlesung_Von_Nutzer> vvnIds = vorlesungVonNutzerRepository.findByNutzerId(nutzerId, kursId);
 
         return vvnIds;
     }
 
-    public List<Vorlesung> getVorlesungen(List<Vorlesung_Von_Nutzer> vvns) {
-        List<Vorlesung> vorlesungen = vorlesungRepository.findByVvnId(vvns);
+    public ArrayList<Vorlesung> getVorlesungen(Integer vvns) {
+        ArrayList<Vorlesung> vorlesungen = vorlesungRepository.findByVvnId(vvns);
         return vorlesungen;
     }
 }

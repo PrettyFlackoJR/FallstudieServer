@@ -56,25 +56,17 @@
         <table>
             <tbody>
             <tr>
-                <td><label class="label" th:object="${vorlesungen}">Kurs: </label></td>
+                <td><label class="label">Vorlesung: </label></td>
                 <td> <select id="kurs">
                     <option value="0">select operator</option>
-                    <option th:each="vvns: ${vorlesungen}" th:value="${vvns.vvn_id}" th:text="${vvns.vvn_id}"></option>
-                </select>
-                </td>
-            </tr>
-            <tr>
-                <td><label class="label">Vorlesung: </label></td>
-                <td> <select id="vorlesung123">
-                    <option th:text="'Vorlesung A'"></option>
-                    <option th:text="'Vorlesung B'"></option>
+                    <option th:each="vvn_name: ${vvn_namen}" th:value="${vvn_name.vvn_id}" th:text="${vvn_name.vor_name}"></option>
                 </select>
                 </td>
             </tr>
             <tr>
                 <td><label for="start">Start date:</label></td>
 
-                <td><input type="datetime-local" id="start" name="trip-start"
+                <td><input type="date" th:field="*{ter_datum}"id="start" name="trip-start"
                            value="2018-07-22"
                            min="2018-01-01" max="2018-12-31"></td>
 

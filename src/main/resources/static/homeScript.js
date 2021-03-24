@@ -4,7 +4,7 @@ refreshButton.addEventListener("click", kursNeuladen);
 async function onLoad() {
     var calendarEl = document.getElementById('calendar');
 
-    const url = "http://localhost:8080/vorlesungsplaner/process_kalender";
+    const url = "http://localhost:8080/vorlesungsplaner/process_kalender?kurs=A";
     const res = await fetch(url);
     const json = await res.json();
 
@@ -18,7 +18,7 @@ async function kursNeuladen() {
     let kurs = document.getElementById("kurs1");
     let kursValue = kurs.options[kurs.selectedIndex].value;
     console.log(kursValue);
-    const url = "http://localhost:8080/vorlesungsplaner/kalender/process_kalender?kurs="+kursValue;
+    const url = "http://localhost:8080/vorlesungsplaner/process_kalender?kurs="+kursValue;
     const res = await fetch(url);
     console.log(url);
     const json = await res.json();
