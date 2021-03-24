@@ -1,9 +1,11 @@
 <!DOCTYPE html>
+<html lang="de">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="ISO-8859-1">
-    <title>Registration Success</title>
-    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <meta charset="utf-8"/>
+    <title>Administrationsbereich</title>
+    <link rel="stylesheet" type="text/css" href="http://localhost:8080/style.css">
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
 </head>
 <body>
@@ -21,36 +23,69 @@
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                            Administrationsbereich DH-Planner der DHBW Stuttgart
-                        </ul>
-                        <a class="nav-link dropdown-toggle" href="homepage.html" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Administrationsbereich
+                </ul>
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/vorlesungsplaner">
                             Vorlesungsplaner
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" th:href="@{vorlesungsplaner/termin_add}">Neuen Vorlesungstermin planen</a>
-                            <a class="dropdown-item" href="#unterKalender">Bestehende Vorlesungstermine
-                                modifizieren</a>
-                        </div>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/vorlesungsplaner/profile">Mein Profil <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/admin">
+                            Administrationsbereich
+                        </a>
                     </li>
                     <li class="nav-item active">
-                        <form  th:action="@{/logout}" method="post">
-                            <input class="button" type="submit" value="Sign Out" />
+                        <a class="nav-link" href="/profile">Mein Profil <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <form th:action="@{/logout}" method="post">
+                            <input class="button" type="submit" value="Sign Out"/>
                         </form>
                     </li>
                 </ul>
             </div>
         </div>
+        </div>
     </nav>
 </header>
-<div class="container text-center">
-    <h3>Admin Bereich</h3>
-</div>
-
+<section id="first__section">
+    <table>
+        <tbody>
+        <tr>
+            <td>Hier können Dozenten durch den Admin <a href="/register">registriert<a/> werden</td>
+        </tr>
+        <tr>
+            <td>Hier kann der Zeitraum für ein Semester eines Kurses definiert werden<br>
+            Zeitraum für den
+            <select id="kurs1">
+                <option class="choose_course" value="0">Bitte Kurs für die Zeitraumdeklaration auswählen</option>
+                <option th:value="'A'" th:text="'Kurs A'"></option>
+                <option th:value="'B'" th:text="'Kurs B'"></option>
+            </select>:</td>
+        </tr>
+        <tr>
+            <td><label for="start">Startdatum:</label>
+            <input type="datetime-local" id="start" name="trip-start"
+                       value="2018-07-22"
+                       min="2018-01-01" max="2018-12-31"></td>
+        </tr>
+        <tr>
+            <td><label for="end">Enddatum:</label>
+            <input type="datetime-local" id="end" name="trip-end"
+                       value="2018-07-22"
+                       min="2018-01-01" max="2018-12-31"></td>
+        </tr>
+        <tr>
+            <td><button class="button" type="submit">Auswahl speichern</button></td>
+        </tr>
+        <tr>
+            <td>Hier kann zu einem späteren Zeitpunkt ggf. eine Planungsreihenfolge festgelegt werden</td>
+            <td><button class="button">Starte Planung</button></td>
+        </tr>
+        </tbody>
+    </table>
+</section>
 </body>
 </html>

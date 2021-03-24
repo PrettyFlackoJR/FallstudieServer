@@ -7,7 +7,7 @@
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="kalender.css">
-    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.css' rel='stylesheet' />
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.css' rel='stylesheet'/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
 </head>
@@ -30,23 +30,22 @@
                     DH-Planner der DHBW Stuttgart
                 </ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="homepage.html" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/vorlesungsplaner">
                             Vorlesungsplaner
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" th:href="@{vorlesungsplaner/termin_add}">Neuen Vorlesungstermin planen</a>
-                            <a class="dropdown-item" href="#unterKalender">Bestehende Vorlesungstermine
-                                modifizieren</a>
-                        </div>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/vorlesungsplaner/profile">Mein Profil <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/admin">
+                            Administrationsbereich
+                        </a>
                     </li>
                     <li class="nav-item active">
-                        <form  th:action="@{/logout}" method="post">
-                            <input class="button" type="submit" value="Sign Out" />
+                        <a class="nav-link" href="/profile">Mein Profil <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <form th:action="@{/logout}" method="post">
+                            <input class="button" type="submit" value="Sign Out"/>
                         </form>
                     </li>
                 </ul>
@@ -54,7 +53,9 @@
         </div>
     </nav>
 </header>
-    <main>
+<main>
+    <table>
+        <thead>
         <div class="ueberKalender">
             <select id="kurs1">
                 <option class="choose_course" value="0">Bitte Kurs für die Terminanzeige auswählen</option>
@@ -64,54 +65,48 @@
             <button class="button" id="refresh">
                 <i class="fas fa-plus-square">Aktualisieren</i>
             </button>
+            <button class="button">
+                <a href="/vorlesungsplaner/termin_add"><i class="fas fa-plus-square">Termin
+                    hinzufügen</i></a>
+            </button>
         </div>
-        <section id="calendar__section">
-            <div id='calendar'></div>
-        </section>
-        <section id="calendar__newDate__modifyDate">
-            <table>
-                <tr>
-                    <th>
-                        <div class="ueberKalender">
-                            <select id="kurs">
-                                <option th:value="'0'" th:text="'Kurs auswählen'"></option>
-                                <option th:value="'A'" th:text="'Kurs A'"></option>
-                                <option th:value="'B'" th:text="'Kurs B'"></option>
-                            </select>
-                            <button class="button">
-                                <a href="/vorlesungsplaner/termin_add"><i class="fas fa-plus-square">Termin hinzufügen</i></a>
-                            </button>
-                        </div>
-                    </th>
-                    <th>
-                        <div id="unterKalender">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Vorlesungsfach</th>
-                                    <th scope="col">Datum</th>
-                                    <th scope="col">Startzeit</th>
-                                    <th scope="col">Endzeit</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th scope="row">WI</th>
-                                    <td>07.05.2021</td>
-                                    <td>09:00</td>
-                                    <td>12:15</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </th>
-                </tr>
-            </table>
-        </section>
-    </main>
-    <footer>
-        © Vorlesungsplaner
-    </footer>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <section id="calendar__section">
+                    <div id='calendar'></div>
+                </section>
+            </td>
+            <td>
+                <section id="calendar__newDate__modifyDate">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Vorlesungsfach</th>
+                            <th scope="col">Datum</th>
+                            <th scope="col">Startzeit</th>
+                            <th scope="col">Endzeit</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">WI</th>
+                            <td>07.05.2021</td>
+                            <td>09:00</td>
+                            <td>12:15</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<footer>
+    © Vorlesungsplaner
+</footer>
 </body>
 <script src="homeScript.js"></script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

@@ -56,4 +56,12 @@ public class UserService {
         nutzerRolesRepository.delete(nutzer_role);
     }
 
+    public Boolean editorExists(Integer id) {
+       if (nutzerRolesRepository.findByNutzerId(id) != null) {
+           return true;
+       } else {
+           return false;
+       }
+    }
+
 }
