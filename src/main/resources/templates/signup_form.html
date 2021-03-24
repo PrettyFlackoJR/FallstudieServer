@@ -28,8 +28,12 @@
                     Registrierungsseite DH-Planner der DHBW Stuttgart
                 </ul>
                 <ul class="navbar-nav ml-auto">
-                    <button class="button"><a th:href="@{/login}">Wechsel zum Login</a></button>
-                    <button class="button"><a th:href="@{/}">Zurück zur Startseite</a></button>
+                    <form  th:action="@{/login}" method="get">
+                        <input class="button" type="submit" value="Wechsel zum Login" />
+                    </form>
+                    <form  th:action="@{/}" method="get">
+                        <input class="button" type="submit" value="Zurück zur Startseite" />
+                    </form>
                 </ul>
 
             </div>
