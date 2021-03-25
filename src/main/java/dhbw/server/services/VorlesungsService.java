@@ -1,6 +1,7 @@
 package dhbw.server.services;
 
 
+import dhbw.server.entities.Kurs;
 import dhbw.server.entities.Vorlesung;
 import dhbw.server.entities.Vorlesung_Namen;
 import dhbw.server.entities.Vorlesung_Von_Nutzer;
@@ -28,7 +29,10 @@ public class VorlesungsService {
     @Autowired
     private KursRepository kursRepository;
 
-
+    public Kurs getKursByName(String kurs) {
+       Kurs kurse = kursRepository.findKursByName(kurs);
+       return kurse;
+    }
     public ArrayList<Vorlesung_Von_Nutzer> getVvns(String kurs) {
 
         // Nutzer ID mit E-Mail holen
@@ -38,7 +42,6 @@ public class VorlesungsService {
 
         // VVN IDs mit Nutzer ID und Kurs ID holen
         Integer kursId = kursRepository.findByKursName(kurs);
-        System.out.println(kursId);
         ArrayList<Vorlesung_Von_Nutzer> vvnIds = vorlesungVonNutzerRepository.findByNutzerId(nutzerId, kursId);
 
         return vvnIds;
@@ -56,13 +59,10 @@ public class VorlesungsService {
             vorlesungen = vorlesungsService.getVorlesungen(id);
 
         }
-        System.out.println("Vorlesung" + vorlesungen);
         ArrayList<Vorlesung_Namen> vvn_namen = new ArrayList<>();
         for (Vorlesung_Von_Nutzer vvn: vvns) {
             for (Vorlesung vorlesung: vorlesungen) {
-                System.out.println(vvn.getVvn_vor_id() +" "+ vorlesung.getVor_id());
                 if (vvn.getVvn_vor_id() == vorlesung.getVor_id()) {
-                    System.out.println("if");
                     Vorlesung_Namen abc = new Vorlesung_Namen(vvn.getVvn_id(), vorlesung.getVor_name());
                     vvn_namen.add(abc);
                 }
@@ -70,4 +70,14 @@ public class VorlesungsService {
         }
         return vvn_namen;
     }
+
+    public float getStundenVonVorlesung(Integer vorlesung) {
+      // Integer vor_id = vorlesungRepository.getIdByName(vorlesung);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalEmail = authentication.getName();
+        int nutzerId = userService.getUserId(currentPrincipalEmail);
+        float stunden = vorlesungVonNutzerRepository.getStundenVonVVNbyId(nutzerId, vorlesung);
+        return stunden;
+    }
+
 }

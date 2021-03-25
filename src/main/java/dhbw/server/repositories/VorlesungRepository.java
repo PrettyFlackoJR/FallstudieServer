@@ -13,5 +13,8 @@ public interface VorlesungRepository extends JpaRepository<Vorlesung, Integer> {
 
     @Query("SELECT v FROM Vorlesung v WHERE v.vor_id = ?1")
     public ArrayList<Vorlesung> findByVvnId(Integer vvns);
+
+    @Query("SELECT vor_id FROM Vorlesung WHERE vor_name = ?1")
+    public Integer getIdByName(String vorlesung);
 }
 

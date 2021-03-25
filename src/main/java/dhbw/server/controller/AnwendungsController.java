@@ -5,6 +5,7 @@ import dhbw.server.entities.Vorlesung_Von_Nutzer;
 import dhbw.server.repositories.NutzerRepository;
 import dhbw.server.repositories.VorlesungRepository;
 import dhbw.server.repositories.Vorlesung_Von_NutzerRepository;
+import dhbw.server.services.KursService;
 import dhbw.server.services.VorlesungsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -20,9 +21,12 @@ import java.util.List;
 @RequestMapping("/vorlesungsplaner")
 public class AnwendungsController {
 
+    @Autowired
+    private KursService kursService;
 
     @GetMapping
     public String viewVorlesungsplaner(Model model) {
+        model.addAttribute("kvn_namen", kursService.getKursNamen());
         return "homepage";
     }
 

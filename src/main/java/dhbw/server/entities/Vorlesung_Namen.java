@@ -5,7 +5,6 @@ public class Vorlesung_Namen {
     private Integer vvn_id;
     private String vor_name;
 
-    public Vorlesung_Namen() {}
 
     public Vorlesung_Namen(Integer vvn_id, String vor_name) {
         this.vvn_id = vvn_id;

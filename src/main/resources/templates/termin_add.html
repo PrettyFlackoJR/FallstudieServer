@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
+    <script src="http://localhost:8080/termin.js"></script>
+
 </head>
 <body>
 <header>
@@ -49,13 +51,16 @@
     </nav>
 </header>
 <main>
-    <form name="f" th:action="@{/process_termin}" th:object="${termin}"
+    <form name="f" th:action="@{/vorlesungsplaner/process_addTermin}" th:object="${termin}"
           method="post" style="max-width: 600px; margin: 0 auto;">
         <table>
             <tbody>
             <tr>
+                <div th:if="${errorMessage != null}"
+                     th:utext="${errorMessage}" class="error">
+                </div>
                 <td><label class="label">Vorlesung: </label></td>
-                <td><select id="kurs">
+                <td><select id="kurs"  onchange="ladeStunden()"  th:field="*{ter_vvn_id}">
                     <option value="0">select operator</option>
                     <option th:each="vvn_name: ${vvn_namen}" th:value="${vvn_name.vvn_id}"
                             th:text="${vvn_name.vor_name}"></option>
@@ -63,23 +68,30 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="start">Start date:</label></td>
-
-                <td><input type="datetime-local" id="start" name="trip-start"
-                           value="2018-07-22"
-                           min="2018-01-01" max="2018-12-31"></td>
-
-            </tr>
-            <tr>
-                <td><label for="end">End date:</label></td>
-
-                <td><input type="datetime-local" id="end" name="trip-end"
-                           value="2018-07-22"
-                           min="2018-01-01" max="2018-12-31"></td>
-
-            </tr>
-            <tr>
                 <td><p>Anzahl verbleibender Vorlesungsstunden: </p></td>
+                <td><p id="stunden"></p></td>
+            </tr>
+            <tr>
+
+                <input id="kursAnzeige" name="ter_kurs_id" th:value="${kurse.kurs_id}" style="visibility: hidden"></input>
+
+            <tr>
+                <td><label for="start">Datum:</label></td>
+
+                <td><input type="date" th:field="*{ter_datum}" onload="getDate()" id="date" name="trip-start" th:min="${kurse.kurs_start}" th:max="${kurse.kurs_ende}"></td>
+
+            </tr>
+            <tr>
+                <td><label for="end">Starzeit:</label></td>
+
+                <td><input type="time" id="start" th:field="*{ter_start}"   name="trip-end"></td>
+
+            </tr>
+            <tr>
+                <td><label for="end">Endzeit:</label></td>
+
+                <td><input type="time" th:field="*{ter_ende}"  id="end" name="trip-end"></td>
+
             </tr>
             <tr>
                 <td>
@@ -95,12 +107,7 @@
 <footer>
     © Vorlesungsplaner
 </footer>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://code.jquery.com/jquery.js"></script>
-<!-- Include all compiled plugins (below), or include individual files
-      as needed -->
-<script src="js/bootstrap.min.js"></script>
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.js'></script>
-
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script><script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.js'></script>
 </body>
 </html>

@@ -59,15 +59,15 @@
         <div class="ueberKalender">
             <select id="kurs1">
                 <option class="choose_course" value="0">Bitte Kurs für die Terminanzeige auswählen</option>
-                <option th:value="'A'" th:text="'Kurs A'"></option>
-                <option th:value="'B'" th:text="'Kurs B'"></option>
+                <option th:each="kvn_name: ${kvn_namen}" th:value="${kvn_name.kurs_name}"
+                        th:text="${kvn_name.kurs_name}"></option>
             </select>
             <button class="button" id="refresh">
                 <i class="fas fa-plus-square">Aktualisieren</i>
             </button>
-            <button class="button">
-                <a href="/vorlesungsplaner/termin_add"><i class="fas fa-plus-square">Termin
-                    hinzufügen</i></a>
+            <button class="button" id="add">
+                <i class="fas fa-plus-square">Termin
+                    hinzufügen</i>
             </button>
         </div>
         </thead>

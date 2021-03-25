@@ -1,5 +1,7 @@
 package dhbw.server.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,6 +15,7 @@ public class Termin {
     private Integer ter_id;
 
     @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate ter_datum;
 
     @Column

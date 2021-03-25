@@ -106,9 +106,10 @@
                 </tr>
                 <tr>
                     <td><label class="label">Vorlesungen: </label></td>
-                   <td> <select id="kurs">
-                        <option th:value="'A'" th:text="'Kurs A'"></option>
-                        <option th:value="'B'" th:text="'Kurs B'"></option>
+                   <td id="readroot"> <select id="kurs">
+                       <option class="choose_course" value="0">Kurs wählen</option>
+                       <option th:each="kvn_name: ${kvn_namen}" th:value="${kvn_name.kurs_name}"
+                               th:text="${kvn_name.kurs_name}"></option>
                     </select>
                     <div>
                         <input type="checkbox" id="scales" name="scales"
@@ -120,10 +121,16 @@
                         <input type="checkbox" id="horns" name="horns">
                         <label for="horns">Horns</label>
                     </div>
+                       <input type="button" value="-"
+                              onclick="this.parentNode.parentNode.removeChild(this.parentNode);" /><br /><br />
+                    </td>
+                    <td>
+
+                        <input type="button" id="moreFields" value="+" />
                     </td>
                 </tr>
                 <tr>
-                    <td><button type="submit" class="button">Jetzt registrieren</button></td>
+                    <td><button type="submit" id="abschicken" class="button">Jetzt registrieren</button></td>
 
                 </tr>
 
@@ -142,5 +149,6 @@
 <!-- Include all compiled plugins (below), or include individual files
       as needed -->
 <script src="js/bootstrap.min.js"></script>
+<script src="registerScript.js"></script>
 </body>
 </html>

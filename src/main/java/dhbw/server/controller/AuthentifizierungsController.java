@@ -1,5 +1,7 @@
 package dhbw.server.controller;
 
+import dhbw.server.entities.Vorlesung;
+import dhbw.server.services.KursService;
 import dhbw.server.services.UserService;
 import dhbw.server.entities.Nutzer;
 import dhbw.server.entities.Nutzer_Role;
@@ -19,11 +21,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+
 @Controller
 public class AuthentifizierungsController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private KursService kursService;
 
     @GetMapping
     public String viewHomePage() {
@@ -43,7 +49,7 @@ public class AuthentifizierungsController {
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new Nutzer());
-
+        model.addAttribute("kvn_namen", kursService.getAlleKurseMitNamen());
         return "signup_form";
     }
 
@@ -79,6 +85,11 @@ public class AuthentifizierungsController {
         Integer id = userService.getUserId(currentPrincipalEmail);
 
         return userService.editorExists(id);
+    }
+    @GetMapping("process_kurse")
+    public ArrayList<Vorlesung> ladeVorlesungen() {
+
+        return null;
     }
 
 }
