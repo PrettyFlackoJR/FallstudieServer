@@ -1,6 +1,7 @@
 package dhbw.server.controller;
 
 import dhbw.server.services.KursService;
+import dhbw.server.services.SchedulerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,8 @@ public class AnwendungsController {
 
     @Autowired
     private KursService kursService;
+    @Autowired
+    private SchedulerServiceImpl schedulerService;
 
     @GetMapping
     public String viewVorlesungsplaner(Model model) {
@@ -20,7 +23,9 @@ public class AnwendungsController {
         return "homepage";
     }
 
-
-
+    @GetMapping("/process_endplanning")
+    public void endPlanning() throws NoSuchMethodException {
+        schedulerService.scheduleJob(172800000);
+    }
 
 }

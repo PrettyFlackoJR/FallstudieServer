@@ -14,6 +14,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.concurrent.ScheduledFuture;
@@ -51,8 +54,7 @@ public class SchedulerServiceImpl {
                 userService.addEditorRole(nutzer.getNut_id());
                 initial = false;
                 String name = nutzer.getNut_vorname() + " " + nutzer.getNut_nachname();
-                sendEmail(nutzer.getNut_email(), nutzer.getNut_anrede(), name);
-                System.out.println(nutzerArrayList.get(0).getNut_email());
+                //sendEmail(nutzer.getNut_email(), nutzer.getNut_anrede(), name);
             } else {
                 Integer nutzerId = nutzerArrayList.get(0).getNut_id();
                 userService.removeEditorRole(nutzerId);
@@ -61,9 +63,9 @@ public class SchedulerServiceImpl {
                 Nutzer newNutzer = nutzerArrayList.get(0);
                 userService.addEditorRole(newNutzer.getNut_id());
                 String name = newNutzer.getNut_vorname() + " " + newNutzer.getNut_nachname();
-                sendEmail(newNutzer.getNut_email(), newNutzer.getNut_anrede(), name);
-                System.out.println(nutzerArrayList.get(0).getNut_email());
+                //sendEmail(newNutzer.getNut_email(), newNutzer.getNut_anrede(), name);
             }
+            System.out.println(nutzerArrayList.get(0).getNut_email());
         } catch (IndexOutOfBoundsException e) {
             job1.cancel(true);
         }
@@ -93,8 +95,12 @@ public class SchedulerServiceImpl {
                 Message.RecipientType.TO, InternetAddress.parse(email));
         message.setSubject("Beginnen Sie mit der Vorlesungsplanung");
 
-        String msg = "Sehr geehrte/r " + anrede + " " + name + "," + "\n" + "\n"
-                + "bitte beginnen Sie mit ihrer Planung." ;
+        String localDate = LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String localTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
+
+        String msg = "Sehr geehrte/r " + anrede + " " + name + "," +  "<br>"
+                + "bitte beginnen Sie mit ihrer Planung." + "<br>" + "<br>" + "Ihr Planungsfenster schließt am "
+                + localDate + " um " + localTime + ".";
 
         MimeBodyPart mimeBodyPart = new MimeBodyPart();
         mimeBodyPart.setContent(msg, "text/html");

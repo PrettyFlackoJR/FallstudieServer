@@ -134,7 +134,11 @@ public class CalendarService {
             if ((dbStart.isAfter(start) && dbStart.isBefore(end))
                     || (dbEnd.isAfter(start) && dbEnd.isBefore(end))
                     || (start.isAfter(dbStart) && start.isBefore(dbEnd))
-                    || (end.isAfter(dbStart) && end.isBefore(dbEnd))) {
+                    || (end.isAfter(dbStart) && end.isBefore(dbEnd))
+                    || start.compareTo(dbStart) == 0
+                    || start.compareTo(dbEnd) == 0
+                    || end.compareTo(dbStart) == 0
+                    || end.compareTo(dbEnd) == 0) {
                 b = true;
             }
         }

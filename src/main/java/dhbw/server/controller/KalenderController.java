@@ -4,7 +4,6 @@ import dhbw.server.entities.Termin;
 import dhbw.server.exceptions.TerminException;
 import dhbw.server.jsonForCalendar.Calendar;
 import dhbw.server.jsonForCalendar.Event;
-import dhbw.server.repositories.KursRepository;
 import dhbw.server.services.CalendarService;
 import dhbw.server.services.VorlesungsService;
 import org.springframework.beans.factory.annotation.Autowired;

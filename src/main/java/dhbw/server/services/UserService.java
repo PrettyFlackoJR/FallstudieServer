@@ -53,16 +53,13 @@ public class UserService {
     }
 
     public void removeEditorRole(Integer nutzerId) {
-        Nutzer_Role nutzer_role = nutzerRolesRepository.findByNutzerId(nutzerId);
+        Nutzer_Role nutzer_role = nutzerRolesRepository.findEditorByNutzerId(nutzerId);
         nutzerRolesRepository.delete(nutzer_role);
     }
 
-    public Boolean editorExists(Integer id) {
-       if (nutzerRolesRepository.findByNutzerId(id) != null) {
-           return true;
-       } else {
-           return false;
-       }
+    public ArrayList<Integer> getRoles(Integer id) {
+        ArrayList<Integer> nutzer_roles = nutzerRolesRepository.findRolesByNutzerId(id);
+        return nutzer_roles;
     }
 
 }

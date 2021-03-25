@@ -1,15 +1,9 @@
 package dhbw.server.controller;
 
-import dhbw.server.entities.Vorlesung;
 import dhbw.server.exceptions.UserAlreadyExistsException;
 import dhbw.server.services.KursService;
 import dhbw.server.services.UserService;
 import dhbw.server.entities.Nutzer;
-import dhbw.server.entities.Nutzer_Role;
-import dhbw.server.repositories.Kurs_Von_NutzerRepository;
-import dhbw.server.repositories.NutzerRepository;
-import dhbw.server.repositories.Nutzer_RolesRepository;
-import dhbw.server.repositories.Vorlesung_Von_NutzerRepository;
 import dhbw.server.services.VorlesungsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -20,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -84,17 +77,12 @@ public class AuthentifizierungsController {
 
     @GetMapping("/process_role")
     @ResponseBody
-    public Boolean checkEditorRole() {
+    public ArrayList<Integer> checkRole() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalEmail = authentication.getName();
         Integer id = userService.getUserId(currentPrincipalEmail);
 
-        return userService.editorExists(id);
-    }
-    @GetMapping("process_kurse")
-    public ArrayList<Vorlesung> ladeVorlesungen() {
-
-        return null;
+        return userService.getRoles(id);
     }
 
 }
