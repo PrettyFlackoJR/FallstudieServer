@@ -46,7 +46,7 @@ public class KalenderController {
         System.out.println(termin);
         calendarService.addTermin(termin);
 
-        return "homepage";
+        return "termin_success";
     }
 
     @PutMapping("/process_modifyTermin")
