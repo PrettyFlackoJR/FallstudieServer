@@ -1,0 +1,2 @@
+# FallstudieServer
+Server für Fallstudie
