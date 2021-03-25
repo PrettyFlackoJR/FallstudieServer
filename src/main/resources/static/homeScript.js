@@ -32,6 +32,10 @@ async function kursNeuladen() {
 async function weiterleitenZuTermin() {
     let kurs = document.getElementById("kurs1");
     let kursValue = kurs.options[kurs.selectedIndex].value;
-    const url = "http://localhost:8080/vorlesungsplaner/termin_add?kurs="+kursValue;
-    location.href = url;
+    if (kursValue == 0) {
+        alert("Bitte wählen Sie einen Kurs aus.")
+    } else {
+        const url = "http://localhost:8080/vorlesungsplaner/termin_add?kurs=" + kursValue;
+        location.href = url;
+    }
 }

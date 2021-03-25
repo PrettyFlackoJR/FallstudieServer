@@ -51,7 +51,7 @@
     </nav>
 </header>
 <main>
-    <form name="f" th:action="@{/vorlesungsplaner/process_addTermin}" th:object="${termin}"
+    <form name="f" th:action="@{/vorlesungsplaner/process_addTermin(kurs=${kurse.kurs_name})}" th:object="${termin}"
           method="post" style="max-width: 600px; margin: 0 auto;">
         <table>
             <tbody>

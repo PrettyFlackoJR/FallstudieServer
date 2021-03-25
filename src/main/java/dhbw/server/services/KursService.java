@@ -53,7 +53,6 @@ public class KursService {
                 }
             }
         }
-        System.out.println(kurs_namen);
         return kurs_namen;
     }
     public List<Kurs> getAlleKurseMitNamen() {

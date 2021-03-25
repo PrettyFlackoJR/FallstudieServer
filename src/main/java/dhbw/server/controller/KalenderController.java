@@ -1,9 +1,7 @@
 package dhbw.server.controller;
 
 import dhbw.server.entities.Termin;
-import dhbw.server.entities.Vorlesung;
-import dhbw.server.entities.Vorlesung_Namen;
-import dhbw.server.entities.Vorlesung_Von_Nutzer;
+import dhbw.server.exceptions.TerminException;
 import dhbw.server.jsonForCalendar.Calendar;
 import dhbw.server.jsonForCalendar.Event;
 import dhbw.server.repositories.KursRepository;
@@ -14,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-
 @Controller
 @RequestMapping("/vorlesungsplaner")
 public class KalenderController {
@@ -24,8 +20,6 @@ public class KalenderController {
     private CalendarService calendarService;
     @Autowired
     private VorlesungsService vorlesungsService;
-    @Autowired
-    private KursRepository kursRepository;
 
     @GetMapping(path = "/process_kalender", produces = {"application/json", "text/json"})
     @ResponseBody
@@ -38,15 +32,25 @@ public class KalenderController {
         model.addAttribute("termin", new Termin());
         model.addAttribute("vvn_namen", vorlesungsService.getVVNNamen(kurs));
         model.addAttribute("kurse", vorlesungsService.getKursByName(kurs));
-        return "termin_add";
+        return "termin_form";
     }
 
     @PostMapping("/process_addTermin")
-    public String processAddTermin(Termin termin) {
-        System.out.println(termin);
-        calendarService.addTermin(termin);
+    public String processAddTermin(@RequestParam(name = "kurs") String kurs,
+                                   Termin termin,
+                                   Model model) {
+        try {
+            calendarService.addTermin(termin);
+        } catch (TerminException e) {
+            model.addAttribute("termin", new Termin());
+            model.addAttribute("vvn_namen", vorlesungsService.getVVNNamen(kurs));
+            model.addAttribute("kurse", vorlesungsService.getKursByName(kurs));
+            model.addAttribute("errorMessage", "Error: " + e.getMessage());
+            return "termin_form";
+        }
 
-        return "homepage";
+
+        return "redirect:/vorlesungsplaner";
     }
 
     @PutMapping("/process_modifyTermin")

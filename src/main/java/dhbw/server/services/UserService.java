@@ -2,6 +2,7 @@ package dhbw.server.services;
 
 import dhbw.server.entities.Nutzer;
 import dhbw.server.entities.Nutzer_Role;
+import dhbw.server.exceptions.UserAlreadyExistsException;
 import dhbw.server.repositories.NutzerRepository;
 import dhbw.server.repositories.Nutzer_RolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,10 @@ public class UserService {
     Nutzer_RolesRepository nutzerRolesRepository;
 
     @Transactional
-    public void registerNewUserAccount(Nutzer userDto) throws Exception {
+    public void registerNewUserAccount(Nutzer userDto) throws UserAlreadyExistsException {
 
         if (emailExist(userDto.getNut_email())) {
-            throw new Exception(
+            throw new UserAlreadyExistsException(
                     "There is an account with that email address: "
                             + userDto.getNut_email());
         } else {

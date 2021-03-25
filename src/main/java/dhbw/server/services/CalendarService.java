@@ -3,6 +3,7 @@ package dhbw.server.services;
 import dhbw.server.entities.Termin;
 import dhbw.server.entities.Vorlesung;
 import dhbw.server.entities.Vorlesung_Von_Nutzer;
+import dhbw.server.exceptions.TerminException;
 import dhbw.server.jsonForCalendar.Calendar;
 import dhbw.server.jsonForCalendar.Event;
 import dhbw.server.jsonForCalendar.HeaderToolbar;
@@ -58,8 +59,16 @@ public class CalendarService {
         return calendar;
     }
 
-    public void addTermin(Termin termin) {
-        terminRepository.save(termin);
+    public void addTermin(Termin termin) throws TerminException {
+        if (terminExists(termin.getTer_datum(), termin.getTer_start(), termin.getTer_ende())) {
+            throw new TerminException("Dieser Zeitraum ist bereits belegt.");
+        } else {
+            try {
+                terminRepository.save(termin);
+            } catch (Exception e) {
+                throw new TerminException("Bei der Eingabe ihrer Daten gab es einen Fehler und sie konnten nicht gespeichert werden.");
+            }
+        }
     }
 
     public void modifyTermin(Event event) {
@@ -114,6 +123,22 @@ public class CalendarService {
         ArrayList<Integer> vvnIds = vorlesungVonNutzerRepository.findIdsByNutzerId(nutzerId, kursId);
 
         return vvnIds;
+    }
+
+    private Boolean terminExists(LocalDate date, LocalTime start, LocalTime end) {
+        Boolean b = false;
+        ArrayList<Termin> termine = terminRepository.findAllByDate(date);
+        for (Termin termin : termine) {
+            LocalTime dbStart = termin.getTer_start();
+            LocalTime dbEnd = termin.getTer_ende();
+            if ((dbStart.isAfter(start) && dbStart.isBefore(end))
+                    || (dbEnd.isAfter(start) && dbEnd.isBefore(end))
+                    || (start.isAfter(dbStart) && start.isBefore(dbEnd))
+                    || (end.isAfter(dbStart) && end.isBefore(dbEnd))) {
+                b = true;
+            }
+        }
+        return b;
     }
 
 }

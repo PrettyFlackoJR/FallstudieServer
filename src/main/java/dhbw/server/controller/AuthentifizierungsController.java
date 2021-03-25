@@ -1,6 +1,7 @@
 package dhbw.server.controller;
 
 import dhbw.server.entities.Vorlesung;
+import dhbw.server.exceptions.UserAlreadyExistsException;
 import dhbw.server.services.KursService;
 import dhbw.server.services.UserService;
 import dhbw.server.entities.Nutzer;
@@ -63,7 +64,7 @@ public class AuthentifizierungsController {
 
         try {
             userService.registerNewUserAccount(user);
-        } catch (Exception e) {
+        } catch (UserAlreadyExistsException e) {
             model.addAttribute("user", new Nutzer());
             model.addAttribute("errorMessage", "Error: " + e.getMessage());
             return "signup_form";
