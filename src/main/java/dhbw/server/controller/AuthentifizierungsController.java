@@ -10,6 +10,7 @@ import dhbw.server.repositories.Kurs_Von_NutzerRepository;
 import dhbw.server.repositories.NutzerRepository;
 import dhbw.server.repositories.Nutzer_RolesRepository;
 import dhbw.server.repositories.Vorlesung_Von_NutzerRepository;
+import dhbw.server.services.VorlesungsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,6 +32,8 @@ public class AuthentifizierungsController {
     private UserService userService;
     @Autowired
     private KursService kursService;
+    @Autowired
+    private VorlesungsService vorlesungsService;
 
     @GetMapping
     public String viewHomePage() {
@@ -51,6 +54,7 @@ public class AuthentifizierungsController {
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new Nutzer());
         model.addAttribute("kvn_namen", kursService.getAlleKurseMitNamen());
+        model.addAttribute("vor_namen", vorlesungsService.getVorNamen());
         return "signup_form";
     }
 

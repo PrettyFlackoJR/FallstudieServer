@@ -80,4 +80,7 @@ public class VorlesungsService {
         return stunden;
     }
 
+    public List<Vorlesung> getVorNamen() {
+        return vorlesungRepository.findAll();
+    }
 }
