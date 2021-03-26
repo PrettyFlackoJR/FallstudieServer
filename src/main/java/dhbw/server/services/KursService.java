@@ -1,6 +1,7 @@
 package dhbw.server.services;
 
 import dhbw.server.entities.*;
+import dhbw.server.helper.Kurs_Namen;
 import dhbw.server.repositories.KursRepository;
 import dhbw.server.repositories.Kurs_Von_NutzerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,7 @@ public class KursService {
                 }
             }
         }
+        System.out.println(kurs_namen);
         return kurs_namen;
     }
     public List<Kurs> getAlleKurseMitNamen() {

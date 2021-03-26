@@ -3,7 +3,7 @@ package dhbw.server.services;
 
 import dhbw.server.entities.Kurs;
 import dhbw.server.entities.Vorlesung;
-import dhbw.server.entities.Vorlesung_Namen;
+import dhbw.server.helper.Vorlesung_Namen;
 import dhbw.server.entities.Vorlesung_Von_Nutzer;
 import dhbw.server.repositories.KursRepository;
 import dhbw.server.repositories.VorlesungRepository;

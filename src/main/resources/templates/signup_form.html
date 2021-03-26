@@ -57,7 +57,7 @@
                 <tr>
                     <td><label class="label">Anrede: </label></td>
                     <td>
-                            <select th:field="*{nut_anrede}">
+                            <select th:field="*{nut_anrede}" required>
                                 <option value="0"> Bitte wählen</option>
                                 <option th:value="'Herr'" th:text="Herr"></option>
                                 <option th:value="'Frau'" th:text="Frau"></option>
@@ -106,17 +106,22 @@
                 </tr>
                 <tr>
                     <td><label class="label">Vorlesungen: </label></td>
-                   <td id="readroot"> <select id="kurs">
+                   <td id="readroot">
+                       <input list="kurs" name="browser" id="kursListe">
+                       <datalist id="kurs">
                        <option class="choose_course" value="0">Kurs wählen</option>
-                       <option th:each="kvn_name: ${kvn_namen}" th:value="${kvn_name.kurs_name}"
-                               th:text="${kvn_name.kurs_name}"></option>
-                    </select>
-                       <input list="browsers" name="browser" id="browser">
-                       <datalist id="browsers">
+                       <option th:each="kurs: ${kurse}" th:value="${kurs.kurs_id}"
+                               th:text="${kurs.kurs_name}"></option>
+                    </datalist>
+                       <input list="vorlesungen" name="browser" id="browser">
+                       <datalist id="vorlesungen">
                            <option class="chhose-vorlesung" value="0">Vorlesung wählen</option>
                            <option th:each="vor_name: ${vor_namen}" th:value="${vor_name.vor_id}"
                                    th:text="${vor_name.vor_name}"></option><
                        </datalist>
+                          <label class="label">Stunden: </label>
+                             <input type="number" class="form-control"
+                               required minlength="2" maxlength="20" onclick="eingabeUeberpruefen()"/>
                        <input type="button" value="-"
                               onclick="this.parentNode.parentNode.removeChild(this.parentNode);" /><br /><br />
                     </td>

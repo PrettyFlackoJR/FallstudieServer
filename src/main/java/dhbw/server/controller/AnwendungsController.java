@@ -1,5 +1,6 @@
 package dhbw.server.controller;
 
+import dhbw.server.services.CalendarService;
 import dhbw.server.services.KursService;
 import dhbw.server.services.SchedulerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +17,24 @@ public class AnwendungsController {
     private KursService kursService;
     @Autowired
     private SchedulerServiceImpl schedulerService;
+    @Autowired
+    private CalendarService calendarService;
 
     @GetMapping
     public String viewVorlesungsplaner(Model model) {
         model.addAttribute("kvn_namen", kursService.getKursNamen());
+        model.addAttribute("termine", calendarService.getAllTermine());
         return "homepage";
     }
 
     @GetMapping("/process_endplanning")
     public void endPlanning() throws NoSuchMethodException {
         schedulerService.scheduleJob(172800000);
+    }
+    @GetMapping("/admin")
+    public String viewAdmin(Model model) {
+        model.addAttribute("kurse", kursService.getAlleKurseMitNamen());
+        return "admin";
     }
 
 }

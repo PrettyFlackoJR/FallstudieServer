@@ -20,6 +20,7 @@ public class KalenderController {
     @Autowired
     private VorlesungsService vorlesungsService;
 
+
     @GetMapping(path = "/process_kalender", produces = {"application/json", "text/json"})
     @ResponseBody
     public Calendar processKalender(@RequestParam(name = "kurs") String kurs) {
@@ -67,6 +68,5 @@ public class KalenderController {
     public double getStunden(@RequestParam(required = false,name= "vvnId") Integer vvnId, Model model) {
         return 2;
     }
-
 }
 

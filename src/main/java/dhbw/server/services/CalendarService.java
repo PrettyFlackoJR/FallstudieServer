@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -135,14 +136,17 @@ public class CalendarService {
                     || (dbEnd.isAfter(start) && dbEnd.isBefore(end))
                     || (start.isAfter(dbStart) && start.isBefore(dbEnd))
                     || (end.isAfter(dbStart) && end.isBefore(dbEnd))
-                    || start.compareTo(dbStart) == 0
-                    || start.compareTo(dbEnd) == 0
-                    || end.compareTo(dbStart) == 0
-                    || end.compareTo(dbEnd) == 0) {
+                    ||start.compareTo(dbStart) == 0
+                    ||start.compareTo(dbEnd) == 0
+                    ||end.compareTo(dbStart) == 0
+                    ||end.compareTo(dbEnd) == 0) {
                 b = true;
             }
         }
         return b;
     }
 
+    public List<Termin> getAllTermine() {
+        return terminRepository.findAll();
+    }
 }

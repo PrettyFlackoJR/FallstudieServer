@@ -1,4 +1,4 @@
-package dhbw.server.entities;
+package dhbw.server.helper;
 
 public class Kurs_Namen {
 

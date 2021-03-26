@@ -21,19 +21,15 @@ async function moreFields() {
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
 }
-
-function filterFunction() {
-    var input, filter, ul, li, a, i;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    div = document.getElementById("myDropdown");
-    a = div.getElementsByTagName("a");
-    for (i = 0; i < a.length; i++) {
-        txtValue = a[i].textContent || a[i].innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            a[i].style.display = "";
-        } else {
-            a[i].style.display = "none";
-        }
+async function eingabeUeberpruefen() {
+    let kurs = document.getElementById("kurs");
+    let kursValue = kurs.options[kurs.selectedIndex].value;
+    let vorlesung = document.getElementById("vorlesung");
+    let vorlesungValue = kurs.options[vorlesung.selectedIndex].value;
+    if (kursValue == 0 || vorlesungValue == 0) {
+        alert("Bitte wählen Sie einen Kurs und eine Vorlesung aus.")
     }
+}
+async function objektUebergeben() {
+    document.getElementsByName("f").act
 }

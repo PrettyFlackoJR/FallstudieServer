@@ -54,16 +54,17 @@
     <table>
         <tbody>
         <tr>
-            <td>Hier können Dozenten durch den Admin <a href="/register">registriert<a/> werden</td>
+            <td>Hier können Dozenten durch den Admin <a th:href="@{/register_student}">registriert<a/> werden</td>
         </tr>
         <tr>
             <td>Hier kann der Zeitraum für ein Semester eines Kurses definiert werden<br>
             Zeitraum für den
-            <select id="kurs1">
-                <option class="choose_course" value="0">Bitte Kurs für die Zeitraumdeklaration auswählen</option>
-                <option th:value="'A'" th:text="'Kurs A'"></option>
-                <option th:value="'B'" th:text="'Kurs B'"></option>
-            </select>:</td>
+                <select id="kurs1">
+                    <option class="choose_course" value="0">Bitte Kurs für die Terminanzeige auswählen</option>
+                    <option th:each="kurs: ${kurse}" th:value="${kurs.kurs_name}"
+                            th:text="${kurs.kurs_name}"></option>
+                </select>:
+            </td>
         </tr>
         <tr>
             <td><label for="start">Startdatum:</label>

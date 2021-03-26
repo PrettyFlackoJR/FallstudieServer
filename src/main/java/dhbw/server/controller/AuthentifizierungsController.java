@@ -1,6 +1,8 @@
 package dhbw.server.controller;
 
+import dhbw.server.entities.Termin;
 import dhbw.server.exceptions.UserAlreadyExistsException;
+import dhbw.server.helper.KVS;
 import dhbw.server.services.KursService;
 import dhbw.server.services.UserService;
 import dhbw.server.entities.Nutzer;
@@ -12,8 +14,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -46,9 +50,14 @@ public class AuthentifizierungsController {
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new Nutzer());
-        model.addAttribute("kvn_namen", kursService.getAlleKurseMitNamen());
+        model.addAttribute("kurse", kursService.getAlleKurseMitNamen());
         model.addAttribute("vor_namen", vorlesungsService.getVorNamen());
         return "signup_form";
+    }
+    @GetMapping("/register_student")
+    public String showRegistrationFormStudent(Model model) {
+        model.addAttribute("user", new Nutzer());
+        return "signup_form_student";
     }
 
     @Transactional

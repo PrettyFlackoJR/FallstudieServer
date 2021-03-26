@@ -36,7 +36,7 @@
                         </a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/admin">
+                        <a class="nav-link" href="vorlesungsplaner/admin">
                             Administrationsbereich
                         </a>
                     </li>
@@ -57,7 +57,7 @@
     <table>
         <thead>
         <div class="ueberKalender">
-            <select id="kurs1">
+            <select id="kurs1" onchange="kursNeuladen()">
                 <option class="choose_course" value="0">Bitte Kurs für die Terminanzeige auswählen</option>
                 <option th:each="kvn_name: ${kvn_namen}" th:value="${kvn_name.kurs_name}"
                         th:text="${kvn_name.kurs_name}"></option>
@@ -92,11 +92,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th scope="row">WI</th>
-                            <td>07.05.2021</td>
-                            <td>09:00</td>
-                            <td>12:15</td>
+                        <tr th:each="termin: ${termine}">
+                            <td th:text="${termin.ter_vvn_id}">User ID</td>
+                            <td th:text="${termin.ter_datum}">E-mail</td>
+                            <td th:text="${termin.ter_start}">First Name</td>
+                            <td th:text="${termin.ter_ende}">Last Name</td>
                         </tr>
                         </tbody>
                     </table>

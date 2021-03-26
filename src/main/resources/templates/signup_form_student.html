@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Registrieren</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="http://localhost:8080/style.css"/>
+    <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <img th:src="@{/images/DHPlannerKlein.PNG}" alt="DHBW Planner" width="140" height="100">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                    Registrierungsseite DH-Planner der DHBW Stuttgart
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <form  th:action="@{/login}" method="get">
+                        <input class="button" type="submit" value="Wechsel zum Login" />
+                    </form>
+                    <form  th:action="@{/}" method="get">
+                        <input class="button" type="submit" value="Zurück zur Startseite" />
+                    </form>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</header>
+<main>
+    <tr class="container text-center">
+        <div th:if="${errorMessage != null}"
+             th:utext="${errorMessage}" class="error">
+        </div>
+        <div class="modal-body2">
+            <div class="form-title text-center">
+                <h4>Registrierung</h4>
+            </div>
+            <div class="d-flex flex-column text-center">
+                <form name="f" th:action="@{/process_register}" th:object="${user}"
+                      method="post" style="max-width: 600px; margin: 0 auto;">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td><label class="label">Anrede: </label></td>
+                            <td>
+                                <select th:field="*{nut_anrede}" required>
+                                    <option value="0"> Bitte wählen</option>
+                                    <option th:value="'Herr'" th:text="Herr"></option>
+                                    <option th:value="'Frau'" th:text="Frau"></option>
+                                    <option th:value="'Divers'" th:text="Divers"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label class="label">Titel: </label></td>
+                            <td><select th:field="*{nut_titel}">
+                                <option th:value="''" th:text="''"></option>
+                                <option th:value="'Prof.'" th:text="Prof."></option>
+                                <option th:value="'Dr.'" th:text="Dr."></option>
+                                <option th:value="'Prof. Dr.'" th:text="'Prof. Dr.'"></option>
+                                <option th:value="'Dipl.-Ing..'" th:text="'Dipl.-Ing.'"></option>
+                            </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label class="label">E-Mail: </label></td>
+                            <td>
+                                <input type="email" th:field="*{nut_email}" class="form-control" required/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><label class="label">Passwort: </label></td>
+                            <td><input type="password" th:field="*{nut_passwort}" class="form-control"
+                                       required minlength="6" maxlength="10"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><label class="label">Vorname: </label></td>
+                            <td><input type="text" th:field="*{nut_vorname}" class="form-control"
+                                       required minlength="2" maxlength="20"/>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><label class="label">Nachname: </label></td>
+                            <td>
+                                <input type="text" th:field="*{nut_nachname}" class="form-control"
+                                       required minlength="2" maxlength="20"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><button type="submit" id="abschicken" class="button">Jetzt registrieren</button></td>
+
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+                </form>
+            </div>
+        </div>
+</main>
+<footer>
+    © Vorlesungsplaner
+</footer>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files
+      as needed -->
+<script src="js/bootstrap.min.js"></script>
+<script src="registerScript.js"></script>
+</body>
+</html>
