@@ -17,10 +17,20 @@ public class Vorlesung_Von_Nutzer {
     private Integer vvn_vor_id;
 
     @Column
-    private Float vvn_stnd;
+    private Double vvn_stnd;
 
     @Column
     private Integer vvn_kurs_id;
+
+    public Vorlesung_Von_Nutzer() {
+    }
+
+    public Vorlesung_Von_Nutzer(Integer vvn_nut_id, Integer vvn_vor_id, Double vvn_stnd, Integer vvn_kurs_id) {
+        this.vvn_nut_id = vvn_nut_id;
+        this.vvn_vor_id = vvn_vor_id;
+        this.vvn_stnd = vvn_stnd;
+        this.vvn_kurs_id = vvn_kurs_id;
+    }
 
     public Integer getVvn_id() {
         return vvn_id;
@@ -46,11 +56,11 @@ public class Vorlesung_Von_Nutzer {
         this.vvn_vor_id = vvn_vol_id;
     }
 
-    public Float getVvn_stnd() {
+    public Double getVvn_stnd() {
         return vvn_stnd;
     }
 
-    public void setVvn_stnd(Float vvn_stnd) {
+    public void setVvn_stnd(Double vvn_stnd) {
         this.vvn_stnd = vvn_stnd;
     }
 

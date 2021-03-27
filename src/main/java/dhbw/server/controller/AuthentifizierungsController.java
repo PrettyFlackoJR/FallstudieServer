@@ -46,7 +46,7 @@ public class AuthentifizierungsController {
     public String logout() {
         return "login";
     }
-    
+
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new Nutzer());
@@ -54,6 +54,7 @@ public class AuthentifizierungsController {
         model.addAttribute("vor_namen", vorlesungsService.getVorNamen());
         return "signup_form";
     }
+
     @GetMapping("/register_student")
     public String showRegistrationFormStudent(Model model) {
         model.addAttribute("user", new Nutzer());
@@ -62,18 +63,30 @@ public class AuthentifizierungsController {
 
     @Transactional
     @PostMapping("/process_register")
-    public String processRegister(Nutzer user,
-                                  Model model) {
+    public String processRegister(@RequestParam(required = false, name = "kurs") Integer kursId,
+                                  Nutzer user,
+                                  Model model,
+                                  ArrayList<KVS> kvs) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getNut_passwort());
         user.setNut_passwort(encodedPassword);
 
-        try {
-            userService.registerNewUserAccount(user);
-        } catch (UserAlreadyExistsException e) {
-            model.addAttribute("user", new Nutzer());
-            model.addAttribute("errorMessage", "Error: " + e.getMessage());
-            return "signup_form";
+        if (kvs.isEmpty()) {
+            try {
+                userService.registerNewStudentAccount(user, kursId);
+            } catch (UserAlreadyExistsException e) {
+                model.addAttribute("user", new Nutzer());
+                model.addAttribute("errorMessage", "Error: " + e.getMessage());
+                return "signup_form_student";
+            }
+        } else {
+            try {
+                userService.registerNewDozentAccount(user, kvs);
+            } catch (UserAlreadyExistsException e) {
+                model.addAttribute("user", new Nutzer());
+                model.addAttribute("errorMessage", "Error: " + e.getMessage());
+                return "signup_form";
+            }
         }
 
         return "register_success";

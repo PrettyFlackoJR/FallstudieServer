@@ -31,6 +31,7 @@ public class AnwendungsController {
     public void endPlanning() throws NoSuchMethodException {
         schedulerService.scheduleJob(172800000);
     }
+
     @GetMapping("/admin")
     public String viewAdmin(Model model) {
         model.addAttribute("kurse", kursService.getAlleKurseMitNamen());

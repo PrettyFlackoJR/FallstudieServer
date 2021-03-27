@@ -16,6 +16,14 @@ public class Kurs_Von_Nutzer {
     @Column
     private Integer kvn_kurs_id;
 
+    public Kurs_Von_Nutzer() {
+    }
+
+    public Kurs_Von_Nutzer(Integer kvn_nut_id, Integer kvn_kurs_id) {
+        this.kvn_nut_id = kvn_nut_id;
+        this.kvn_kurs_id = kvn_kurs_id;
+    }
+
     public Integer getKvn_id() {
         return kvn_id;
     }
