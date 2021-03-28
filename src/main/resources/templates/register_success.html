@@ -4,12 +4,12 @@
     <meta charset="ISO-8859-1">
     <title>Registration Success</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <img th:src="@{/images/DHPlannerKlein.PNG}" alt="DHBW Planner" width="140" height="100">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -49,12 +49,21 @@
         </div>
     </nav>
 </header>
-<div class="container text-center">
-    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-        Der neue Nutzer wurde erfolgreich registriert!
-    </ul>
-    <h4><a th:href="@{/}">Zurück zur Startseite</a></h4>
-</div>
+<main>
+    <div class="modal-body2">
+        <div class="form-title text-center">
+            <div class="container text-center">
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                    Der neue Nutzer wurde erfolgreich registriert!
+                </ul>
+                <form th:action="@{/}" method="get">
+                    <input class="button" type="submit" value="Zurück zur Startseite"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
 
 </body>
 </html>

@@ -8,11 +8,59 @@
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
 </head>
 <body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <img th:src="@{/images/DHPlannerKlein.PNG}" alt="DHBW Planner" width="140" height="100">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                    DH-Planner der DHBW Stuttgart
+                </ul>
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/vorlesungsplaner">
+                            Vorlesungsplaner
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="vorlesungsplaner/admin">
+                            Administrationsbereich
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/profile">Mein Profil <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <form th:action="@{/logout}" method="post">
+                            <input class="button" type="submit" value="Sign Out"/>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
 <div class="container text-center">
-    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-        Termin erfolgreich hinzugefügt
-    </ul>
-    <h4><a th:href="@{/vorlesungsplaner}">Click here</a></h4>
+    <div class="modal-body2">
+        <div class="form-title text-center">
+            <div class="container text-center">
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                    Der Termin wurde erfolgreich hinzugefügt.
+                </ul>
+                <form th:action="@{/}" method="get">
+                    <input class="button" type="submit" value="Zurück zur Startseite"/>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

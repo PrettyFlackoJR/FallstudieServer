@@ -38,6 +38,7 @@ ul{
     list-style-type: none;
 }
 
+
 .navbar{
     background: #7c8991;
     padding: 0;
@@ -45,6 +46,7 @@ ul{
     color: white;
     width: 100%;
 }
+
 
 .button{
     text-align: center;
@@ -87,10 +89,6 @@ td{
     color: white;
     padding: 0rem;
     margin: 0;
-}
-
-.nav-item active{
-    color: white;
 }
 
 .modal-body2{
