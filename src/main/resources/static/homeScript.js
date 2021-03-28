@@ -1,6 +1,4 @@
-const refreshButton = document.getElementById("refresh");
 const addButton = document.getElementById("add");
-refreshButton.addEventListener("click", kursNeuladen);
 addButton.addEventListener("click", weiterleitenZuTermin)
 
 async function onLoad() {
@@ -12,6 +10,7 @@ async function onLoad() {
     var calendar = new FullCalendar.Calendar(calendarEl, json);
 
     calendar.render();
+    kursNeuladen();
 }
 async function kursNeuladen() {
     var calendarEl = document.getElementById('calendar');

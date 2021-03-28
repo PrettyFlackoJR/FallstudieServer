@@ -58,7 +58,6 @@
         <thead>
         <div class="ueberKalender">
             <select id="kurs1" onchange="kursNeuladen()">
-                <option class="choose_course" value="0">Bitte Kurs für die Terminanzeige auswählen</option>
                 <option th:each="kvn_name: ${kvn_namen}" th:value="${kvn_name.kurs_name}"
                         th:text="${kvn_name.kurs_name}"></option>
             </select>
