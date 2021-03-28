@@ -10,7 +10,7 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <img th:src="@{/images/DHPlannerKlein.PNG}" alt="DHBW Planner" width="140" height="100">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -51,42 +51,59 @@
     </nav>
 </header>
 <section id="first__section">
-    <table>
-        <tbody>
-        <tr>
-            <td>Hier können Dozenten durch den Admin <a th:href="@{/register_student}">registriert<a/> werden</td>
-        </tr>
-        <tr>
-            <td>Hier kann der Zeitraum für ein Semester eines Kurses definiert werden<br>
-            Zeitraum für den
-                <select id="kurs1">
-                    <option class="choose_course" value="0">Bitte Kurs für die Terminanzeige auswählen</option>
-                    <option th:each="kurs: ${kurse}" th:value="${kurs.kurs_name}"
-                            th:text="${kurs.kurs_name}"></option>
-                </select>:
-            </td>
-        </tr>
-        <tr>
-            <td><label for="start">Startdatum:</label>
-            <input type="datetime-local" id="start" name="trip-start"
-                       value="2018-07-22"
-                       min="2018-01-01" max="2018-12-31"></td>
-        </tr>
-        <tr>
-            <td><label for="end">Enddatum:</label>
-            <input type="datetime-local" id="end" name="trip-end"
-                       value="2018-07-22"
-                       min="2018-01-01" max="2018-12-31"></td>
-        </tr>
-        <tr>
-            <td><button class="button" type="submit">Auswahl speichern</button></td>
-        </tr>
-        <tr>
-            <td>Hier kann zu einem späteren Zeitpunkt ggf. eine Planungsreihenfolge festgelegt werden</td>
-            <td><button class="button">Starte Planung</button></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="modal-body2">
+        <div class="form-title text-center">
+            <h4>Administrationsmöglichkeiten</h4>
+        </div>
+        <table>
+            <tbody>
+            <tr><p class="adminstyling">Registrierung neuer DH-Planner-Nutzer</p></tr>
+            <tr>
+                <td>Hier können <a th:href="@{/register}">Dozenten</a> und <a th:href="@{/register_student}">Studenten<a/> durch den Admin registriert
+                    werden</td>
+            </tr>
+            <tr><p class="adminstyling">Anlegen von Kursen und deren aktuellen Semesterzeitraum</p></tr>
+            <tr>
+                <td>Kurs:
+                    <select id="kurs1">
+                        <option class="choose_course" value="0">Bitte Kurs für die Terminanzeige auswählen</option>
+                        <option th:each="kurs: ${kurse}" th:value="${kurs.kurs_name}"
+                                th:text="${kurs.kurs_name}"></option>
+                    </select>
+                </td>
+            <tr>
+                <td>Bevorstehender Semesterzeitraum</td>
+            </tr>
+            </tr>
+            <tr>
+                <td><label for="start">Startdatum:</label>
+                    <input type="datetime-local" id="start" name="trip-start"
+                           value="2018-07-22"
+                           min="2021-01-01" max="2018-12-31"></td>
+            </tr>
+            <tr>
+                <td><label for="end">Enddatum:</label>
+                    <input type="datetime-local" id="end" name="trip-end"
+                           value="2018-07-22"
+                           min="2021-01-01" max="2018-12-31"></td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="button" type="submit">Auswahl speichern</button>
+                </td>
+            </tr>
+            <tr><p class="adminstyling">Planungsreihenfolge definieren</p></tr>
+            <tr>
+                <td>Hier kann zu einem späteren Zeitpunkt ggf. eine Planungsreihenfolge festgelegt werden</td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="button">Starte Planung</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </section>
 </body>
 </html>

@@ -4,13 +4,14 @@
 <head>
     <meta charset="utf-8"/>
     <title>Einloggen</title>
-    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
 </head>
+
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <img th:src="@{/images/DHPlannerKlein.PNG}" alt="DHBW Planner" width="140" height="100">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -61,9 +62,6 @@
             </form>
         </div>
     </div>
-    </div>
-    <div class="modal-footer d-flex justify-content-center">
-        <div class="signup-section">Noch nicht angemeldet? <a th:href="@{/register}">Jetzt registrieren</a>.</div>
     </div>
 </main>
 <footer>

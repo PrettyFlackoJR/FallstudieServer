@@ -14,7 +14,7 @@
 
 <body onload="onLoad()">
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <img th:src="@{/images/DHPlannerKlein.PNG}" alt="DHBW Planner" width="140" height="100">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -62,9 +62,6 @@
                 <option th:each="kvn_name: ${kvn_namen}" th:value="${kvn_name.kurs_name}"
                         th:text="${kvn_name.kurs_name}"></option>
             </select>
-            <button class="button" id="refresh">
-                <i class="fas fa-plus-square">Aktualisieren</i>
-            </button>
             <button class="button" id="add">
                 <i class="fas fa-plus-square">Termin
                     hinzufügen</i>
@@ -89,14 +86,17 @@
                             <th scope="col">Datum</th>
                             <th scope="col">Startzeit</th>
                             <th scope="col">Endzeit</th>
+                            <th scope="col">Aktionen</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="termin: ${termine}">
-                            <td th:text="${termin.ter_vvn_id}">User ID</td>
-                            <td th:text="${termin.ter_datum}">E-mail</td>
-                            <td th:text="${termin.ter_start}">First Name</td>
-                            <td th:text="${termin.ter_ende}">Last Name</td>
+                            <td th:text="${termin.ter_vvn_id}">Vorlesungs-ID</td>
+                            <td th:text="${termin.ter_datum}">Datum</td>
+                            <td th:text="${termin.ter_start}">Startzeit</td>
+                            <td th:text="${termin.ter_ende}">Endzeit</td>
+                            <td>Modifizieren</td>
+                            <td>Löschen</td>
                         </tr>
                         </tbody>
                     </table>

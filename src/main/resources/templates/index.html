@@ -1,27 +1,22 @@
 <!DOCTYPE html>
 <html lang="de">
 <html xmlns:th="http://www.thymeleaf.org">
-<head xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="de" xmlns="http://www.w3.org/1999/html">
+<head>
     <meta charset="utf-8"/>
     <title>DH-Planner</title>
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
-
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
+
 <body>
 <header>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <img th:src="@{/images/DHPlannerKlein.PNG}" alt="DHBW Planner" width="140" height="100">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
 
             <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
@@ -40,8 +35,7 @@
     <section id="first__section">
         <table>
             <tr>
-                <td>Bitte <a th:href="@{/register_student}">registrieren</a> Sie sich, oder <a
-                        th:href="@{/login}">loggen Sie sich ein</a>, um den Vorlesungsplaner
+                <td>Bitte <a th:href="@{/login}">loggen Sie sich ein</a>, um den Vorlesungsplaner
                     nutzen zu können.
                 </td>
             </tr>
