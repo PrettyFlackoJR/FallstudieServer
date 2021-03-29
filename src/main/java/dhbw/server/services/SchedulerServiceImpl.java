@@ -54,7 +54,7 @@ public class SchedulerServiceImpl {
                 userService.addEditorRole(nutzer.getNut_id());
                 initial = false;
                 String name = nutzer.getNut_vorname() + " " + nutzer.getNut_nachname();
-                //sendEmail(nutzer.getNut_email(), nutzer.getNut_anrede(), name);
+                sendEmail(nutzer.getNut_email(), nutzer.getNut_anrede(), name);
             } else {
                 Integer nutzerId = nutzerArrayList.get(0).getNut_id();
                 userService.removeEditorRole(nutzerId);
@@ -63,7 +63,7 @@ public class SchedulerServiceImpl {
                 Nutzer newNutzer = nutzerArrayList.get(0);
                 userService.addEditorRole(newNutzer.getNut_id());
                 String name = newNutzer.getNut_vorname() + " " + newNutzer.getNut_nachname();
-                //sendEmail(newNutzer.getNut_email(), newNutzer.getNut_anrede(), name);
+                sendEmail(newNutzer.getNut_email(), newNutzer.getNut_anrede(), name);
             }
             System.out.println(nutzerArrayList.get(0).getNut_email());
         } catch (IndexOutOfBoundsException e) {
@@ -98,8 +98,9 @@ public class SchedulerServiceImpl {
         String localDate = LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         String localTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
 
-        String msg = "Sehr geehrte/r " + anrede + " " + name + "," +  "<br>"
-                + "bitte beginnen Sie mit ihrer Planung." + "<br>" + "<br>" + "Ihr Planungsfenster schließt am "
+        String msg = "Sehr geehrte/r " + anrede + " " + name + "," +  "<br>" + "<br>"
+                + "bitte beginnen Sie mit ihrer Planung: " + "<a href='http://localhost:8080'>Vorlesungsplaner</a>."
+                + "<br>" + "<br>" + "Ihr Planungsfenster schließt sich am "
                 + localDate + " um " + localTime + ".";
 
         MimeBodyPart mimeBodyPart = new MimeBodyPart();

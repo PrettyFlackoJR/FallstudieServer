@@ -4,6 +4,7 @@ import dhbw.server.entities.Termin;
 import dhbw.server.entities.Vorlesung;
 import dhbw.server.entities.Vorlesung_Von_Nutzer;
 import dhbw.server.exceptions.TerminException;
+import dhbw.server.helper.Termin_VorlesungName;
 import dhbw.server.jsonForCalendar.Calendar;
 import dhbw.server.jsonForCalendar.Event;
 import dhbw.server.jsonForCalendar.HeaderToolbar;
@@ -18,9 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CalendarService {
@@ -40,17 +39,7 @@ public class CalendarService {
         HeaderToolbar headerToolbar = new HeaderToolbar("prev,next today",
                 "title", "dayGridMonth,timeGridWeek,timeGridDay");
 
-        // Nutzer ID mit E-Mail holen
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalEmail = authentication.getName();
-        int nutzerId = userService.getUserId(currentPrincipalEmail);
-        // VVN IDs mit Nutzer ID holen
-        ArrayList<Integer> vvnIds = getVvnIds(nutzerId, kurs);
-        // Alle Termine ermitteln
-        ArrayList<Termin> termine = new ArrayList<>();
-        for (Integer vvnId : vvnIds) {
-            termine.addAll(terminRepository.findAllByVvnId(vvnId));
-        }
+        ArrayList<Termin> termine = getTermineOfCurrentUser(kurs);
         // Events für den Kalender erstellen
         ArrayList<Event> events = getEvents(termine);
 
@@ -58,6 +47,62 @@ public class CalendarService {
                 headerToolbar, events);
 
         return calendar;
+    }
+
+    public ArrayList<Termin_VorlesungName> getTermineWithVorlesungsName(String kurs) {
+        ArrayList<Termin> termine = getTermineOfCurrentUser(kurs);
+        int nutzerId = getNutzerId();
+        ArrayList<Vorlesung_Von_Nutzer> vvns = getVvns(nutzerId, kurs);
+        ArrayList<Termin_VorlesungName> terminVorlesungNamen = new ArrayList<>();
+
+        for (Termin termin : termine) {
+            for (Vorlesung_Von_Nutzer vvn : vvns) {
+                if (termin.getTer_vvn_id() == vvn.getVvn_id()) {
+                    Termin_VorlesungName termin_vorlesungName = new Termin_VorlesungName(
+                            termin, vorlesungRepository.findNameByVvnId(vvn.getVvn_vor_id())
+                    );
+                    terminVorlesungNamen.add(termin_vorlesungName);
+                }
+            }
+        }
+
+        Collections.sort(terminVorlesungNamen, new Comparator<Termin_VorlesungName>() {
+            @Override
+            public int compare(Termin_VorlesungName o1, Termin_VorlesungName o2) {
+                if (o1.getTermin().getTer_datum() == null || o2.getTermin().getTer_datum() == null
+                        || o1.getTermin().getTer_start() == null || o2.getTermin().getTer_start() == null)
+                    return 0;
+                int c;
+                c = o1.getTermin().getTer_datum().compareTo(o2.getTermin().getTer_datum());
+                if (c == 0) {
+                    c = o1.getTermin().getTer_start().compareTo(o2.getTermin().getTer_start());
+                }
+                return c;
+            }
+        });
+
+        return terminVorlesungNamen;
+    }
+
+    private int getNutzerId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalEmail = authentication.getName();
+        int nutzerId = userService.getUserId(currentPrincipalEmail);
+
+        return nutzerId;
+    }
+
+    public ArrayList<Termin> getTermineOfCurrentUser(String kurs) {
+        // Nutzer ID mit E-Mail holen
+        int nutzerId = getNutzerId();
+        // VVN IDs mit Nutzer ID holen
+        ArrayList<Integer> vvnIds = getVvnIds(nutzerId, kurs);
+        // Alle Termine ermitteln
+        ArrayList<Termin> termine = new ArrayList<>();
+        for (Integer vvnId : vvnIds) {
+            termine.addAll(terminRepository.findAllByVvnId(vvnId));
+        }
+        return termine;
     }
 
     public void addTermin(Termin termin) throws TerminException {
@@ -126,6 +171,13 @@ public class CalendarService {
         return vvnIds;
     }
 
+    private ArrayList<Vorlesung_Von_Nutzer> getVvns(Integer nutzerId, String kurs) {
+        Integer kursId = kursRepository.findByKursName(kurs);
+        ArrayList<Vorlesung_Von_Nutzer> vvnVorIds = vorlesungVonNutzerRepository.findByNutzerId(nutzerId, kursId);
+
+        return vvnVorIds;
+    }
+
     private Boolean terminExists(LocalDate date, LocalTime start, LocalTime end) {
         Boolean b = false;
         ArrayList<Termin> termine = terminRepository.findAllByDate(date);
@@ -136,10 +188,10 @@ public class CalendarService {
                     || (dbEnd.isAfter(start) && dbEnd.isBefore(end))
                     || (start.isAfter(dbStart) && start.isBefore(dbEnd))
                     || (end.isAfter(dbStart) && end.isBefore(dbEnd))
-                    ||start.compareTo(dbStart) == 0
-                    ||start.compareTo(dbEnd) == 0
-                    ||end.compareTo(dbStart) == 0
-                    ||end.compareTo(dbEnd) == 0) {
+                    || start.compareTo(dbStart) == 0
+                    || start.compareTo(dbEnd) == 0
+                    || end.compareTo(dbStart) == 0
+                    || end.compareTo(dbEnd) == 0) {
                 b = true;
             }
         }

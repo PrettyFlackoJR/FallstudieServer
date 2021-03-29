@@ -5,7 +5,7 @@ import dhbw.server.entities.Nutzer;
 import dhbw.server.entities.Nutzer_Role;
 import dhbw.server.entities.Vorlesung_Von_Nutzer;
 import dhbw.server.exceptions.UserAlreadyExistsException;
-import dhbw.server.helper.KVS;
+import dhbw.server.helper.Kurs_Vorlesung_Stunden;
 import dhbw.server.repositories.Kurs_Von_NutzerRepository;
 import dhbw.server.repositories.NutzerRepository;
 import dhbw.server.repositories.Nutzer_RolesRepository;
@@ -42,7 +42,7 @@ public class UserService {
     }
 
     @Transactional
-    public void registerNewDozentAccount(Nutzer userDto, ArrayList<KVS> kvs) throws UserAlreadyExistsException {
+    public void registerNewDozentAccount(Nutzer userDto, ArrayList<Kurs_Vorlesung_Stunden> kvs) throws UserAlreadyExistsException {
 
         if (emailExist(userDto.getNut_email())) {
             throw new UserAlreadyExistsException(
@@ -52,7 +52,7 @@ public class UserService {
             Nutzer_Role nutzer_role = saveNutzer(userDto, 1);
 
             ArrayList<Integer> kursIds = new ArrayList<>();
-            for (KVS obj : kvs) {
+            for (Kurs_Vorlesung_Stunden obj : kvs) {
                 if (!kursIds.contains(obj.getKursId())) {
                     kursIds.add(obj.getKursId());
                     Kurs_Von_Nutzer kursVonNutzer = new Kurs_Von_Nutzer(nutzer_role.getNut_id(), obj.getKursId());

@@ -1,5 +1,7 @@
 package dhbw.server.controller;
 
+import dhbw.server.entities.Termin;
+import dhbw.server.helper.Termin_VorlesungName;
 import dhbw.server.services.CalendarService;
 import dhbw.server.services.KursService;
 import dhbw.server.services.SchedulerServiceImpl;
@@ -8,6 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/vorlesungsplaner")
@@ -28,6 +34,7 @@ public class AnwendungsController {
     }
 
     @GetMapping("/process_endplanning")
+    @ResponseBody
     public void endPlanning() throws NoSuchMethodException {
         schedulerService.scheduleJob(172800000);
     }

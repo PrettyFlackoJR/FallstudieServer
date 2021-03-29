@@ -1,11 +1,11 @@
 package dhbw.server.helper;
 
-public class KVS {
+public class Kurs_Vorlesung_Stunden {
     Integer kursId;
     Integer vorlesungId;
     double Stunden;
 
-    public KVS(Integer kursId, Integer vorlesungId, double stunden) {
+    public Kurs_Vorlesung_Stunden(Integer kursId, Integer vorlesungId, double stunden) {
         this.kursId = kursId;
         this.vorlesungId = vorlesungId;
         Stunden = stunden;

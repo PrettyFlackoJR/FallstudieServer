@@ -1,8 +1,7 @@
 package dhbw.server.controller;
 
-import dhbw.server.entities.Termin;
 import dhbw.server.exceptions.UserAlreadyExistsException;
-import dhbw.server.helper.KVS;
+import dhbw.server.helper.Kurs_Vorlesung_Stunden;
 import dhbw.server.services.KursService;
 import dhbw.server.services.UserService;
 import dhbw.server.entities.Nutzer;
@@ -14,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,7 +50,7 @@ public class AuthentifizierungsController {
         model.addAttribute("user", new Nutzer());
         model.addAttribute("kurse", kursService.getAlleKurseMitNamen());
         model.addAttribute("vor_namen", vorlesungsService.getVorNamen());
-        model.addAttribute("kvs", new ArrayList<KVS>());
+        model.addAttribute("kvs", new ArrayList<Kurs_Vorlesung_Stunden>());
         return "signup_form";
     }
 
@@ -67,7 +65,7 @@ public class AuthentifizierungsController {
     public String processRegister(@RequestParam(required = false, name = "kurs") Integer kursId,
                                   Nutzer user,
                                   Model model,
-                                  ArrayList<KVS> kvs) {
+                                  ArrayList<Kurs_Vorlesung_Stunden> kvs) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getNut_passwort());
         user.setNut_passwort(encodedPassword);
