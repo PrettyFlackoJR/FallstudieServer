@@ -77,18 +77,29 @@ td{
     padding: 2rem;
 }
 
-#side__bar{
-    background-color: #c9bbbb;
-    padding: 1rem;
-    border-radius: 5px;
-    border-width: 5px;
-}
-
 .container-fluid, img-fluid{
     background-color: #7c8991;
     color: white;
     padding: 0rem;
     margin: 0;
+}
+
+/*Homepage-Styling*/
+.leftPagePart, rightPagePart{
+    padding: 10px;
+}
+
+.wrapper{
+    display: grid;
+    grid-template: "leftPagePart rightPagePart";
+}
+
+.ueberKalender{
+    margin-bottom: 1rem;
+}
+
+div{
+    display: block;
 }
 
 .modal-body2{
@@ -133,9 +144,11 @@ h4{
     padding-top: 1rem;
 }
 
+/*Admin-Page*/
 .adminstyling{
     padding-top: 0.5rem;
     padding-left: 1rem;
+    font-weight: bold;
 }
 
 .choose_course{
@@ -155,6 +168,7 @@ h4{
     background-color: #4CAF50;
     color: white;
     padding: 16px;
+    margin: 0.5rem;
     font-size: 16px;
     border: none;
     cursor: pointer;
