@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="style.css"/>
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
+    <script src="https://kit.fontawesome.com/10fd971787.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
@@ -100,24 +101,20 @@
                         <tr>
                             <td><label class="label">Vorlesungen: </label></td>
                             <td id="readroot">
-                                <input list="kurs" name="browser" id="kursListe">
+                                <input  list="kurs" name="browser" id="kursListe">
                                 <datalist id="kurs">
-                                    <option class="choose_course" value="0">Kurs wählen</option>
                                     <option th:each="kurs: ${kurse}" th:value="${kurs.kurs_id}"
                                             th:text="${kurs.kurs_name}"></option>
                                 </datalist>
-                                <input list="vorlesungen" name="browser" id="browser">
+                                <input list="vorlesungen" name="browser" id="vorlesungsListe">
                                 <datalist id="vorlesungen">
-                                    <option class="chhose-vorlesung" value="0">Vorlesung wählen</option>
                                     <option th:each="vor_name: ${vor_namen}" th:value="${vor_name.vor_id}"
                                             th:text="${vor_name.vor_name}"></option>
                                     <
                                 </datalist>
                                 <label class="label">Stunden: </label>
-                                <input type="number" class="form-control"
-                                       required minlength="2" maxlength="20" onclick="eingabeUeberpruefen()"/>
-                                <input type="button" value="-"
-                                       onclick="this.parentNode.parentNode.removeChild(this.parentNode);"/><br/><br/>
+                                <input id="stunden" type="number" class="form-control"
+                                       required minlength="2" maxlength="20"/>
                             </td>
                             <td>
 
@@ -135,6 +132,9 @@
 
                     </table>
                 </form>
+                <div class="list-container">
+                    <ul class ="item-list"></ul>
+                </div>
             </div>
         </div>
 </main>
