@@ -39,10 +39,4 @@ public class AnwendungsController {
         schedulerService.scheduleJob(172800000);
     }
 
-    @GetMapping("/admin")
-    public String viewAdmin(Model model) {
-        model.addAttribute("kurse", kursService.getAlleKurseMitNamen());
-        return "admin";
-    }
-
 }
