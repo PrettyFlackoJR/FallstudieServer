@@ -5,7 +5,7 @@
     <meta charset="utf-8"/>
     <title>Registrieren</title>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="stylesheet" type="text/css" href="http://localhost:8080/style.css"/>
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
     <script src="https://kit.fontawesome.com/10fd971787.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
@@ -110,7 +110,7 @@
                                 <datalist id="vorlesungen">
                                     <option th:each="vor_name: ${vor_namen}" th:value="${vor_name.vor_id}"
                                             th:text="${vor_name.vor_name}"></option>
-                                    <
+
                                 </datalist>
                                 <label class="label">Stunden: </label>
                                 <input id="stunden" type="number" class="form-control"
@@ -146,6 +146,6 @@
 <!-- Include all compiled plugins (below), or include individual files
       as needed -->
 <script src="js/bootstrap.min.js"></script>
-<script src="registerScript.js"></script>
+<script src="http://localhost:8080/registerScript.js"></script>
 </body>
 </html>
