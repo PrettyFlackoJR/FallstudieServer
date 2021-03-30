@@ -54,31 +54,28 @@
     </nav>
 </header>
 <main>
-    <table>
-        <thead>
-        <div class="ueberKalender">
-            <select id="kurs1" onchange="kursNeuladen()">
-                <option th:each="kvn_name: ${kvn_namen}" th:value="${kvn_name.kurs_name}"
-                        th:text="${kvn_name.kurs_name}"></option>
-            </select>
-            <button class="button" id="add">
-                <i class="fas fa-plus-square">Termin
-                    hinzufügen</i>
-            </button>
-            <button class="button" id="endPlanningtime" onclick="endPlanning()">Planung beenden</button>
-            <button class="button" id="printCourseplan">Vorlesungsplan drucken</button>
+    <div class="wrapper">
+        <div class="leftPagePart">
+            <div class="ueberKalender">
+                <select id="kurs1" onchange="kursNeuladen()">
+                    <option th:each="kvn_name: ${kvn_namen}" th:value="${kvn_name.kurs_name}"
+                            th:text="${kvn_name.kurs_name}"></option>
+                </select>
+                <button class="button" id="add">
+                    <i class="fas fa-plus-square">Termin
+                        hinzufügen</i>
+                </button>
+                <button class="button" id="endPlanningtime" onclick="endPlanning()">Planung beenden</button>
+                <button class="button" id="printCourseplan">Vorlesungsplan drucken</button>
+            </div>
+            <section id="calendar__section">
+                <div id='calendar'></div>
+            </section>
         </div>
-        </thead>
-        <tbody>
-        <tr>
-            <td>
-                <section id="calendar__section">
-                    <div id='calendar'></div>
-                </section>
-            </td>
-            <td>
+        <div class="rightPagePart">
+            <div class="vorlesungsTabelle">
                 <section id="calendar__newDate__modifyDate">
-                    <table class="table table-striped"id="tabelle">
+                    <table class="table table-striped" id="tabelle">
                         <thead>
                         <tr>
                             <th scope="col">Vorlesungsfach</th>
@@ -92,10 +89,9 @@
                         </tbody>
                     </table>
                 </section>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+            </div>
+        </div>
+    </div>
 </main>
 <footer>
     © Vorlesungsplaner
