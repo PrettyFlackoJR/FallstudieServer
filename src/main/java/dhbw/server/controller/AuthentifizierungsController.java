@@ -45,7 +45,7 @@ public class AuthentifizierungsController {
         return "login";
     }
 
-    @GetMapping("/register")
+    @GetMapping("/vorlesungsplaner/admin/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new Nutzer());
         model.addAttribute("kurse", kursService.getAlleKurseMitNamen());
@@ -61,7 +61,7 @@ public class AuthentifizierungsController {
     }
 
     @Transactional
-    @PostMapping("/process_register")
+    @PostMapping("/vorlesungsplaner/admin/process_register")
     public String processRegister(@RequestParam(required = false, name = "kurs") Integer kursId,
                                   Nutzer user,
                                   Model model,

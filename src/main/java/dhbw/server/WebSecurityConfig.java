@@ -53,6 +53,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**").permitAll()
                 .anyRequest().permitAll()
                 .and()
+                .csrf().ignoringAntMatchers("/vorlesungsplaner/**")
+                .and()
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/vorlesungsplaner")

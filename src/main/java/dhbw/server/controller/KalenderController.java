@@ -43,6 +43,12 @@ public class KalenderController {
         return "termin_form";
     }
 
+    @GetMapping("/termin_modify")
+    public String termin_modify(Model model, Event event) {
+        model.addAttribute("event", event);
+        return "termin_modify_form";
+    }
+
     @PostMapping("/process_addTermin")
     public String processAddTermin(@RequestParam(name = "kurs") String kurs,
                                    Termin termin,
@@ -62,12 +68,14 @@ public class KalenderController {
     }
 
     @PutMapping("/process_modifyTermin")
+    @ResponseBody
     public void processModifyTermin(@RequestBody Event event) {
         calendarService.modifyTermin(event);
     }
 
-    @DeleteMapping("/process_deleteTermin")
-    public void processDeleteTermin(@RequestParam(name = "id") Integer id) {
+    @DeleteMapping(value = "/process_deleteTermin/{id}")
+    @ResponseBody
+    public void processDeleteTermin(@PathVariable Integer id) {
         calendarService.deleteTermin(id);
     }
 
