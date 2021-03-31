@@ -37,8 +37,5 @@ public class ServerApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         schedulerService.setNutzerArrayList(userService.getAllNutzer());
-        //schedulerService.scheduleJob(10000);
-
-        schedulerService.scheduleJob(172800000);
     }
 }
