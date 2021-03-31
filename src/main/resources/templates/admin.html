@@ -11,99 +11,99 @@
 <body>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid">
-            <img th:src="@{/images/DHPlannerKlein.PNG}" alt="DHBW Planner" width="140" height="100">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-
-            <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    Administrationsbereich
-                </ul>
-                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/vorlesungsplaner">
-                            Vorlesungsplaner
-                        </a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/admin">
-                            Administrationsbereich
-                        </a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/profile">Mein Profil <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <form th:action="@{/logout}" method="post">
-                            <input class="button" type="submit" value="Sign Out"/>
-                        </form>
-                    </li>
-                </ul>
-            </div>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                Administrationsbereich
+            </ul>
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/vorlesungsplaner">
+                        Vorlesungsplaner
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/admin">
+                        Administrationsbereich
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/profile">Mein Profil <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <form th:action="@{/logout}" method="post">
+                        <input class="button" type="submit" value="Sign Out"/>
+                    </form>
+                </li>
+            </ul>
         </div>
         </div>
     </nav>
 </header>
-<section id="first__section">
-    <div class="modal-body2">
-        <div class="form-title text-center">
+<main id="main__home">
+    <section id="first__section">
+        <div class="form-title text-center" id="adminDesign">
             <h4>Administrationsmöglichkeiten</h4>
         </div>
-        <table>
-            <tbody>
-            <tr><p class="adminstyling">Registrierung neuer DH-Planner-Nutzer</p></tr>
-            <tr>
-                <td>Hier können <a th:href="@{/vorlesungsplaner/admin/register}">Dozenten</a> und <a th:href="@{/register_student}">Studenten<a/> durch den Admin registriert
-                    werden</td>
-            </tr>
-            <tr><p class="adminstyling">Anlegen von Kursen und deren aktuellen Semesterzeitraum</p></tr>
-            <tr>
-                <td>Kurs:
-                    <select id="kurs1">
-                        <option class="choose_course" value="0">Bitte Kurs für die Terminanzeige auswählen</option>
-                        <option th:each="kurs: ${kurse}" th:value="${kurs.kurs_name}"
-                                th:text="${kurs.kurs_name}"></option>
-                    </select>
-                </td>
-            <tr>
-                <td>Bevorstehender Semesterzeitraum</td>
-            </tr>
-            </tr>
-            <tr>
-                <td><label for="start">Startdatum:</label>
-                    <input type="datetime-local" id="start" name="trip-start"
-                           value="2018-07-22"
-                           min="2021-01-01" max="2018-12-31"></td>
-            </tr>
-            <tr>
-                <td><label for="end">Enddatum:</label>
-                    <input type="datetime-local" id="end" name="trip-end"
-                           value="2018-07-22"
-                           min="2021-01-01" max="2018-12-31"></td>
-            </tr>
-            <tr>
-                <td>
-                    <button class="button" type="submit">Auswahl speichern</button>
-                </td>
-            </tr>
-            <tr><p class="adminstyling">Planungsreihenfolge definieren</p></tr>
-            <tr>
-                <td>Hier kann zu einem späteren Zeitpunkt ggf. eine Planungsreihenfolge festgelegt werden</td>
-            </tr>
-            <tr>
-                <td>
-                    <button class="button">Starte Planung</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</section>
+        <div class="page">
+
+
+            <div class="gba-kachel gba-kachel--xs">
+                <div class="padding-all-unit">
+                    <div class="gba-kachel__titel">Registrierung neuer DH-Planner-Nutzer</div>
+                    <div class="gba-kachel__body">Hier können <a
+                            th:href="@{/vorlesungsplaner/admin/register}">Dozenten</a> und <a
+                            th:href="@{/register_student}">Studenten</a> durch den Admin registriert
+                        werden
+                    </div>
+                    <div class="gba-kachel__footer"><a th:href="@{/vorlesungsplaner/admin/register}"
+                                                       class="gba-button gba-button--standard">Registrierung
+                        Dozenten</a></div>
+                    <div class="gba-kachel__footer"><a th:href="@{/register_student}"
+                                                       class="gba-button gba-button--standard">Registrierung
+                        Studenten</a></div>
+                </div>
+            </div>
+
+
+            <div class="gba-kachel gba-kachel--xs">
+                <div class="padding-all-unit">
+                    <div class="gba-kachel__titel">Kurse und Semesterzeitraum</div>
+                    <div class="gba-kachel__body">1. Kurs auswählen</div>
+                    <div class="gba-kachel__body">
+                        <select id="kurs1">
+                            <option class="choose_course" value="0">Bitte Kurs für die Terminanzeige auswählen</option>
+                            <option class="choose_course" th:each="kurs: ${kurse}" th:value="${kurs.kurs_name}"
+                                    th:text="${kurs.kurs_name}"></option>
+                        </select>
+                    </div>
+                    <div class="gba-kachel__body">2. Bevorstehenden Semesterzeitraum festlegen:
+                    <label for="start">Startdatum:</label>
+                        <input type="datetime-local" id="start" name="trip-start"
+                               value="2018-07-22"
+                               min="2021-01-01" max="2018-12-31">
+                    <label for="end">Enddatum:</label>
+                        <input type="datetime-local" id="end" name="trip-end"
+                               value="2018-07-22"
+                               min="2021-01-01" max="2018-12-31"></div>
+                    <div class="gba-kachel__footer"><a href="" class="gba-button gba-button--standard">Auswahl speichern</a></div>
+                </div>
+            </div>
+
+            <div class="gba-kachel gba-kachel--xs">
+                <div class="padding-all-unit">
+                    <div class="gba-kachel__titel">Planungsreihenfolge definieren</div>
+                    <div class="gba-kachel__body">
+                        Als Admin habe Sie die Möglichkeit, eine neue Planungsreihenfolge für die Dozenten festzulegen.
+                    </div>
+                    <div class="gba-kachel__footer"><a href="" class="gba-button gba-button--standard">Starte
+                        Planung</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<footer id="footer">
+    © Vorlesungsplaner
+</footer>
 </body>
 </html>

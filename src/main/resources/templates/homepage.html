@@ -14,86 +14,88 @@
 </head>
 
 <body onload="onLoad()">
-<header>
+<header id="header">
     <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container-fluid">
-            <img th:src="@{/images/DHPlannerKlein.PNG}" alt="DHBW Planner" width="140" height="100">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-
-            <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    DH-Planner der DHBW Stuttgart
-                </ul>
-                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/vorlesungsplaner">
-                            Vorlesungsplaner
-                        </a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="vorlesungsplaner/admin">
-                            Administrationsbereich
-                        </a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/profile">Mein Profil <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <form th:action="@{/logout}" method="post">
-                            <input class="button" type="submit" value="Sign Out"/>
-                        </form>
-                    </li>
-                </ul>
-            </div>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                DH-Planner der DHBW Stuttgart
+            </ul>
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/vorlesungsplaner">
+                        Vorlesungsplaner
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="vorlesungsplaner/admin">
+                        Administrationsbereich
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/profile">Mein Profil <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <form th:action="@{/logout}" method="post">
+                        <input class="button" type="submit" value="Sign Out"/>
+                    </form>
+                </li>
+            </ul>
         </div>
     </nav>
 </header>
-<main>
-    <div class="wrapper">
-        <div class="leftPagePart">
-            <div class="ueberKalender">
-                <select id="kurs1" onchange="kursNeuladen()">
-                    <option th:each="kvn_name: ${kvn_namen}" th:value="${kvn_name.kurs_name}"
-                            th:text="${kvn_name.kurs_name}"></option>
-                </select>
-                <button class="button" id="add">
-                    <i class="fas fa-plus-square">Termin
-                        hinzufügen</i>
-                </button>
-                <button class="button" id="endPlanningtime" onclick="endPlanning()">Planung beenden</button>
-                <button class="button" id="printCourseplan">Vorlesungsplan drucken</button>
-            </div>
-            <section id="calendar__section">
-                <div id='calendar'></div>
-            </section>
-        </div>
-        <div class="rightPagePart">
-            <div class="vorlesungsTabelle">
-                <section id="calendar__newDate__modifyDate">
-                    <table class="table table-striped" id="tabelle">
-                        <thead>
-                        <tr >
-                            <th scope="col">Vorlesungsfach</th>
-                            <th scope="col">Datum</th>
-                            <th scope="col">Startzeit</th>
-                            <th scope="col">Endzeit</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </section>
+<main id="main__home">
+    <div class="form-title text-center" id="adminDesign">
+        <h4>Vorlesungsplaner</h4>
+    </div>
+    <div class="page">
+    <div class="gba-kachel gba-kachel--l">
+        <div class="padding-all-unit">
+            <div class="gba-kachel__titel"></div>
+            <div class="gba-kachel__body">
+                <div class="wrapper">
+                    <div class="leftPagePart" id="leftPage__section">
+                        <div class="ueberKalender">
+                            <select id="kurs1" onchange="kursNeuladen()">
+                                <option th:each="kvn_name: ${kvn_namen}" th:value="${kvn_name.kurs_name}"
+                                        th:text="${kvn_name.kurs_name}"></option>
+                            </select>
+                            <button class="button" id="add">
+                                <i class="fas fa-plus-square">Termin
+                                    hinzufügen</i>
+                            </button>
+                            <button class="button" id="endPlanningtime" onclick="endPlanning()">Planung beenden</button>
+                            <button class="button" id="printCourseplan">Vorlesungsplan drucken</button>
+                        </div>
+                        <section id="calendar__section">
+                            <div id='calendar'></div>
+                        </section>
+                    </div>
+                    <div class="rightPagePart" id="rightPage__section">
+                        <div class="vorlesungsTabelle">
+                            <section id="calendar__newDate__modifyDate">
+                                <table class="table table-striped" id="tabelle">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Vorlesungsfach</th>
+                                        <th scope="col">Datum</th>
+                                        <th scope="col">Startzeit</th>
+                                        <th scope="col">Endzeit</th>
+                                        <th cope="col"></th>
+                                        <th cope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </section>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </main>
-<footer>
+<footer id="footer">
     © Vorlesungsplaner
 </footer>
 </body>
