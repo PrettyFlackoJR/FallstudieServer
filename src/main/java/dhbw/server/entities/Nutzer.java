@@ -49,8 +49,6 @@ public class Nutzer {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
 
-
-
     private Set<Role> roles = new HashSet<>();
 
     public Set<Role> getRoles() {

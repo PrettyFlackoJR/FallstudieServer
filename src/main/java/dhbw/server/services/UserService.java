@@ -29,7 +29,7 @@ public class UserService {
     @Autowired
     Vorlesung_Von_NutzerRepository vorlesungVonNutzerRepository;
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void registerNewStudentAccount(Nutzer userDto, Integer kursId) throws UserAlreadyExistsException {
 
         if (emailExist(userDto.getNut_email())) {
@@ -42,7 +42,7 @@ public class UserService {
         }
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void registerNewDozentAccount(RegisterForm registerForm) throws UserAlreadyExistsException {
 
         if (emailExist(registerForm.getNut_email())) {
@@ -52,24 +52,25 @@ public class UserService {
         } else {
             Nutzer nutzer = new Nutzer(registerForm.getNut_vorname(), registerForm.getNut_nachname(),
                     registerForm.getNut_email(), registerForm.getNut_anrede(),
-                    registerForm.getTitel(), registerForm.getNut_passwort());
+                    registerForm.getNut_titel(), registerForm.getNut_passwort());
             Nutzer_Role nutzer_role = saveNutzer(nutzer, 1);
 
             ArrayList<Integer> kursIds = new ArrayList<>();
             for (Kurs_Vorlesung_Stunden obj : registerForm.getKvs()) {
-                if (!kursIds.contains(obj.getKursId())) {
-                    kursIds.add(obj.getKursId());
-                    Kurs_Von_Nutzer kursVonNutzer = new Kurs_Von_Nutzer(nutzer_role.getNut_id(), obj.getKursId());
+                if (!kursIds.contains(obj.getKvn_kurs_id())) {
+                    kursIds.add(obj.getKvn_kurs_id());
+                    Kurs_Von_Nutzer kursVonNutzer = new Kurs_Von_Nutzer(nutzer_role.getNut_id(), obj.getKvn_kurs_id());
                     kursVonNutzerRepository.save(kursVonNutzer);
                 }
-                Vorlesung_Von_Nutzer vorlesungVonNutzer = new Vorlesung_Von_Nutzer(nutzer_role.getNut_id(), obj.getVorlesungId(),
-                        obj.getStunden(), obj.getKursId());
+                System.out.println("Vor_id: " + obj.getVvn_vor_id());
+                Vorlesung_Von_Nutzer vorlesungVonNutzer = new Vorlesung_Von_Nutzer(nutzer_role.getNut_id(), obj.getVvn_vor_id(),
+                        obj.getVvn_stnd(), obj.getVvn_kurs_id());
                 vorlesungVonNutzerRepository.save(vorlesungVonNutzer);
             }
         }
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Nutzer_Role saveNutzer(Nutzer nutzer, Integer role_id) {
         nutzerRepository.save(nutzer);
         Nutzer_Role nutzer_role = new Nutzer_Role(nutzerRepository

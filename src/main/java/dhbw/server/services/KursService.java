@@ -1,6 +1,7 @@
 package dhbw.server.services;
 
 import dhbw.server.entities.*;
+import dhbw.server.helper.KursZeitraum;
 import dhbw.server.helper.Kurs_Namen;
 import dhbw.server.repositories.KursRepository;
 import dhbw.server.repositories.Kurs_Von_NutzerRepository;
@@ -33,10 +34,16 @@ public class KursService {
         ArrayList<Kurs_Von_Nutzer> kvnIds = kurs_von_nutzerRepository.findByNutzerId(nutzerId);
         return kvnIds;
     }
+
     public List<Kurs> getKurse(Integer kvns) {
         List<Kurs> kurse = kursRepository.findByKvns(kvns);
         return kurse;
     }
+
+    public Kurs getKursByName(String name) {
+        return kursRepository.findKursByName(name);
+    }
+
     public ArrayList<Kurs_Namen> getKursNamen() {
         ArrayList<Kurs_Von_Nutzer> kvns = getKvns();
         List<Kurs> kurse = new ArrayList<>();
@@ -57,7 +64,16 @@ public class KursService {
         System.out.println(kurs_namen);
         return kurs_namen;
     }
+
     public List<Kurs> getAlleKurseMitNamen() {
         return kursRepository.findAll();
+    }
+
+    public void setPeriod(KursZeitraum kursZeitraum) {
+        Kurs kurs = getKursByName(kursZeitraum.getKurs());
+        kurs.setKurs_start(kursZeitraum.getStart());
+        kurs.setKurs_ende(kursZeitraum.getEnd());
+
+        kursRepository.save(kurs);
     }
 }

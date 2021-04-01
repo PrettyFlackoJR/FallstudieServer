@@ -16,10 +16,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
+
+import static java.time.temporal.ChronoUnit.HOURS;
+
 
 @Service
 public class CalendarService {
@@ -105,6 +109,7 @@ public class CalendarService {
         return termine;
     }
 
+    @Transactional(rollbackFor = TerminException.class)
     public void addTermin(Termin termin) throws TerminException {
         if (terminExists(termin.getTer_datum(), termin.getTer_start(), termin.getTer_ende())) {
             throw new TerminException("Dieser Zeitraum ist bereits belegt.");
@@ -114,22 +119,19 @@ public class CalendarService {
             } catch (Exception e) {
                 throw new TerminException("Bei der Eingabe ihrer Daten gab es einen Fehler und sie konnten nicht gespeichert werden.");
             }
+            Optional<Vorlesung_Von_Nutzer> vorlesungVonNutzer = vorlesungVonNutzerRepository.
+                    findById(termin.getTer_vvn_id());
+            double delta = HOURS.between(termin.getTer_start(), termin.getTer_ende());
+            if ((vorlesungVonNutzer.get().getVvn_stnd() - delta) < 0) {
+                throw new TerminException("Bitte beachten Sie die Anzahl der verfügbaren Stunden.");
+            }
+            vorlesungVonNutzer.get().setVvn_stnd(vorlesungVonNutzer.get().getVvn_stnd() - delta);
+            vorlesungVonNutzerRepository.save(vorlesungVonNutzer.get());
         }
     }
 
-    public void modifyTermin(Event event) {
-        Optional<Termin> termin = terminRepository.findById(event.getTer_id());
-        String str = event.getStart();
-        String str2 = event.getEnd();
-        LocalDate date = LocalDate.parse(str.split("T")[0]);
-        LocalTime start = LocalTime.parse(str.split("T")[1]);
-        LocalTime end = LocalTime.parse(str2.split("T")[1]);
-
-        termin.get().setTer_datum(date);
-        termin.get().setTer_start(start);
-        termin.get().setTer_ende(end);
-
-        terminRepository.save(termin.get());
+    public void modifyTermin(Termin termin) {
+        terminRepository.save(termin);
     }
 
     public void deleteTermin(Integer id) {
@@ -165,14 +167,14 @@ public class CalendarService {
     }
 
     private ArrayList<Integer> getVvnIds(Integer nutzerId, String kurs) {
-        Integer kursId = kursRepository.findByKursName(kurs);
+        Integer kursId = kursRepository.findKursIdByName(kurs);
         ArrayList<Integer> vvnIds = vorlesungVonNutzerRepository.findIdsByNutzerId(nutzerId, kursId);
 
         return vvnIds;
     }
 
     private ArrayList<Vorlesung_Von_Nutzer> getVvns(Integer nutzerId, String kurs) {
-        Integer kursId = kursRepository.findByKursName(kurs);
+        Integer kursId = kursRepository.findKursIdByName(kurs);
         ArrayList<Vorlesung_Von_Nutzer> vvnVorIds = vorlesungVonNutzerRepository.findByNutzerId(nutzerId, kursId);
 
         return vvnVorIds;
@@ -200,5 +202,9 @@ public class CalendarService {
 
     public List<Termin> getAllTermine() {
         return terminRepository.findAll();
+    }
+
+    public Optional<Termin> getTerminById(Integer terminId) {
+        return terminRepository.findById(terminId);
     }
 }

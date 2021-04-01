@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VorlesungsService {
@@ -41,46 +42,40 @@ public class VorlesungsService {
         int nutzerId = userService.getUserId(currentPrincipalEmail);
 
         // VVN IDs mit Nutzer ID und Kurs ID holen
-        Integer kursId = kursRepository.findByKursName(kurs);
+        Integer kursId = kursRepository.findKursIdByName(kurs);
         ArrayList<Vorlesung_Von_Nutzer> vvnIds = vorlesungVonNutzerRepository.findByNutzerId(nutzerId, kursId);
 
         return vvnIds;
     }
 
-    public ArrayList<Vorlesung> getVorlesungen(Integer vvns) {
-        ArrayList<Vorlesung> vorlesungen = vorlesungRepository.findByVvnId(vvns);
-        return vorlesungen;
-    }
     public ArrayList<Vorlesung_Namen> getVVNNamen(String kurs) {
         ArrayList<Vorlesung_Von_Nutzer> vvns = vorlesungsService.getVvns(kurs);
-        ArrayList<Vorlesung> vorlesungen = new ArrayList<>();
+        ArrayList<Vorlesung_Namen> vvn_namen = new ArrayList<>();
+
         for (Vorlesung_Von_Nutzer vvn: vvns) {
             Integer id = vvn.getVvn_vor_id();
-            vorlesungen = vorlesungsService.getVorlesungen(id);
+            Optional<Vorlesung> vorlesung = vorlesungRepository.findById(id);
+            vvn_namen.add(new Vorlesung_Namen(vvn.getVvn_id(), vorlesung.get().getVor_name()));
+        }
 
-        }
-        ArrayList<Vorlesung_Namen> vvn_namen = new ArrayList<>();
-        for (Vorlesung_Von_Nutzer vvn: vvns) {
-            for (Vorlesung vorlesung: vorlesungen) {
-                if (vvn.getVvn_vor_id() == vorlesung.getVor_id()) {
-                    Vorlesung_Namen abc = new Vorlesung_Namen(vvn.getVvn_id(), vorlesung.getVor_name());
-                    vvn_namen.add(abc);
-                }
-            }
-        }
         return vvn_namen;
     }
 
-    public float getStundenVonVorlesung(Integer vorlesung) {
-      // Integer vor_id = vorlesungRepository.getIdByName(vorlesung);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalEmail = authentication.getName();
-        int nutzerId = userService.getUserId(currentPrincipalEmail);
-        float stunden = vorlesungVonNutzerRepository.getStundenVonVVNbyId(nutzerId, vorlesung);
-        return stunden;
+    public Double getStundenVonVorlesung(Integer vvnId) {
+        return vorlesungVonNutzerRepository.findById(vvnId).get().getVvn_stnd();
     }
 
-    public List<Vorlesung> getVorNamen() {
+    public List<Vorlesung> getAllVorNamen() {
         return vorlesungRepository.findAll();
+    }
+
+    public String getVorName(Integer vvn_id) {
+        Optional<Vorlesung_Von_Nutzer> vorlesungVonNutzer = vorlesungVonNutzerRepository.findById(vvn_id);
+        Optional<Vorlesung> vorlesung = vorlesungRepository.findById(vorlesungVonNutzer.get().getVvn_vor_id());
+        return vorlesung.get().getVor_name();
+    }
+
+    public Optional<Kurs> getKursById(Integer kurs_id) {
+        return kursRepository.findById(kurs_id);
     }
 }

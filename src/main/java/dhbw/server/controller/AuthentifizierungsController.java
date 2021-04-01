@@ -47,7 +47,7 @@ public class AuthentifizierungsController {
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new Nutzer());
         model.addAttribute("kurse", kursService.getAlleKurseMitNamen());
-        model.addAttribute("vor_namen", vorlesungsService.getVorNamen());
+        model.addAttribute("vor_namen", vorlesungsService.getAllVorNamen());
         model.addAttribute("kvs", new ArrayList<Kurs_Vorlesung_Stunden>());
         return "signup_form";
     }

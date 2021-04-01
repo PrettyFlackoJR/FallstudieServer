@@ -45,12 +45,12 @@ public class RegisterForm {
         this.nut_anrede = nut_anrede;
     }
 
-    public String getTitel() {
+    public String getNut_titel() {
         return nut_titel;
     }
 
-    public void setTitel(String titel) {
-        this.nut_titel = titel;
+    public void setNut_titel(String nut_titel) {
+        this.nut_titel = nut_titel;
     }
 
     public String getNut_passwort() {

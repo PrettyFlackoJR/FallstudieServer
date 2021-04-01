@@ -114,7 +114,8 @@ async function loadTable(json, roles) {
 }
 async function modifyRow(cell) {
     const termin = cell.parentElement.cells[6].innerHTML;
-    const url = "http://localhost:8080/vorlesungsplaner/termin_modify";
+    const url = "http://localhost:8080/vorlesungsplaner/termin_modify?terminId=" + termin;
+    location.href = url;
 }
 async function deleteRow(cell) {
     const termin = cell.parentElement.cells[6].innerHTML;

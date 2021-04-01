@@ -12,15 +12,22 @@ async function setPeriod() {
     const end = document.getElementById("end").value;
     const course = document.getElementById("kurs1");
     const kursValue = course.options[course.selectedIndex].value;
-    const url = baseURL + "/process_setperiod";
+    const url = baseURL + "/admin/process_setperiod";
+    const obj = {
+        kurs: kursValue,
+        start: start,
+        end: end
+    }
 
-    const res = await fetch(url, {
+    const body = JSON.stringify(obj);
+    const res = await fetch(url,{
         method: 'post',
-        body: {
-            "kurs": kursValue,
-            "start": start,
-            "end": end
-        }
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: body
     })
-
+    if (res.status === 200) {
+        alert("Zeitraum wurde für Kurs " + kursValue + " gesetzt.");
+    } else alert("Es ist ein Fehler aufgetreten.");
 }
