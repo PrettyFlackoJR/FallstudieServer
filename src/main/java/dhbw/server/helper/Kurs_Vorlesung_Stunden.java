@@ -1,14 +1,14 @@
 package dhbw.server.helper;
 
 public class Kurs_Vorlesung_Stunden {
-    Integer kursId;
-    Integer vorlesungId;
-    double Stunden;
+    private Integer kursId;
+    private Integer vorlesungId;
+    private double stunden;
 
     public Kurs_Vorlesung_Stunden(Integer kursId, Integer vorlesungId, double stunden) {
         this.kursId = kursId;
         this.vorlesungId = vorlesungId;
-        Stunden = stunden;
+        this.stunden = stunden;
     }
 
     public Integer getKursId() {
@@ -28,10 +28,10 @@ public class Kurs_Vorlesung_Stunden {
     }
 
     public double getStunden() {
-        return Stunden;
+        return stunden;
     }
 
     public void setStunden(double stunden) {
-        Stunden = stunden;
+        this.stunden = stunden;
     }
 }

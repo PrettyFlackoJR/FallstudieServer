@@ -5,15 +5,18 @@ const endButton = document.getElementById("endPlanningtime");
 async function onLoad() {
     let json = await kursNeuladen();
     console.log(json.events.length)
-    showButtons();
-    loadTable(json);
+    const roles = await getRoles();
+    showButtons(roles);
+    loadTable(json, roles);
 }
-async function showButtons() {
+async function getRoles() {
     const url = "http://localhost:8080/process_role";
     const res = await fetch(url);
     const json = await res.json();
-
-    json.forEach(x => {
+    return json;
+}
+function showButtons(roles) {
+    roles.forEach(x => {
         if (x === 3) {
             endButton.style.display = "inline-block";
             addButton.style.display = "inline-block";
@@ -57,43 +60,54 @@ async function endPlanning() {
     endButton.style.display="none";
     addButton.style.display="none";
 }
-async function loadTable(json) {
+async function loadTable(json, roles) {
     const events = json.events;
     const table = document.getElementById("tabelle");
+    let bool;
 
-    let i = 1;
+    roles.forEach(x => {
+        if (x === 3) {
+            bool = true;
+        }
+    })
+
+    let i = 0;
     while (events[i] !== undefined) {
-        let row = table.insertRow(i);
+        let row = table.insertRow(i+1);
         let cell1 = row.insertCell(0);
         let cell2 = row.insertCell(1);
         let cell3 = row.insertCell(2);
         let cell4 = row.insertCell(3);
-        let cell5 = row.insertCell(4);
-        let cell6 = row.insertCell(5);
-        let cell7 = row.insertCell(6);
+
+        if (bool) {
+            let cell5 = row.insertCell(4);
+            let cell6 = row.insertCell(5);
+            let cell7 = row.insertCell(6);
+
+            const div1 = document.createElement("div");
+            const bt1 = document.createElement("i");
+            bt1.className="fas fa-pencil-alt";
+            div1.appendChild(bt1);
+            const div2 = document.createElement("div");
+            const bt2 = document.createElement("i");
+            bt2.className="fas fa-trash-alt";
+            div2.appendChild(bt2);
+
+            cell5.appendChild(div1);
+            cell6.appendChild(div2);
+            cell7.innerHTML = events[i].ter_id;
+            cell7.style.visibility="hidden";
+            cell5.onclick = function () { modifyRow(this);}
+            cell6.onclick = function() { deleteRow(this);}
+        }
 
         const datum = events[i].start.split("T");
         const ende = events[i].end.split("T")[1];
-
-        const div1 = document.createElement("div");
-        const bt1 = document.createElement("i");
-        bt1.className="fas fa-pencil-alt";
-        div1.appendChild(bt1);
-        const div2 = document.createElement("div");
-        const bt2 = document.createElement("i");
-        bt2.className="fas fa-trash-alt";
-        div2.appendChild(bt2);
 
         cell1.innerHTML = events[i].title;
         cell2.innerHTML = datum[0];
         cell3.innerHTML = datum[1];
         cell4.innerHTML = ende;
-        cell5.appendChild(div1);
-        cell6.appendChild(div2);
-        cell7.innerHTML = events[i].ter_id;
-        cell7.style.visibility="hidden";
-        cell5.onclick = function () { modifyRow(this);}
-        cell6.onclick = function() { deleteRow(this);}
         i++;
     }
     table.style.visibility="visible";

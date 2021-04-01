@@ -30,12 +30,26 @@ public class Nutzer {
     @Column
     private String nut_passwort;
 
+    public Nutzer() {
+    }
+
+    public Nutzer(String nut_vorname, String nut_nachname, String nut_email, String nut_anrede, String nut_titel, String nut_passwort) {
+        this.nut_vorname = nut_vorname;
+        this.nut_nachname = nut_nachname;
+        this.nut_email = nut_email;
+        this.nut_anrede = nut_anrede;
+        this.nut_titel = nut_titel;
+        this.nut_passwort = nut_passwort;
+    }
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "nutzer_roles",
             joinColumns = @JoinColumn(name = "nut_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
+
+
 
     private Set<Role> roles = new HashSet<>();
 

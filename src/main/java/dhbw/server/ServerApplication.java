@@ -33,9 +33,8 @@ public class ServerApplication implements CommandLineRunner {
         SpringApplication.run(ServerApplication.class, args);
     }
 
-
     @Override
-    public void run(String... args) throws Exception {
-        schedulerService.setNutzerArrayList(userService.getAllNutzer());
+    public void run(String... args) {
+        schedulerService.setNutzerArrayList(userService.getAllDozenten());
     }
 }

@@ -6,6 +6,7 @@ import dhbw.server.entities.Nutzer_Role;
 import dhbw.server.entities.Vorlesung_Von_Nutzer;
 import dhbw.server.exceptions.UserAlreadyExistsException;
 import dhbw.server.helper.Kurs_Vorlesung_Stunden;
+import dhbw.server.helper.RegisterForm;
 import dhbw.server.repositories.Kurs_Von_NutzerRepository;
 import dhbw.server.repositories.NutzerRepository;
 import dhbw.server.repositories.Nutzer_RolesRepository;
@@ -42,17 +43,20 @@ public class UserService {
     }
 
     @Transactional
-    public void registerNewDozentAccount(Nutzer userDto, ArrayList<Kurs_Vorlesung_Stunden> kvs) throws UserAlreadyExistsException {
+    public void registerNewDozentAccount(RegisterForm registerForm) throws UserAlreadyExistsException {
 
-        if (emailExist(userDto.getNut_email())) {
+        if (emailExist(registerForm.getNut_email())) {
             throw new UserAlreadyExistsException(
                     "Diese E-Mail wird bereits verwendet: "
-                            + userDto.getNut_email());
+                            + registerForm.getNut_email());
         } else {
-            Nutzer_Role nutzer_role = saveNutzer(userDto, 1);
+            Nutzer nutzer = new Nutzer(registerForm.getNut_vorname(), registerForm.getNut_nachname(),
+                    registerForm.getNut_email(), registerForm.getNut_anrede(),
+                    registerForm.getTitel(), registerForm.getNut_passwort());
+            Nutzer_Role nutzer_role = saveNutzer(nutzer, 1);
 
             ArrayList<Integer> kursIds = new ArrayList<>();
-            for (Kurs_Vorlesung_Stunden obj : kvs) {
+            for (Kurs_Vorlesung_Stunden obj : registerForm.getKvs()) {
                 if (!kursIds.contains(obj.getKursId())) {
                     kursIds.add(obj.getKursId());
                     Kurs_Von_Nutzer kursVonNutzer = new Kurs_Von_Nutzer(nutzer_role.getNut_id(), obj.getKursId());
@@ -84,8 +88,9 @@ public class UserService {
         return nutzer.getNut_id();
     }
 
-    public ArrayList<Nutzer> getAllNutzer() {
-        return (ArrayList<Nutzer>) nutzerRepository.findAll();
+    public ArrayList<Nutzer> getAllDozenten() {
+        ArrayList<Integer> ids = nutzerRolesRepository.findAllDozenten();
+        return (ArrayList<Nutzer>) nutzerRepository.findAllById(ids);
     }
 
     public void addEditorRole(Integer nutzerId) {

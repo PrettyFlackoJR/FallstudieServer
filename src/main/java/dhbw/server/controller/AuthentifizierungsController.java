@@ -2,6 +2,7 @@ package dhbw.server.controller;
 
 import dhbw.server.exceptions.UserAlreadyExistsException;
 import dhbw.server.helper.Kurs_Vorlesung_Stunden;
+import dhbw.server.helper.RegisterForm;
 import dhbw.server.services.KursService;
 import dhbw.server.services.UserService;
 import dhbw.server.entities.Nutzer;
@@ -13,10 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -54,38 +52,46 @@ public class AuthentifizierungsController {
         return "signup_form";
     }
 
-    @GetMapping("/register_student")
+    @GetMapping("/vorlesungsplaner/admin/register_student")
     public String showRegistrationFormStudent(Model model) {
         model.addAttribute("user", new Nutzer());
         return "signup_form_student";
     }
 
     @Transactional
-    @PostMapping("/vorlesungsplaner/admin/process_register")
-    public String processRegister(@RequestParam(required = false, name = "kurs") Integer kursId,
-                                  Nutzer user,
-                                  Model model,
-                                  ArrayList<Kurs_Vorlesung_Stunden> kvs) {
+    @PostMapping("/vorlesungsplaner/admin/process_registerdozent")
+    public String processDozentRegister(Model model,
+                                  @RequestBody(required = false) RegisterForm registerForm) {
+        //!!!
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(user.getNut_passwort());
-        user.setNut_passwort(encodedPassword);
+        String encodedPassword = passwordEncoder.encode(registerForm.getNut_passwort());
+        registerForm.setNut_passwort(encodedPassword);
 
-        if (kvs.isEmpty()) {
-            try {
-                userService.registerNewStudentAccount(user, kursId);
-            } catch (UserAlreadyExistsException e) {
-                model.addAttribute("user", new Nutzer());
-                model.addAttribute("errorMessage", "Error: " + e.getMessage());
-                return "signup_form_student";
-            }
-        } else {
-            try {
-                userService.registerNewDozentAccount(user, kvs);
-            } catch (UserAlreadyExistsException e) {
-                model.addAttribute("user", new Nutzer());
-                model.addAttribute("errorMessage", "Error: " + e.getMessage());
-                return "signup_form";
-            }
+        try {
+            userService.registerNewDozentAccount(registerForm);
+        } catch (UserAlreadyExistsException e) {
+            model.addAttribute("errorMessage", "Error: " + e.getMessage());
+            return "signup_form";
+        }
+
+        return "register_success";
+    }
+
+    @Transactional
+    @PostMapping("/vorlesungsplaner/admin/process_registerstudent")
+    public String processStudentRegister(@RequestParam(name = "kursId") Integer kursId,
+                                         Nutzer nutzer,
+                                         Model model) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(nutzer.getNut_passwort());
+        nutzer.setNut_passwort(encodedPassword);
+
+        try {
+            userService.registerNewStudentAccount(nutzer, kursId);
+        } catch (UserAlreadyExistsException e) {
+            model.addAttribute("user", new Nutzer());
+            model.addAttribute("errorMessage", "Error: " + e.getMessage());
+            return "signup_form";
         }
 
         return "register_success";
