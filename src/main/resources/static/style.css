@@ -207,6 +207,13 @@ h4 {
     border-radius: 5px;
     border-spacing: 20px;
 }
+#startPlanning{
+    color: white;
+}
+
+#saveSelection{
+    color: white;
+}
 
 /*für die Aktionskacheln*/
 @charset "UTF-8";
@@ -420,9 +427,11 @@ a.gba-button--standard {
 .gba-button--standard:focus, .gba-button--standard:hover,
 a.gba-button--standard:focus,
 a.gba-button--standard:hover {
-    background-color: #ff8c00;
-    border-color: #ff8c00;
+    background-color: #e3001b;
+    border-color: #e3001b;
     color: #161616;
+    text-decoration: none;
+
 }
 
 ff8c00

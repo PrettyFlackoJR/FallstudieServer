@@ -4,7 +4,8 @@ async function startPlanning() {
     const url = baseURL + "/process_endplanning";
     const res = await fetch(url);
     alert("Die Planung wurde gestartet.");
-    document.getElementById("startPlanning").onclick = function() { alert("Die Plannung wurde bereits gestartet."); }
+    document.getElementById("startPlanning").onclick = function() { alert("Die Planung wurde bereits gestartet."); }
+
 }
 
 async function setPeriod() {

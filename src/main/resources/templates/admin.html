@@ -22,12 +22,12 @@
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/admin">
+                    <a class="nav-link" href="/vorlesungsplaner/admin">
                         Administrationsbereich
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/profile">Mein Profil <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/vorlesungsplaner/profile">Mein Profil <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
                     <form th:action="@{/logout}" method="post">
@@ -83,7 +83,7 @@
                     <label for="end">Enddatum:</label>
                         <input type="date" id="end" name="trip-end"
                                required></div>
-                    <div class="gba-kachel__footer"><a onclick="setPeriod()" class="gba-button gba-button--standard">Auswahl speichern</a></div>
+                    <div class="gba-kachel__footer"><a id="saveSelection" onclick="setPeriod()" class="gba-button gba-button--standard">Auswahl speichern</a></div>
                 </div>
             </div>
 
