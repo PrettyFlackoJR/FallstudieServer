@@ -11,17 +11,17 @@
 
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                    Loginseite DH-Planner der DHBW Stuttgart
-                </ul>
-                <ul class="navbar-nav ml-auto">
-                    <form th:action="@{/}" method="get">
-                        <input class="button" type="submit" value="Zurück zur Startseite"/>
-                    </form>
-                </ul>
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/vorlesungsplaner">Loginseite DH-Planner</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+        <form class="form-inline my-2 my-lg-0" href="/vorlesungsplaner" method="get">
+            <input class="button" type="submit" value="Zurück zur Homepage"/>
+        </form>
+        </div>
     </nav>
 </header>
 <main>
