@@ -37,6 +37,10 @@ public class AuthentifizierungsController {
     public String login() {
         return "login";
     }
+    @GetMapping("/register_success")
+    public String registerSuccess() {
+        return "register_success";
+    }
 
     @GetMapping("/logout")
     public String logout() {

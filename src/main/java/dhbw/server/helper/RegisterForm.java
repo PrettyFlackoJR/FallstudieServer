@@ -1,5 +1,7 @@
 package dhbw.server.helper;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import java.util.ArrayList;
 
 public class RegisterForm {

@@ -97,6 +97,12 @@ async function loadTable(json, roles) {
             cell6.appendChild(div2);
             cell7.innerHTML = events[i].ter_id;
             cell7.style.visibility="hidden";
+            roles.forEach(x => {
+                if (x === 2) {
+                    cell6.style.visibility="hidden";
+                    cell5.style.visibility="hiden";
+                }
+            })
             cell5.onclick = function () { modifyRow(this);}
             cell6.onclick = function() { deleteRow(this);}
         }

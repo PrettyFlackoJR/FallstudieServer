@@ -40,14 +40,14 @@
             <div class="form-title text-center">
                 <h4>Registrierung</h4>
             </div>
-            <form name="f" th:action="@{/process_register}" th:object="${user}"
-                  method="post" style="max-width: 600px; margin: 0 auto;">
+            <form name="f" th:object="${user}"
+                  style="max-width: 600px; margin: 0 auto;">
                 <table>
                     <tbody>
                     <tr>
                         <td><label class="label">Anrede: </label></td>
                         <td>
-                            <select th:field="*{nut_anrede}" required>
+                            <select id="anrede" th:field="*{nut_anrede}" required>
                                 <option value="0"> Bitte wählen</option>
                                 <option th:value="'Herr'" th:text="Herr"></option>
                                 <option th:value="'Frau'" th:text="Frau"></option>
@@ -57,7 +57,7 @@
                     </tr>
                     <tr>
                         <td><label class="label">Titel: </label></td>
-                        <td><select th:field="*{nut_titel}">
+                        <td><select id="titel" th:field="*{nut_titel}">
                             <option th:value="''" th:text="''"></option>
                             <option th:value="'Prof.'" th:text="Prof."></option>
                             <option th:value="'Dr.'" th:text="Dr."></option>
@@ -69,20 +69,20 @@
                     <tr>
                         <td><label class="label">E-Mail: </label></td>
                         <td>
-                            <input type="email" th:field="*{nut_email}" class="form-control" required/>
+                            <input id="email" type="email" th:field="*{nut_email}" class="form-control" required/>
                         </td>
                     </tr>
 
                     <tr>
                         <td><label class="label">Passwort: </label></td>
-                        <td><input type="password" th:field="*{nut_passwort}" class="form-control"
+                        <td><input id="passwort" type="password" th:field="*{nut_passwort}" class="form-control"
                                    required minlength="6" maxlength="10"/>
                         </td>
                     </tr>
 
                     <tr>
                         <td><label class="label">Vorname: </label></td>
-                        <td><input type="text" th:field="*{nut_vorname}" class="form-control"
+                        <td><input id="vorname" type="text" th:field="*{nut_vorname}" class="form-control"
                                    required minlength="2" maxlength="20"/>
                         </td>
                     </tr>
@@ -90,7 +90,7 @@
                     <tr>
                         <td><label class="label">Nachname: </label></td>
                         <td>
-                            <input type="text" th:field="*{nut_nachname}" class="form-control"
+                            <input id="nachname" type="text" th:field="*{nut_nachname}" class="form-control"
                                    required minlength="2" maxlength="20"/>
                         </td>
                     </tr>
@@ -102,7 +102,7 @@
                     <tr>
                         <td id="readroot">
                             <label class="label">Kurs: </label></td>
-                        <td><input list="kurs" name="browser" id="kursListe">
+                        <td><input list="kurs" id="kursListe">
                             <datalist id="kurs">
                                 <option th:each="kurs: ${kurse}" th:value="${kurs.kurs_id}"
                                         th:text="${kurs.kurs_name}"></option>
@@ -111,7 +111,7 @@
                     </tr>
                     <tr>
                         <td><label class="label">Vorlesungsname: </label></td>
-                        <td><input list="vorlesungen" name="browser" id="vorlesungsListe">
+                        <td><input list="vorlesungen" id="vorlesungsListe">
                             <datalist id="vorlesungen">
                                 <option th:each="vor_name: ${vor_namen}" th:value="${vor_name.vor_id}"
                                         th:text="${vor_name.vor_name}"></option>
@@ -121,10 +121,10 @@
                     <tr>
                         <td><label class="label">Stunden: </label></td>
                         <td><input id="stunden" type="number" class="form-control"
-                                   required minlength="2" maxlength="20"/></td>
+                                    minlength="2" maxlength="20"/></td>
                     </tr>
                     <tr>
-                        <td><label class="label">Weitere Vorlesung hinzufügen:</label></td>
+                        <td><label class="label">Vorlesung hinzufügen</label></td>
                         <td>
                             <input type="button" id="moreFields" value="+"/>
                         </td>
