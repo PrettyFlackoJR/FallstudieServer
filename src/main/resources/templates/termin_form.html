@@ -13,94 +13,100 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/vorlesungsplaner">Vorlesungstermin hinzufügen</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/vorlesungsplaner">
+                    <a class="nav-link" href="/vorlesungsplaner"><span
+                            class="sr-only">(current)</span>
                         Vorlesungsplaner
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/admin">
+                    <a class="nav-link" href="vorlesungsplaner/admin">
                         Administrationsbereich
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/profile">Mein Profil <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <form th:action="@{/logout}" method="post">
-                        <input class="button" type="submit" value="Sign Out"/>
-                    </form>
+                    <a class="nav-link" href="/vorlesungsplaner/profile">Mein Profil</a>
                 </li>
             </ul>
+            <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
+                <input class="button" type="submit" value="Sign Out"/>
+            </form>
         </div>
     </nav>
 </header>
-<div>
-    <div class="modal-body2">
-        <div class="form-title text-center">
-            <h4>Neuer Vorlesungstermin</h4>
+<main id="main__home">
+    <div>
+        <div class="modal-body2">
+            <div class="form-title text-center">
+                <h4>Neuer Vorlesungstermin</h4>
+            </div>
+            <form name="f" th:action="@{/vorlesungsplaner/process_addTermin(kurs=${kurse.kurs_name})}"
+                  th:object="${termin}"
+                  onsubmit="return validateForm()"
+                  method="post" style="max-width: 600px; margin: 0 auto;">
+                <table>
+                    <tbody>
+                    <tr>
+                        <div th:if="${errorMessage != null}"
+                             th:utext="${errorMessage}" class="error">
+                        </div>
+                        <td><label class="label">Vorlesung: </label></td>
+                        <td><select th:field="*{ter_vvn_id}" required>
+                            <option value="0">Vorlesungsfach auswählen</option>
+                            <option onclick="ladeStunden(this)" th:each="vvn_name: ${vvn_namen}" th:value="${vvn_name.getVvn_id()}"
+                                    th:text="${vvn_name.vor_name}"></option>
+                        </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><p>Anzahl verbleibender Vorlesungsstunden: </p></td>
+                        <td><p id="stunden"></p></td>
+                    </tr>
+                    <tr>
+                        <input id="kursAnzeige" name="ter_kurs_id" th:value="${kurse.kurs_id}"
+                               style="visibility: hidden"></input>
+                    <tr>
+                        <td><label for="start">Datum:</label></td>
+
+                        <td><input type="date" th:field="*{ter_datum}" onload="getDate()" id="date" name="trip-start"
+                                   th:min="${kurse.kurs_start}" th:max="${kurse.kurs_ende}" required></td>
+
+                    </tr>
+                    <tr>
+                        <td><label for="end">Starzeit:</label></td>
+
+                        <td><input type="time" id="start" th:field="*{ter_start}" name="trip-end" required></td>
+
+                    </tr>
+                    <tr>
+                        <td><label for="end">Endzeit:</label></td>
+
+                        <td><input type="time" th:field="*{ter_ende}" id="end" name="trip-end" required></td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="button" class="button" onclick="validateForm()">Testen</button>
+                        </td>
+                        <td>
+                            <button type="submit" class="button">Termin zum Vorlesungsplan hinzufügen</button>
+                        </td>
+                    </tr>
+
+                    </tbody>
+
+                </table>
+            </form>
         </div>
-        <form name="f" th:action="@{/vorlesungsplaner/process_addTermin(kurs=${kurse.kurs_name})}" th:object="${termin}"
-              onsubmit="return validateForm()"
-              method="post" style="max-width: 600px; margin: 0 auto;">
-            <table>
-                <tbody>
-                <tr>
-                    <div th:if="${errorMessage != null}"
-                         th:utext="${errorMessage}" class="error">
-                    </div>
-                    <td><label class="label">Vorlesung: </label></td>
-                    <td><select th:field="*{ter_vvn_id}" required>
-                        <option value="0">Vorlesungsfach auswählen</option>
-                        <option onclick="ladeStunden(this)" th:each="vvn_name: ${vvn_namen}" th:value="${vvn_name.getVvn_id()}"
-                                th:text="${vvn_name.vor_name}"></option>
-                    </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>Anzahl verbleibender Vorlesungsstunden: </p></td>
-                    <td><p id="stunden"></p></td>
-                </tr>
-                <tr>
-                    <input id="kursAnzeige" name="ter_kurs_id" th:value="${kurse.kurs_id}"
-                           style="visibility: hidden"></input>
-                <tr>
-                    <td><label for="start">Datum:</label></td>
-
-                    <td><input type="date" th:field="*{ter_datum}" onload="getDate()" id="date" name="trip-start"
-                               th:min="${kurse.kurs_start}" th:max="${kurse.kurs_ende}" required></td>
-
-                </tr>
-                <tr>
-                    <td><label for="end">Starzeit:</label></td>
-
-                    <td><input type="time" id="start" th:field="*{ter_start}" name="trip-end" required></td>
-
-                </tr>
-                <tr>
-                    <td><label for="end">Endzeit:</label></td>
-
-                    <td><input type="time" th:field="*{ter_ende}" id="end" name="trip-end" required></td>
-
-                </tr>
-                <tr>
-                    <td>
-                        <button type="button" class="button" onclick="validateForm()">Testen</button>
-                    </td>
-                    <td>
-                        <button type="submit" class="button">Termin zum Vorlesungsplan hinzufügen</button>
-                    </td>
-                </tr>
-
-                </tbody>
-
-            </table>
-        </form>
-    </div>
-    </main>
+</main>
     <footer>
         © Vorlesungsplaner
     </footer>

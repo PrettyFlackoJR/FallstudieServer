@@ -9,14 +9,17 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                DH-Planner der DHBW Stuttgart
-            </ul>
-            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/vorlesungsplaner">Termin erfolgreich hinzugefügt</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/vorlesungsplaner">
+                    <a class="nav-link" href="/vorlesungsplaner"><span
+                            class="sr-only">(current)</span>
                         Vorlesungsplaner
                     </a>
                 </li>
@@ -26,14 +29,12 @@
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/profile">Mein Profil <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <form th:action="@{/logout}" method="post">
-                        <input class="button" type="submit" value="Sign Out"/>
-                    </form>
+                    <a class="nav-link" href="/vorlesungsplaner/profile">Mein Profil</a>
                 </li>
             </ul>
+            <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
+                <input class="button" type="submit" value="Sign Out"/>
+            </form>
         </div>
     </nav>
 </header>
