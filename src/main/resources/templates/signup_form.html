@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="de" xmlns="http://www.w3.org/1999/html">
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="utf-8"/>
     <title>Registrieren</title>
+    <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="http://localhost:8080/style.css"/>
-    <link rel="stylesheet" type="text/css" href="http://localhost:8080/signup.css"/>
-    <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
     <script src="https://kit.fontawesome.com/10fd971787.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
@@ -15,7 +15,7 @@
 
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/vorlesungsplaner">Registrierung von Dozenten</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,121 +23,126 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <form href="/vorlesungsplaner" method="get">
-                <input class="button" type="submit" value="Zurück zur Homepage"/>
+                <input class="button" href="/vorlesungsplaner" type="submit" value="Zurück zur Homepage"/>
             </form>
         </div>
     </nav>
 </header>
 <main id="main__home">
-    <tr class="container text-center">
+    <form>
         <div th:if="${errorMessage != null}"
              th:utext="${errorMessage}" class="error">
         </div>
-        <div class="modal-body2">
-            <div class="form-title text-center">
-                <h4>Registrierung</h4>
-            </div>
-            <form name="f" th:object="${user}"
-                  style="max-width: 600px; margin: 0 auto;">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td><label class="label">Anrede: </label></td>
-                        <td>
-                            <select id="anrede" th:field="*{nut_anrede}" required>
-                                <option value="0"> Bitte wählen</option>
-                                <option th:value="'Herr'" th:text="Herr"></option>
-                                <option th:value="'Frau'" th:text="Frau"></option>
-                                <option th:value="'Divers'" th:text="Divers"></option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label class="label">Titel: </label></td>
-                        <td><select id="titel" th:field="*{nut_titel}">
-                            <option th:value="''" th:text="''"></option>
-                            <option th:value="'Prof.'" th:text="Prof."></option>
-                            <option th:value="'Dr.'" th:text="Dr."></option>
-                            <option th:value="'Prof. Dr.'" th:text="'Prof. Dr.'"></option>
-                            <option th:value="'Dipl.-Ing..'" th:text="'Dipl.-Ing.'"></option>
-                        </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label class="label">E-Mail: </label></td>
-                        <td>
-                            <input id="email" type="email" th:field="*{nut_email}" class="form-control" required/>
-                        </td>
-                    </tr>
+        <div class="form-title text-center" id="adminDesign">
+            <h4>Registrierung neuer Dozenten</h4>
+        </div>
+        <div class="page">
+            <div class="gba-kachel gba-kachel--l">
+                <div class="padding-all-unit">
+                    <div class="gba-kachel__titel"></div>
+                    <form name="registerForm" th:object="${user}">
+                        <div class="form-group row">
+                            <label for="anrede" class="col-sm-2 col-form-label">Anrede</label>
+                            <div class="col-sm-10">
+                                <select id="anrede" th:field="*{nut_anrede}" required>
+                                    <option value="0"> Bitte wählen</option>
+                                    <option th:value="'Herr'" th:text="Herr"></option>
+                                    <option th:value="'Frau'" th:text="Frau"></option>
+                                    <option th:value="'Divers'" th:text="Divers"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="titel" class="col-sm-2 col-form-label">Titel</label>
+                            <div class="col-sm-10">
+                                <select id="titel" th:field="*{nut_titel}">
+                                    <option value="0"> Bitte wählen</option>
+                                    <option th:value="'Prof.'" th:text="Prof."></option>
+                                    <option th:value="'Dr.'" th:text="Dr."></option>
+                                    <option th:value="'Prof. Dr.'" th:text="'Prof. Dr.'"></option>
+                                    <option th:value="'Dipl.-Ing..'" th:text="'Dipl.-Ing.'"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="vorname" class="col-sm-2 col-form-label">Vorname</label>
+                            <div class="col-sm-10">
+                                <input type="text" th:field="*{nut_vorname}" class="form-control"
+                                       required minlength="2" maxlength="20" id="vorname" th:placeholder="Vorname">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="nachname" class="col-sm-2 col-form-label">Nachname</label>
+                            <div class="col-sm-10">
+                                <input type="text" th:field="*{nut_nachname}" class="form-control"
+                                       required minlength="2" maxlength="20" id="nachname" placeholder="Nachname">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="email" th:field="*{nut_email}"
+                                       placeholder="Email"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="passwort" class="col-sm-2 col-form-label">Passwort</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="passwort" th:placeholder="Password"
+                                       th:field="*{nut_passwort}" required minlength="6" maxlength="10">
+                            </div>
+                        </div>
+                        <p id="registrationFormularHeaders">Vorlesungen definieren:</p>
+                        <div class="form-group row">
+                            <label for="kurs" class="col-sm-2 col-form-label">Kurs</label>
+                            <div class="col-sm-10">
+                                <input list="kurs" id="kursListe">
+                                <datalist id="kurs">
+                                    <option th:each="kurs: ${kurse}" th:value="${kurs.kurs_id}"
+                                            th:text="${kurs.kurs_name}"></option>
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="vorlesungsListe" class="col-sm-2 col-form-label">Vorlesungsname</label>
+                            <div class="col-sm-10">
+                                <input list="vorlesungen" id="vorlesungsListe">
+                                <datalist id="vorlesungen">
+                                    <option th:each="vor_name: ${vor_namen}" th:value="${vor_name.vor_id}"
+                                            th:text="${vor_name.vor_name}" th:placeholder="Vorlesungsname"></option>
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="stunden" class="col-sm-2 col-form-label">Anzahl Vorlesungsstunden</label>
+                            <div class="col-sm-10">
+                                <input id="stunden" type="number" class="form-control"
+                                       minlength="2" maxlength="20"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="moreFields" class="col-sm-2 col-form-label">Vorlesung hinzufügen</label>
+                            <div class="col-sm-10">
+                                <input type="button" id="moreFields" value="+"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <button type="submit" id="abschicken" class="button" href="register_success.html">Jetzt
+                                    registrieren
+                                </button>
+                            </div>
+                        </div>
 
-                    <tr>
-                        <td><label class="label">Passwort: </label></td>
-                        <td><input id="passwort" type="password" th:field="*{nut_passwort}" class="form-control"
-                                   required minlength="6" maxlength="10"/>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td><label class="label">Vorname: </label></td>
-                        <td><input id="vorname" type="text" th:field="*{nut_vorname}" class="form-control"
-                                   required minlength="2" maxlength="20"/>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td><label class="label">Nachname: </label></td>
-                        <td>
-                            <input id="nachname" type="text" th:field="*{nut_nachname}" class="form-control"
-                                   required minlength="2" maxlength="20"/>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <p id="registrationFormularHeaders">Vorlesungen definieren:</p>
-                <table>
-                    <tbody>
-                    <tr>
-                        <td id="readroot">
-                            <label class="label">Kurs: </label></td>
-                        <td><input list="kurs" id="kursListe">
-                            <datalist id="kurs">
-                                <option th:each="kurs: ${kurse}" th:value="${kurs.kurs_id}"
-                                        th:text="${kurs.kurs_name}"></option>
-                            </datalist>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label class="label">Vorlesungsname: </label></td>
-                        <td><input list="vorlesungen" id="vorlesungsListe">
-                            <datalist id="vorlesungen">
-                                <option th:each="vor_name: ${vor_namen}" th:value="${vor_name.vor_id}"
-                                        th:text="${vor_name.vor_name}"></option>
-                            </datalist>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label class="label">Stunden: </label></td>
-                        <td><input id="stunden" type="number" class="form-control"
-                                    minlength="2" maxlength="20"/></td>
-                    </tr>
-                    <tr>
-                        <td><label class="label">Vorlesung hinzufügen</label></td>
-                        <td>
-                            <input type="button" id="moreFields" value="+"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button type="submit" id="abschicken" class="button">Jetzt registrieren</button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </form>
-            <div class="list-container">
-                <ul class="item-list"></ul>
+                    </form>
+                    <div class="list-container">
+                        <ul class="item-list"></ul>
+                    </div>
+                </div>
             </div>
         </div>
+    </form>
 </main>
 <footer>
     © Vorlesungsplaner

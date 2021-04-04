@@ -102,7 +102,7 @@ td{
     width: max-content;
 }
 
-#currentHome{
+#current{
     color: #e3001b;
 }
 
@@ -175,7 +175,10 @@ div {
 .label {
     text-align: left;
     font-weight: bold;
-    align-content: start;
+}
+
+#labelDesign{
+    text-align: left;
 }
 
 .form-group row {
@@ -485,6 +488,14 @@ ul li {
     font-weight: bold;
     color: #7c8991;
     margin-left: 1rem;
+}
+
+.container, d-flex, form-title{
+    width: 500px;
+}
+
+#registerForm{
+    max-width: 500px;
 }
 
 #calendar__newDate__modifyDate {

@@ -1,16 +1,17 @@
 <!DOCTYPE html>
+<html lang="de">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="ISO-8859-1">
-    <title>Registration Success</title>
+    <meta charset="utf-8">
+    <title>Erfolgreich registriert</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/vorlesungsplaner">Registrierung erfolgreich</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/vorlesungsplaner">DH-Planner</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -44,8 +45,8 @@
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                     Der neue Nutzer wurde erfolgreich registriert!
                 </ul>
-                <form th:action="@{/}" method="get">
-                    <input class="button" type="submit" value="Zurück zur Startseite"/>
+                <form href="/vorlesungsplaner" method="get">
+                    <input class="button" href="/vorlesungsplaner" type="submit" value="Zurï¿½ck zur Homepage"/>
                 </form>
             </div>
         </div>

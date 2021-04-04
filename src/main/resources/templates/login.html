@@ -11,7 +11,7 @@
 
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/vorlesungsplaner">Loginseite DH-Planner</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,19 +64,19 @@
 </body>
 <script type="text/javascript">
     function validate() {
-        if (document.f.username.value == "" && document.f.password.value == "") {
+        if (document.registerForm.username.value == "" && document.registerForm.password.value == "") {
             alert("Username and password are required");
-            document.f.username.focus();
+            document.registerForm.username.focus();
             return false;
         }
-        if (document.f.username.value == "") {
+        if (document.registerForm.username.value == "") {
             alert("Username is required");
-            document.f.username.focus();
+            document.registerForm.username.focus();
             return false;
         }
-        if (document.f.password.value == "") {
+        if (document.registerForm.password.value == "") {
             alert("Password is required");
-            document.f.password.focus();
+            document.registerForm.password.focus();
             return false;
         }
     }

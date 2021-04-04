@@ -10,8 +10,8 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/vorlesungsplaner">Administrationsbereich</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/vorlesungsplaner">DH-Planner</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -24,7 +24,7 @@
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="vorlesungsplaner/admin">
+                    <a class="nav-link" href="vorlesungsplaner/admin" id="current">
                         Administrationsbereich
                     </a>
                 </li>
@@ -57,7 +57,8 @@
                         Dozenten</a></div>
                     <div class="gba-kachel__footer"><a th:href="@{/vorlesungsplaner/admin/register_student}"
                                                        class="gba-button gba-button--standard">Registrierung
-                        Studenten</a></div>
+                        Studenten</a>
+                    </div>
                 </div>
             </div>
 
@@ -67,7 +68,7 @@
                     <div class="gba-kachel__titel">Kurse und Semesterzeitraum</div>
                     <div class="gba-kachel__body">1. Kurs auswählen</div>
                     <div class="gba-kachel__body">
-                        <select id="kurs1">
+                        <select id="course1">
                             <option class="choose_course" value="0">Bitte Kurs für die Terminanzeige auswählen</option>
                             <option class="choose_course" th:each="kurs: ${kurse}" th:value="${kurs.kurs_name}"
                                     th:text="${kurs.kurs_name}"></option>

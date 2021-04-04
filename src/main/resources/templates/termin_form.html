@@ -13,8 +13,8 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/vorlesungsplaner">Vorlesungstermin hinzufügen</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/vorlesungsplaner">DH-Planner</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -22,8 +22,7 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/vorlesungsplaner"><span
-                            class="sr-only">(current)</span>
+                    <a class="nav-link" href="/vorlesungsplaner" id="current">
                         Vorlesungsplaner
                     </a>
                 </li>
@@ -43,21 +42,20 @@
     </nav>
 </header>
 <main id="main__home">
-    <div>
-        <div class="modal-body2">
-            <div class="form-title text-center">
-                <h4>Neuer Vorlesungstermin</h4>
-            </div>
-            <form name="f" th:action="@{/vorlesungsplaner/process_addTermin(kurs=${kurse.kurs_name})}"
-                  th:object="${termin}"
-                  onsubmit="return validateForm()"
-                  method="post" style="max-width: 600px; margin: 0 auto;">
-                <table>
-                    <tbody>
-                    <tr>
-                        <div th:if="${errorMessage != null}"
-                             th:utext="${errorMessage}" class="error">
-                        </div>
+    <section id="first__section">
+        <div class="form-title text-center" id="adminDesign">
+            <h4>Vorlesungstermin hinzufügen</h4>
+        </div>
+        <form name="f" th:action="@{/vorlesungsplaner/process_addTermin(kurs=${kurse.kurs_name})}"
+              th:object="${termin}"
+              onsubmit="return validateForm()"
+              method="post" style="max-width: 600px; margin: 0 auto;">
+            <table>
+                <tbody>
+                <tr>
+                    <div th:if="${errorMessage != null}"
+                         th:utext="${errorMessage}" class="error">
+                    </div>
                         <td><label class="label">Vorlesung: </label></td>
                         <td><select th:field="*{ter_vvn_id}" required>
                             <option value="0">Vorlesungsfach auswählen</option>
@@ -101,11 +99,11 @@
                         </td>
                     </tr>
 
-                    </tbody>
+                </tbody>
 
-                </table>
-            </form>
-        </div>
+            </table>
+        </form>
+    </section>
 </main>
     <footer>
         © Vorlesungsplaner
