@@ -2,8 +2,7 @@ package dhbw.server.controller;
 
 import dhbw.server.entities.Termin;
 import dhbw.server.exceptions.TerminException;
-import dhbw.server.helper.Termin_VorlesungName;
-import dhbw.server.jsonForCalendar.Calendar;
+import dhbw.server.helper.Event;
 import dhbw.server.services.CalendarService;
 import dhbw.server.services.VorlesungsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +23,8 @@ public class KalenderController {
 
     @GetMapping(path = "/process_kalender", produces = {"application/json", "text/json"})
     @ResponseBody
-    public Calendar processKalender(@RequestParam(name = "kurs") String kurs) {
+    public ArrayList<Event> processKalender(@RequestParam(name = "kurs") String kurs) {
         return calendarService.showCalendar(kurs);
-    }
-
-    @GetMapping(path = "/process_kalendertable", produces = {"application/json", "text/json"})
-    @ResponseBody
-    public ArrayList<Termin_VorlesungName> processKalenderTable(@RequestParam(name = "kurs") String kurs) {
-        return calendarService.getTermineWithVorlesungsName(kurs);
     }
 
     @GetMapping("/termin_add")

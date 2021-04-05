@@ -11,11 +11,12 @@ async function startPlanning() {
 async function setPeriod() {
     const start = document.getElementById("start").value;
     const end = document.getElementById("end").value;
-    const course = document.getElementById("kurs1");
-    const kursValue = course.options[course.selectedIndex].value;
+    const course = document.getElementById("course1");
+    const coursValue = course.options[course.selectedIndex].value;
+
     const url = baseURL + "/admin/process_setperiod";
     const obj = {
-        kurs: kursValue,
+        kurs: coursValue,
         start: start,
         end: end
     }
@@ -28,7 +29,8 @@ async function setPeriod() {
         },
         body: body
     })
+    const text = await res.text();
     if (res.status === 200) {
-        alert("Zeitraum wurde für Kurs " + kursValue + " gesetzt.");
-    } else alert("Es ist ein Fehler aufgetreten.");
+        alert("Zeitraum wurde für Kurs " + coursValue + " gesetzt.");
+    } else alert(text);
 }

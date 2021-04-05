@@ -35,3 +35,15 @@ function validateForm() {
         return false;
     }
 }
+
+async function deleteTermin() {
+    const termin = document.getElementById("ter_id").value;
+    const url = "http://localhost:8080/vorlesungsplaner/process_deleteTermin/" + termin;
+    const res = await fetch(url, {
+        method: 'delete'
+    });
+    if (res.status === 200) {
+        alert("Der Termin wurde erfolgreich gelöscht.");
+        location.href="http://localhost:8080/vorlesungsplaner";
+    }
+}

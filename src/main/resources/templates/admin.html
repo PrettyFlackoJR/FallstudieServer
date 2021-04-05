@@ -42,6 +42,8 @@
     <section id="first__section">
         <div class="form-title text-center" id="adminDesign">
             <h4>Administrationsmöglichkeiten</h4>
+            <div th:if="${errorMessage != null}"
+                 th:utext="${errorMessage}" class="error">
         </div>
         <div class="page">
             <div class="gba-kachel gba-kachel--xs">

@@ -4,10 +4,7 @@ import dhbw.server.entities.Termin;
 import dhbw.server.entities.Vorlesung;
 import dhbw.server.entities.Vorlesung_Von_Nutzer;
 import dhbw.server.exceptions.TerminException;
-import dhbw.server.helper.Termin_VorlesungName;
-import dhbw.server.jsonForCalendar.Calendar;
-import dhbw.server.jsonForCalendar.Event;
-import dhbw.server.jsonForCalendar.HeaderToolbar;
+import dhbw.server.helper.Event;
 import dhbw.server.repositories.KursRepository;
 import dhbw.server.repositories.TerminRepository;
 import dhbw.server.repositories.VorlesungRepository;
@@ -22,7 +19,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 
-import static java.time.temporal.ChronoUnit.HOURS;
 import static java.time.temporal.ChronoUnit.MINUTES;
 
 
@@ -40,53 +36,11 @@ public class CalendarService {
     @Autowired
     private UserService userService;
 
-    public Calendar showCalendar(String kurs) {
-        HeaderToolbar headerToolbar = new HeaderToolbar("prev,next today",
-                "title", "dayGridMonth,timeGridWeek,timeGridDay");
-
+    public ArrayList<Event> showCalendar(String kurs) {
         ArrayList<Termin> termine = getTermineOfCurrentCourse(kurs);
-        // Events für den Kalender erstellen
-        ArrayList<Event> events = getEvents(termine);
+        ArrayList<Event> events = getEvents(termine, kurs);
 
-        Calendar calendar = new Calendar("dayGridMonth", LocalDate.now().toString(),
-                headerToolbar, events);
-
-        return calendar;
-    }
-
-    public ArrayList<Termin_VorlesungName> getTermineWithVorlesungsName(String kurs) {
-        ArrayList<Termin> termine = getTermineOfCurrentUser(kurs);
-        int nutzerId = getNutzerId();
-        ArrayList<Vorlesung_Von_Nutzer> vvns = getVvns(nutzerId, kurs);
-        ArrayList<Termin_VorlesungName> terminVorlesungNamen = new ArrayList<>();
-
-        for (Termin termin : termine) {
-            for (Vorlesung_Von_Nutzer vvn : vvns) {
-                if (termin.getTer_vvn_id() == vvn.getVvn_id()) {
-                    Termin_VorlesungName termin_vorlesungName = new Termin_VorlesungName(
-                            termin, vorlesungRepository.findNameByVvnId(vvn.getVvn_vor_id())
-                    );
-                    terminVorlesungNamen.add(termin_vorlesungName);
-                }
-            }
-        }
-
-        Collections.sort(terminVorlesungNamen, new Comparator<Termin_VorlesungName>() {
-            @Override
-            public int compare(Termin_VorlesungName o1, Termin_VorlesungName o2) {
-                if (o1.getTermin().getTer_datum() == null || o2.getTermin().getTer_datum() == null
-                        || o1.getTermin().getTer_start() == null || o2.getTermin().getTer_start() == null)
-                    return 0;
-                int c;
-                c = o1.getTermin().getTer_datum().compareTo(o2.getTermin().getTer_datum());
-                if (c == 0) {
-                    c = o1.getTermin().getTer_start().compareTo(o2.getTermin().getTer_start());
-                }
-                return c;
-            }
-        });
-
-        return terminVorlesungNamen;
+        return events;
     }
 
     private int getNutzerId() {
@@ -169,7 +123,13 @@ public class CalendarService {
         terminRepository.deleteById(id);
     }
 
-    private ArrayList<Event> getEvents(ArrayList<Termin> termine) {
+    private ArrayList<Event> getEvents(ArrayList<Termin> termine, String kurs) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalEmail = authentication.getName();
+        Integer userId = userService.getUserId(currentPrincipalEmail);
+        Integer kursId = kursRepository.findKursIdByName(kurs);
+        ArrayList<Integer> vorlesungVonNutzerIds = vorlesungVonNutzerRepository.findIdsByNutzerId(userId, kursId);
+
         ArrayList<Event> events = new ArrayList<>();
         String start = "";
         String end = "";
@@ -190,6 +150,12 @@ public class CalendarService {
             event.setEnd(end);
 
             event.setTer_id(termin.getTer_id());
+
+            for (Integer i : vorlesungVonNutzerIds) {
+                if (i == termin.getTer_vvn_id()) {
+                    event.setBackgroundColor("red");
+                }
+            }
 
             events.add(event);
         }

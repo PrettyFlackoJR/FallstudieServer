@@ -5,6 +5,8 @@
 <head>
     <meta charset="utf-8"/>
     <title>DH-Planner</title>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.css' rel='stylesheet'/>
+    <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="kalender.css">
@@ -49,52 +51,49 @@
         <h4>Vorlesungsplaner</h4>
     </div>
     <div class="page">
-    <div class="gba-kachel gba-kachel--l">
-        <div class="padding-all-unit">
-            <div class="gba-kachel__titel"></div>
-            <div class="gba-kachel__body">
-                <div class="wrapper">
-                    <div class="leftPagePart" id="leftPage__section">
-                        <div class="ueberKalender">
-                            <select id="kurs1" onchange="kursNeuladen()">
-                                <option th:each="kvn_name: ${kvn_namen}" th:value="${kvn_name.kurs_name}"
-                                        th:text="${kvn_name.kurs_name}"></option>
-                            </select>
-                            <button class="button" id="add">
-                                <i class="fas fa-plus-square">Termin
-                                    hinzufügen</i>
-                            </button>
-                            <button class="button" id="endPlanningtime" onclick="endPlanning()">Planung beenden</button>
-                            <button class="button" id="printCourseplan">Vorlesungsplan drucken</button>
-                        </div>
-                        <section id="calendar__section">
-                            <div id='calendar'></div>
-                        </section>
-                    </div>
-                    <div class="rightPagePart" id="rightPage__section">
-                        <div class="vorlesungsTabelle">
-                            <section id="calendar__newDate__modifyDate">
-                                <table class="table table-striped" id="tabelle">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">Vorlesungsfach</th>
-                                        <th scope="col">Datum</th>
-                                        <th scope="col">Startzeit</th>
-                                        <th scope="col">Endzeit</th>
-                                        <th cope="col"></th>
-                                        <th cope="col"></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
+        <div class="gba-kachel gba-kachel--l">
+            <div class="padding-all-unit">
+                <div class="gba-kachel__titel"></div>
+                <div class="gba-kachel__body">
+                    <div class="wrapper">
+                        <div class="leftPagePart" id="leftPage__section">
+                            <div class="ueberKalender">
+                                <select id="kurs1" onchange="kursNeuladen()">
+                                    <option th:each="kvn_name: ${kvn_namen}" th:value="${kvn_name.kurs_name}"
+                                            th:text="${kvn_name.kurs_name}"></option>
+                                </select>
+                                <button class="button" id="add">Termin hinzufügen</button>
+                                <button class="button" id="endPlanningtime" onclick="endPlanning()">Planung beenden</button>
+                                <button class="button" id="printCourseplan">Vorlesungsplan drucken</button>
+                            </div>
+                            <section id="calendar__section">
+                                <div id='calendar'></div>
                             </section>
+                        </div>
+                        <div class="rightPagePart" id="rightPage__section">
+                            <div class="vorlesungsTabelle">
+                                <section id="calendar__newDate__modifyDate">
+                                    <table class="table table-striped" id="tabelle">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Vorlesungsfach</th>
+                                            <th scope="col">Datum</th>
+                                            <th scope="col">Startzeit</th>
+                                            <th scope="col">Endzeit</th>
+                                            <th cope="col"></th>
+                                            <th cope="col"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </section>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </main>
 <footer id="footer">
     © Vorlesungsplaner

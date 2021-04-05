@@ -1,10 +1,11 @@
-package dhbw.server.jsonForCalendar;
+package dhbw.server.helper;
 
 public class Event {
 
     private String title;
     private String start;
     private String end;
+    private String backgroundColor;
     private Integer ter_id;
 
     public Event() {}
@@ -46,5 +47,13 @@ public class Event {
 
     public void setTer_id(Integer ter_id) {
         this.ter_id = ter_id;
+    }
+
+    public String getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor(String backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
 }

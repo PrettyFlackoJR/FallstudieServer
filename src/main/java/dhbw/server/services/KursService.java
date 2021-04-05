@@ -1,6 +1,7 @@
 package dhbw.server.services;
 
 import dhbw.server.entities.*;
+import dhbw.server.exceptions.TimeframeException;
 import dhbw.server.helper.KursZeitraum;
 import dhbw.server.helper.Kurs_Namen;
 import dhbw.server.repositories.KursRepository;
@@ -10,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,21 +49,20 @@ public class KursService {
     public ArrayList<Kurs_Namen> getKursNamen() {
         ArrayList<Kurs_Von_Nutzer> kvns = getKvns();
         List<Kurs> kurse = new ArrayList<>();
-        for (Kurs_Von_Nutzer kvn: kvns) {
+        for (Kurs_Von_Nutzer kvn : kvns) {
             Integer id = kvn.getKvn_kurs_id();
             kurse = getKurse(id);
 
         }
         ArrayList<Kurs_Namen> kurs_namen = new ArrayList<>();
-        for (Kurs_Von_Nutzer kvn: kvns) {
-            for (Kurs kurs: kurse) {
+        for (Kurs_Von_Nutzer kvn : kvns) {
+            for (Kurs kurs : kurse) {
                 if (kvn.getKvn_kurs_id() == kurs.getKurs_id()) {
-                    Kurs_Namen abc = new Kurs_Namen(kvn.getKvn_id(), kurs.getKurs_name());
-                    kurs_namen.add(abc);
+                    Kurs_Namen kursNamen = new Kurs_Namen(kvn.getKvn_id(), kurs.getKurs_name());
+                    kurs_namen.add(kursNamen);
                 }
             }
         }
-        System.out.println(kurs_namen);
         return kurs_namen;
     }
 
@@ -69,8 +70,17 @@ public class KursService {
         return kursRepository.findAll();
     }
 
-    public void setPeriod(KursZeitraum kursZeitraum) {
+    public void setPeriod(KursZeitraum kursZeitraum) throws TimeframeException {
+        if (kursZeitraum == null || kursZeitraum.getStart() == null
+                || kursZeitraum.getEnd() == null || kursZeitraum.getKurs() == null) {
+            throw new TimeframeException("Bitte füllen Sie alle Felder aus.");
+        }
         Kurs kurs = getKursByName(kursZeitraum.getKurs());
+        if (!kursZeitraum.getStart().isAfter(LocalDate.now())) {
+            throw new TimeframeException("Der Startpunkt des Semesters muss sich in der Zukunft befinden.");
+        } else if (!kursZeitraum.getEnd().isAfter(kursZeitraum.getStart())) {
+            throw new TimeframeException("Das Ende das Semesters muss zu einem späteren Zeitpunkt als der Anfang sein.");
+        }
         kurs.setKurs_start(kursZeitraum.getStart());
         kurs.setKurs_ende(kursZeitraum.getEnd());
 

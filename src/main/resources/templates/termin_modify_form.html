@@ -83,12 +83,12 @@
 
                     <td><input type="time" th:field="*{ter_ende}" id="end" name="trip-end" required></td>
                 </tr>
-                <input th:field="*{ter_id}" type="hidden">
+                <input id="ter_id" th:field="*{ter_id}" type="hidden">
                 <input th:field="*{ter_kurs_id}" type="hidden">
                 <input th:field="*{ter_vvn_id}" type="hidden">
                 <tr>
                     <td>
-                        <button type="button" class="button" onclick="validateForm()">Testen</button>
+                        <button type="button" class="button" onclick="deleteTermin()">Termin löschen</button>
                     </td>
                     <td>
                         <button type="submit" class="button">Termin modifizieren</button>
