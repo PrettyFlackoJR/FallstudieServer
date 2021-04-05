@@ -3,20 +3,15 @@ package dhbw.server.controller;
 import dhbw.server.entities.Termin;
 import dhbw.server.exceptions.TerminException;
 import dhbw.server.helper.Termin_VorlesungName;
-import dhbw.server.helper.Vorlesung_Namen;
 import dhbw.server.jsonForCalendar.Calendar;
-import dhbw.server.jsonForCalendar.Event;
 import dhbw.server.services.CalendarService;
 import dhbw.server.services.VorlesungsService;
-import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/vorlesungsplaner")
@@ -74,13 +69,21 @@ public class KalenderController {
             return "termin_form";
         }
 
-
         return "redirect:/vorlesungsplaner";
     }
 
     @PostMapping("/process_modifyTermin")
-    public String processModifyTermin(Termin termin) {
-        calendarService.modifyTermin(termin);
+    public String processModifyTermin(Termin termin, Model model) {
+        try {
+            calendarService.modifyTermin(termin);
+        } catch (TerminException e) {
+            model.addAttribute("termin", termin);
+            model.addAttribute("vorlesung", vorlesungsService.getVorName(termin.getTer_vvn_id()));
+            model.addAttribute("kurs", vorlesungsService.getKursById(termin.getTer_kurs_id()).get());
+            model.addAttribute("errorMessage", "Error: " + e.getMessage());
+            return "termin_modify_form";
+        }
+
         return "redirect:/vorlesungsplaner";
     }
 
@@ -92,8 +95,7 @@ public class KalenderController {
 
     @GetMapping("/getStunden")
     @ResponseBody
-    public double getStunden(@RequestParam(required = false,name= "vorlesung") Integer vvnId,
-                             Model model) {
+    public double getStunden(@RequestParam(required = false,name= "vorlesung") Integer vvnId) {
         return vorlesungsService.getStundenVonVorlesung(vvnId);
     }
 }

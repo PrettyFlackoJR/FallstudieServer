@@ -4,10 +4,18 @@ function getDate(){
 }
 
 async function ladeStunden(option) {
-    console.log("test")
     await fetch("http://localhost:8080/vorlesungsplaner/getStunden?vorlesung=" + option.value)
         .then(response => response.json())
         .then(data => document.getElementById("stunden").innerHTML = data)
+}
+
+async function loadHoursModify() {
+    const hours = document.getElementById("hours");
+    const lecture = document.getElementById("lecture");
+
+    await fetch("http://localhost:8080/vorlesungsplaner/getStunden?vorlesung=" + lecture.value)
+        .then(response => response.json())
+        .then(data => hours.innerHTML = data);
 }
 
 function validateForm() {

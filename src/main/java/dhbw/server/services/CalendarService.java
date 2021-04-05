@@ -23,6 +23,7 @@ import java.time.LocalTime;
 import java.util.*;
 
 import static java.time.temporal.ChronoUnit.HOURS;
+import static java.time.temporal.ChronoUnit.MINUTES;
 
 
 @Service
@@ -43,11 +44,11 @@ public class CalendarService {
         HeaderToolbar headerToolbar = new HeaderToolbar("prev,next today",
                 "title", "dayGridMonth,timeGridWeek,timeGridDay");
 
-        ArrayList<Termin> termine = getTermineOfCurrentUser(kurs);
+        ArrayList<Termin> termine = getTermineOfCurrentCourse(kurs);
         // Events für den Kalender erstellen
         ArrayList<Event> events = getEvents(termine);
 
-        Calendar calendar = new Calendar("dayGridMonth", "2021-03-07",
+        Calendar calendar = new Calendar("dayGridMonth", LocalDate.now().toString(),
                 headerToolbar, events);
 
         return calendar;
@@ -109,11 +110,17 @@ public class CalendarService {
         return termine;
     }
 
+    public ArrayList<Termin> getTermineOfCurrentCourse(String course) {
+        Integer courseId = kursRepository.findKursIdByName(course);
+        return terminRepository.findAllByCourse(courseId);
+    }
+
     @Transactional(rollbackFor = TerminException.class)
     public void addTermin(Termin termin) throws TerminException {
-        if (terminExists(termin.getTer_datum(), termin.getTer_start(), termin.getTer_ende())) {
+        if (terminExists(termin.getTer_datum(), termin.getTer_start(), termin.getTer_ende(),
+                termin.getTer_kurs_id(), termin.getTer_id())){
             throw new TerminException("Dieser Zeitraum ist bereits belegt.");
-        } else {
+        } else{
             try {
                 terminRepository.save(termin);
             } catch (Exception e) {
@@ -121,7 +128,8 @@ public class CalendarService {
             }
             Optional<Vorlesung_Von_Nutzer> vorlesungVonNutzer = vorlesungVonNutzerRepository.
                     findById(termin.getTer_vvn_id());
-            double delta = HOURS.between(termin.getTer_start(), termin.getTer_ende());
+            double delta = MINUTES.between(termin.getTer_start(), termin.getTer_ende()) / 60.0;
+            System.out.println(delta);
             if ((vorlesungVonNutzer.get().getVvn_stnd() - delta) < 0) {
                 throw new TerminException("Bitte beachten Sie die Anzahl der verfügbaren Stunden.");
             }
@@ -130,8 +138,31 @@ public class CalendarService {
         }
     }
 
-    public void modifyTermin(Termin termin) {
-        terminRepository.save(termin);
+    @Transactional(rollbackFor = TerminException.class)
+    public void modifyTermin(Termin termin) throws TerminException {
+        if (terminExists(termin.getTer_datum(), termin.getTer_start(), termin.getTer_ende(),
+                termin.getTer_kurs_id(), termin.getTer_id())) {
+            throw new TerminException("Dieser Zeitraum ist bereits belegt.");
+        }
+
+        Termin oldTermin = terminRepository.findById(termin.getTer_id()).get();
+        Vorlesung_Von_Nutzer vorlesungVonNutzer = vorlesungVonNutzerRepository.findById(termin.getTer_vvn_id()).get();
+
+        double oldDelta = MINUTES.between(oldTermin.getTer_start(), oldTermin.getTer_ende()) / 60.0;
+        double newDelta = MINUTES.between(termin.getTer_start(), termin.getTer_ende()) / 60.0;
+
+        vorlesungVonNutzer.setVvn_stnd(vorlesungVonNutzer.getVvn_stnd() + oldDelta);
+        if ((vorlesungVonNutzer.getVvn_stnd() - newDelta) < 0) {
+            throw new TerminException("Bitte beachten Sie die Anzahl der verfügbaren Stunden.");
+        }
+        vorlesungVonNutzer.setVvn_stnd(vorlesungVonNutzer.getVvn_stnd() - newDelta);
+
+        try {
+            terminRepository.save(termin);
+            vorlesungVonNutzerRepository.save(vorlesungVonNutzer);
+        } catch (Exception e) {
+            throw new TerminException("Bei der Eingabe ihrer Daten gab es einen Fehler und sie konnten nicht gespeichert werden.");
+        }
     }
 
     public void deleteTermin(Integer id) {
@@ -180,20 +211,23 @@ public class CalendarService {
         return vvnVorIds;
     }
 
-    private Boolean terminExists(LocalDate date, LocalTime start, LocalTime end) {
+    private Boolean terminExists(LocalDate date, LocalTime start, LocalTime end, Integer kursId, Integer terminId) {
         Boolean b = false;
-        ArrayList<Termin> termine = terminRepository.findAllByDate(date);
+        ArrayList<Termin> termine = terminRepository.findAllByDate(date, kursId);
         for (Termin termin : termine) {
+            System.out.println("TerminDB: " + termin.getTer_id());
+            System.out.println("Termin: " + terminId);
+            System.out.println("-------------------");
             LocalTime dbStart = termin.getTer_start();
             LocalTime dbEnd = termin.getTer_ende();
-            if ((dbStart.isAfter(start) && dbStart.isBefore(end))
+            if (termin.getTer_id() != terminId && ((dbStart.isAfter(start) && dbStart.isBefore(end))
                     || (dbEnd.isAfter(start) && dbEnd.isBefore(end))
                     || (start.isAfter(dbStart) && start.isBefore(dbEnd))
                     || (end.isAfter(dbStart) && end.isBefore(dbEnd))
                     || start.compareTo(dbStart) == 0
                     || start.compareTo(dbEnd) == 0
                     || end.compareTo(dbStart) == 0
-                    || end.compareTo(dbEnd) == 0) {
+                    || end.compareTo(dbEnd) == 0)) {
                 b = true;
             }
         }

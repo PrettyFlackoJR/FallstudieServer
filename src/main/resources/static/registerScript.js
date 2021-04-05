@@ -5,7 +5,7 @@ addMore.addEventListener("click", moreFields)
 list.addEventListener("click", trashErledigt);
 abschicken.addEventListener("click", register);
 
-var array= [];
+let array= [];
 let counter = 0;
 let jsonObject;
 let kvs;

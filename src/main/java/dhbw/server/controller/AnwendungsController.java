@@ -18,13 +18,10 @@ public class AnwendungsController {
     private KursService kursService;
     @Autowired
     private SchedulerServiceImpl schedulerService;
-    @Autowired
-    private CalendarService calendarService;
 
     @GetMapping
     public String viewVorlesungsplaner(Model model) {
         model.addAttribute("kvn_namen", kursService.getKursNamen());
-        model.addAttribute("termine", calendarService.getAllTermine());
         return "homepage";
     }
 

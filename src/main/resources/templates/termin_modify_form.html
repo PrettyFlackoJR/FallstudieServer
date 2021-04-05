@@ -11,7 +11,7 @@
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
     <script src="http://localhost:8080/termin.js"></script>
 </head>
-<body>
+<body onload="loadHoursModify()">
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/vorlesungsplaner">Vorlesungstermin modifizieren</a>
@@ -57,14 +57,14 @@
                     </div>
                     <td><label class="label">Vorlesung: </label></td>
                     <td><select required>
-                        <option onload="ladeStunden(this)" th:field="*{ter_vvn_id}" th:value="${termin.ter_vvn_id}"
+                        <option id="lecture" th:field="*{ter_vvn_id}" th:value="${termin.ter_vvn_id}"
                                 th:text="${vorlesung}"></option>
                     </select>
                     </td>
                 </tr>
                 <tr>
                     <td><p>Anzahl verbleibender Vorlesungsstunden: </p></td>
-                    <td><p id="stunden"></p></td>
+                    <td><p id="hours"></p></td>
                 </tr>
 
                 <td><label for="start">Datum:</label></td>
