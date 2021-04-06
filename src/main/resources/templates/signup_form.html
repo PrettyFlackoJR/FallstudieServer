@@ -6,7 +6,7 @@
     <title>Registrieren</title>
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="http://localhost:8080/style.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
     <script src="https://kit.fontawesome.com/10fd971787.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
@@ -152,6 +152,6 @@
 <!-- Include all compiled plugins (below), or include individual files
       as needed -->
 <script src="js/bootstrap.min.js"></script>
-<script src="http://localhost:8080/registerScript.js"></script>
+<script th:src="@{/registerScript.js}"></script>
 </body>
 </html>
