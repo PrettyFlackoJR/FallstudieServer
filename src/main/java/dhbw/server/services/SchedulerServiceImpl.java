@@ -1,7 +1,8 @@
 package dhbw.server.services;
 
 import dhbw.server.entities.Nutzer;
-import dhbw.server.repositories.NutzerRepository;
+import dhbw.server.entities.Vorlesung_Von_Nutzer;
+import dhbw.server.repositories.Vorlesung_Von_NutzerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Properties;
 import java.util.concurrent.ScheduledFuture;
 
@@ -33,15 +35,29 @@ public class SchedulerServiceImpl {
     private SchedulerServiceImpl schedulerService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private Vorlesung_Von_NutzerRepository vorlesungVonNutzerRepository;
 
     private ArrayList<Nutzer> nutzerArrayList = new ArrayList<>();
     private ScheduledFuture job1;
     private boolean initial = true;
 
-    public synchronized void scheduleJob(int period) throws NoSuchMethodException {
+    public synchronized void scheduleJob(int period, String order) throws NoSuchMethodException {
         if (job1 != null) {
             job1.cancel(true);
         }
+
+        switch (order) {
+            case "A":
+                jobAscending();
+                break;
+            case "D":
+                jobDescending();
+                break;
+            default:
+                break;
+        }
+
 
         job1 = taskScheduler.scheduleAtFixedRate(new ScheduledMethodRunnable(
                 schedulerService, "job"), period);
@@ -54,7 +70,7 @@ public class SchedulerServiceImpl {
                 userService.addEditorRole(nutzer.getNut_id());
                 initial = false;
                 String name = nutzer.getNut_vorname() + " " + nutzer.getNut_nachname();
-                sendEmail(nutzer.getNut_email(), nutzer.getNut_anrede(), name);
+               // sendEmail(nutzer.getNut_email(), nutzer.getNut_anrede(), name);
             } else {
                 Integer nutzerId = nutzerArrayList.get(0).getNut_id();
                 userService.removeEditorRole(nutzerId);
@@ -63,12 +79,39 @@ public class SchedulerServiceImpl {
                 Nutzer newNutzer = nutzerArrayList.get(0);
                 userService.addEditorRole(newNutzer.getNut_id());
                 String name = newNutzer.getNut_vorname() + " " + newNutzer.getNut_nachname();
-                sendEmail(newNutzer.getNut_email(), newNutzer.getNut_anrede(), name);
+               // sendEmail(newNutzer.getNut_email(), newNutzer.getNut_anrede(), name);
             }
             System.out.println(nutzerArrayList.get(0).getNut_email());
         } catch (IndexOutOfBoundsException e) {
             job1.cancel(true);
         }
+    }
+
+    public void jobAscending() {
+        ArrayList<Vorlesung_Von_Nutzer> vorlesungVonNutzerList = (ArrayList<Vorlesung_Von_Nutzer>) vorlesungVonNutzerRepository.findAll();
+        Collections.sort(vorlesungVonNutzerList, Vorlesung_Von_Nutzer.ascendingComp);
+        updateList(vorlesungVonNutzerList);
+    }
+
+    public void jobDescending() {
+        ArrayList<Vorlesung_Von_Nutzer> vorlesungVonNutzerList = (ArrayList<Vorlesung_Von_Nutzer>) vorlesungVonNutzerRepository.findAll();
+        Collections.sort(vorlesungVonNutzerList, Vorlesung_Von_Nutzer.descendingComp);
+        updateList(vorlesungVonNutzerList);
+    }
+
+    private void updateList(ArrayList<Vorlesung_Von_Nutzer> vvns) {
+        ArrayList<Nutzer> newList = new ArrayList<>();
+
+        for (Vorlesung_Von_Nutzer vvn : vvns) {
+            for (Nutzer nutzer : nutzerArrayList) {
+                if (nutzer.getNut_id() == vvn.getVvn_nut_id()) {
+                    if (!newList.contains(nutzer)) {
+                        newList.add(nutzer);
+                    }
+                }
+            }
+        }
+        nutzerArrayList = newList;
     }
 
     private void sendEmail(String email, String anrede, String name) throws MessagingException {
@@ -98,7 +141,7 @@ public class SchedulerServiceImpl {
         String localDate = LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         String localTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
 
-        String msg = "Sehr geehrte/r " + anrede + " " + name + "," +  "<br>" + "<br>"
+        String msg = "Sehr geehrte/r " + anrede + " " + name + "," + "<br>" + "<br>"
                 + "bitte beginnen Sie mit ihrer Planung: " + "<a href='http://localhost:8080'>Vorlesungsplaner</a>."
                 + "<br>" + "<br>" + "Ihr Planungsfenster schließt sich am "
                 + localDate + " um " + localTime + ".";

@@ -1,6 +1,7 @@
 package dhbw.server.entities;
 
 import javax.persistence.*;
+import java.util.Comparator;
 
 @Entity
 @Table(name = "vorlesungvonnutzer")
@@ -31,6 +32,26 @@ public class Vorlesung_Von_Nutzer {
         this.vvn_stnd = vvn_stnd;
         this.vvn_kurs_id = vvn_kurs_id;
     }
+
+    public static Comparator<Vorlesung_Von_Nutzer> ascendingComp = new Comparator<Vorlesung_Von_Nutzer>() {
+        @Override
+        public int compare(Vorlesung_Von_Nutzer o1, Vorlesung_Von_Nutzer o2) {
+                double stnd1 = o1.getVvn_stnd();
+                double stnd2 = o2.getVvn_stnd();
+
+                return (int) (stnd1-stnd2);
+        }
+    };
+
+    public static Comparator<Vorlesung_Von_Nutzer> descendingComp = new Comparator<Vorlesung_Von_Nutzer>() {
+        @Override
+        public int compare(Vorlesung_Von_Nutzer o1, Vorlesung_Von_Nutzer o2) {
+            double stnd1 = o1.getVvn_stnd();
+            double stnd2 = o2.getVvn_stnd();
+
+            return (int) (stnd2-stnd1);
+        }
+    };
 
     public Integer getVvn_id() {
         return vvn_id;

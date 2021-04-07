@@ -1,11 +1,15 @@
 const baseURL = "http://localhost:8080/vorlesungsplaner";
 
 async function startPlanning() {
-    const url = baseURL + "/process_endplanning";
+    let order;
+    if (document.getElementById("planAscending1").checked) {
+        order = "A";
+    } else order = "D";
+
+    const url = baseURL + "/process_endplanning?order=" + order;
     const res = await fetch(url);
     alert("Die Planung wurde gestartet.");
     document.getElementById("startPlanning").onclick = function() { alert("Die Planung wurde bereits gestartet."); }
-
 }
 
 async function setPeriod() {
