@@ -58,6 +58,7 @@ public class AuthentifizierungsController {
 
     @GetMapping("/vorlesungsplaner/admin/register_student")
     public String showRegistrationFormStudent(Model model) {
+        model.addAttribute("kurse", kursService.getAlleKurseMitNamen());
         model.addAttribute("user", new Nutzer());
         return "signup_form_student";
     }
@@ -84,7 +85,7 @@ public class AuthentifizierungsController {
     @Transactional
     @PostMapping("/vorlesungsplaner/admin/process_registerstudent")
     public String processStudentRegister(@RequestParam(name = "kursId") Integer kursId,
-                                         Nutzer nutzer,
+                                         @RequestBody(required = false) Nutzer nutzer,
                                          Model model) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(nutzer.getNut_passwort());

@@ -4,7 +4,6 @@ const abschicken = document.getElementById("abschicken");
 addMore.addEventListener("click", moreFields)
 list.addEventListener("click", trashErledigt);
 abschicken.addEventListener("click", register);
-
 let array= [];
 let counter = 0;
 let jsonObject;
@@ -13,6 +12,8 @@ async function moreFields() {
     let kursValue = document.getElementById("kursListe").value;
     let vorlesungValue = document.getElementById("vorlesungsListe").value;
     let stundenValue = document.getElementById("stunden").value;
+    let kursName = document.getElementById("kursListe").innerHTML;
+    let vorlesungsName = document.getElementById("vorlesungsListe").innerText;
     console.log(array);
     if(document.getElementById("kursListe").value.length == 0 || document.getElementById("vorlesungsListe").value.length == 0 || document.getElementById("stunden").value.length == 0) {
         alert("Sachen eingeben");
@@ -50,6 +51,12 @@ async function moreFields() {
     }
 
     array.push(obj);
+    helpObj = {
+        kurs_name: kursName,
+        vor_name: vorlesungsName,
+        stnd: stundenValue
+    }
+    console.log(helpObj);
 
     document.getElementById("kursListe").value = "";
     document.getElementById("vorlesungsListe").value = "";
@@ -88,6 +95,7 @@ async function register(e) {
 
 
 }
+
 async function loadItems() {
 
     clearChildren(list);
@@ -96,11 +104,11 @@ async function loadItems() {
         itemsDiv.classList.add("items")
         //Item erstellen
         const newItem = document.createElement("li");
-        newItem.innerText = "KursId: "+a.kurs_id;
+        newItem.innerText = "KursId: "+ a.kurs_id;
         newItem.classList.add("item");
         itemsDiv.appendChild(newItem);
         const newItem2 = document.createElement("li");
-        newItem2.innerText = "VorlesungsID: "+a.vvn_vor_id;
+        newItem2.innerText = "VorlesungsID: "+ a.vvn_vor_id;
         newItem2.classList.add("item");
         itemsDiv.appendChild(newItem2);
         const newItem3 = document.createElement("li");
@@ -114,6 +122,9 @@ async function loadItems() {
         itemsDiv.appendChild(trash);
         //AN UL anknüpfen
         list.appendChild(itemsDiv);
+
+        helpObj = {
+        }
     }
 }
 function clearChildren(element) {

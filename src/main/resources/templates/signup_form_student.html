@@ -37,8 +37,7 @@
                 <div class="gba-kachel gba-kachel--l">
                     <div class="padding-all-unit">
                         <div class="gba-kachel__titel"></div>
-                        <form name="registerForm" th:action="@{/process_register}" th:object="${user}"
-                              method="post">
+                        <form name="registerForm" th:object="${user}" >
                             <div class="form-group row">
                                 <label for="anrede" class="col-sm-2 col-form-label">Anrede</label>
                                 <div class="col-sm-10">
@@ -79,9 +78,20 @@
                                            th:field="*{nut_passwort}" required minlength="6" maxlength="10">
                                 </div>
                             </div>
+                            <p id="registrationFormularHeaders">Kurs definieren:</p>
+                            <div class="form-group row">
+                                <label for="kurs" class="col-sm-2 col-form-label">Kurs</label>
+                                <div class="col-sm-10">
+                                    <input list="kurs" id="kursListe">
+                                    <datalist id="kurs">
+                                        <option th:each="kurs: ${kurse}" th:value="${kurs.kurs_id}"
+                                                th:text="${kurs.kurs_name}"></option>
+                                    </datalist>
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <div class="col-sm-10">
-                                    <button type="submit" id="abschicken" class="button" href="register_success.html">
+                                    <button type="submit" id="abschickenStudent" class="button">
                                         Jetzt
                                         registrieren
                                     </button>
@@ -104,6 +114,6 @@
 <!-- Include all compiled plugins (below), or include individual files
       as needed -->
 <script src="js/bootstrap.min.js"></script>
-<script src="registerScript.js"></script>
+<script th:src="@{/registerStudentScript.js}"></script>
 </body>
 </html>
