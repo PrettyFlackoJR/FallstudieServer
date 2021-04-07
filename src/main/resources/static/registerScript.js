@@ -67,11 +67,11 @@ async function moreFields() {
 
 }
 async function register(e) {
-    if ( nut_vorname: document.getElementById("vorname").value == "" ||
-        nut_nachname: document.getElementById("nachname").value == "" ||
-        nut_email: document.getElementById("email").value == "" ||
-        nut_anrede: document.getElementById("anrede").value == "" ||
-        nut_passwort: document.getElementById("passwort").value == "") {
+    if (document.getElementById("vorname").value == "" ||
+        document.getElementById("nachname").value == "" ||
+        document.getElementById("email").value == "" ||
+        document.getElementById("anrede").value == "" ||
+        document.getElementById("passwort").value == "") {
         return false;
     }
     e.preventDefault();
