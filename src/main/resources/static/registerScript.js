@@ -8,13 +8,15 @@ let array= [];
 let counter = 0;
 let jsonObject;
 let kvs;
+
+
+
 async function moreFields() {
     let kursValue = document.getElementById("kursListe").value;
     let vorlesungValue = document.getElementById("vorlesungsListe").value;
     let stundenValue = document.getElementById("stunden").value;
-    let kursName = document.getElementById("kursListe").innerHTML;
-    let vorlesungsName = document.getElementById("vorlesungsListe").innerText;
-    console.log(array);
+    let kursName = document.getElementById("kursListe").text;
+    let vorlesungsName = document.getElementById("vorlesungsListe").innerHTML;
     if(document.getElementById("kursListe").value.length == 0 || document.getElementById("vorlesungsListe").value.length == 0 || document.getElementById("stunden").value.length == 0) {
         alert("Sachen eingeben");
         return false;
@@ -73,6 +75,7 @@ async function register(e) {
         document.getElementById("anrede").value == "" ||
         document.getElementById("passwort").value == "" ||
         array.length < 1) {
+        alert("Bitte alle Felder ausfüllen!");
         return false;
     }
     e.preventDefault();
@@ -105,6 +108,15 @@ async function register(e) {
 }
 
 async function loadItems() {
+    const urlk = "http://localhost:8080/vorlesungsplaner/kursNamen";
+    const resk = await fetch(urlk);
+    const jsonk = await resk.json();
+    console.log(jsonk)
+
+    const urlv = "http://localhost:8080/vorlesungsplaner/vorlesungsNamen";
+    const resv = await fetch(urlv);
+    const jsonv = await resv.json();
+    console.log(jsonv);
 
     clearChildren(list);
     for (const a of array) {
@@ -112,11 +124,21 @@ async function loadItems() {
         itemsDiv.classList.add("items")
         //Item erstellen
         const newItem = document.createElement("li");
-        newItem.innerText = "KursId: "+ a.kurs_id;
+        for(const b of jsonk) {
+            if(b.kurs_id == a.kurs_id) {
+                newItem.innerText = "KursId: "+ b.kurs_name;
+
+            }
+        }
         newItem.classList.add("item");
         itemsDiv.appendChild(newItem);
         const newItem2 = document.createElement("li");
-        newItem2.innerText = "VorlesungsID: "+ a.vvn_vor_id;
+        for(const c of jsonv) {
+            if(c.vor_id == a.vvn_vor_id) {
+                newItem2.innerText = "VorlesungsID: "+ c.vor_name;
+            }
+        }
+
         newItem2.classList.add("item");
         itemsDiv.appendChild(newItem2);
         const newItem3 = document.createElement("li");
@@ -131,8 +153,6 @@ async function loadItems() {
         //AN UL anknüpfen
         list.appendChild(itemsDiv);
 
-        helpObj = {
-        }
     }
 }
 function clearChildren(element) {
