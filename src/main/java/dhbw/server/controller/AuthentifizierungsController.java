@@ -1,5 +1,7 @@
 package dhbw.server.controller;
 
+import dhbw.server.entities.Kurs;
+import dhbw.server.entities.Vorlesung;
 import dhbw.server.exceptions.UserAlreadyExistsException;
 import dhbw.server.helper.Kurs_Vorlesung_Stunden;
 import dhbw.server.helper.RegisterForm;
@@ -17,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class AuthentifizierungsController {
@@ -45,6 +48,18 @@ public class AuthentifizierungsController {
     @GetMapping("/logout")
     public String logout() {
         return "login";
+    }
+
+    @GetMapping("/vorlesungsplaner/kursNamen")
+    @ResponseBody
+    public List<Kurs> kursnamen() {
+        return kursService.getAlleKurseMitNamen();
+    }
+
+    @GetMapping("/vorlesungsplaner/vorlesungsNamen")
+    @ResponseBody
+    public List<Vorlesung> vorlesungsNamen() {
+        return vorlesungsService.getAllVorNamen();
     }
 
     @GetMapping("/vorlesungsplaner/admin/register")
