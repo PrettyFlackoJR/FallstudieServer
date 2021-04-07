@@ -22,7 +22,7 @@ async function moreFields() {
         return false;
     }
     if (stundenValue < 1) {
-        alert("Stunden dürfen nicht negativ oder 0 sein.");
+        alert("Die Anzahl an Vorlesungsstunden darf nicht negativ oder 0 sein.");
         return false;
     }
     for(const a of array) {
@@ -122,6 +122,7 @@ async function loadItems() {
     for (const a of array) {
         const itemsDiv = document.createElement("div");
         itemsDiv.classList.add("items")
+        itemsDiv.setAttribute("id", "existingLectures");
         //Item erstellen
         const newItem = document.createElement("li");
         for(const b of jsonk) {
@@ -131,6 +132,7 @@ async function loadItems() {
             }
         }
         newItem.classList.add("item");
+        newItem.setAttribute("id", "courseId");
         itemsDiv.appendChild(newItem);
         const newItem2 = document.createElement("li");
         for(const c of jsonv) {
@@ -140,15 +142,18 @@ async function loadItems() {
         }
 
         newItem2.classList.add("item");
+        newItem2.setAttribute("id", "lectureId");
         itemsDiv.appendChild(newItem2);
         const newItem3 = document.createElement("li");
         newItem3.innerText = "Stunden: "+a.stnd;
         newItem3.classList.add("item");
+        newItem3.setAttribute("id", "lectureHours")
         itemsDiv.appendChild(newItem3);
         //Loeschen Button
         const trash = document.createElement("button");
         trash.innerHTML = '<i class="fas fa-trash"></i>';
         trash.classList.add("trash-btn");
+        trash.setAttribute("id", "trashBtn")
         itemsDiv.appendChild(trash);
         //AN UL anknüpfen
         list.appendChild(itemsDiv);

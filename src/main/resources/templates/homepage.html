@@ -60,11 +60,13 @@
                             <option th:each="kvn_name: ${kvn_namen}" th:value="${kvn_name.kurs_name}"
                                     th:text="${kvn_name.kurs_name}"></option>
                         </select>
-                        <button class="button" id="add">Termin
-                                hinzufügen
+                        <button class="button btn-responsive" id="add">Termin
+                            hinzufügen
                         </button>
-                        <button class="button" id="endPlanningtime" onclick="endPlanning()">Planung beenden</button>
-                        <button class="button" id="printCourseplan">Vorlesungsplan drucken</button>
+                        <button class="button btn-responsive" id="endPlanningtime" onclick="endPlanning()">Planung
+                            beenden
+                        </button>
+                        <button class="button btn-responsive" id="printCourseplan">Vorlesungsplan drucken</button>
                     </div>
                     <section id="calendar__section">
                         <div id='calendar'></div>
