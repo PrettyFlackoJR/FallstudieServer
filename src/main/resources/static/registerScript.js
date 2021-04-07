@@ -71,7 +71,8 @@ async function register(e) {
         document.getElementById("nachname").value == "" ||
         document.getElementById("email").value == "" ||
         document.getElementById("anrede").value == "" ||
-        document.getElementById("passwort").value == "") {
+        document.getElementById("passwort").value == "" ||
+        array.length < 1) {
         return false;
     }
     e.preventDefault();

@@ -4,6 +4,13 @@ abschickenStudent.addEventListener("click", registerStudent);
 
 async function registerStudent(e) {
     e.preventDefault();
+    if (document.getElementById("vorname").value == "" ||
+        document.getElementById("nachname").value == "" ||
+        document.getElementById("email").value == "" ||
+        document.getElementById("anrede").value == "" ||
+        document.getElementById("passwort").value == "") {
+        return false;
+    }
     if(document.getElementById("kursListe").value.length == 0) {
         alert("Kurs eingeben");
         return false;
