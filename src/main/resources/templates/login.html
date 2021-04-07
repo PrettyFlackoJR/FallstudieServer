@@ -12,45 +12,45 @@
 <body>
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/vorlesungsplaner">Loginseite DH-Planner</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-                aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarText">
-        <form class="form-inline my-2 my-lg-0" href="/vorlesungsplaner" method="get">
-            <input class="button" type="submit" value="Zurück zur Homepage"/>
-        </form>
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/vorlesungsplaner">Loginseite DH-Planner</a>
+            <ul class="nav navbar-nav navbar-right">
+                <form class="form-inline" th:href="@{/}" method="get">
+                    <input class="button" type="button" value="Zurück zur Startseite"/>
+                </form>
+            </ul>
         </div>
     </nav>
 </header>
 <main>
-    <div class="modal-body2">
-        <div class="form-title text-center">
-            <div>
-                <div class="warning" th:if="${param.error}">Falsche E-Mail oder Passwort.</div>
-                <div class="logoutmsg" th:if="${param.logout}">Auf Wiedersehen.</div>
-            </div>
-            <h4>Login</h4>
-        </div>
-        <div class="d-flex flex-column text-center">
-            <form class="loginformular" name="f" th:action="@{/login}" method="post">
-                <div class="form-group">
-                    <label for="username">E-Mail</label>
-                    <input type="text" class="form-control" id="username" name="username"
-                           placeholder="E-Mail">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password"
-                           placeholder="Password">
-                </div>
-                <div class="form-actions" style="margin-top: 12px;">
-                    <button type="submit" class="button" onclick="validate()">Einloggen</button>
-                </div>
-            </form>
-        </div>
+    <div class="form-title text-center" id="adminDesign">
+        <h4>Login</h4>
     </div>
+    <div class="page">
+        <div class="gba-kachel gba-kachel--l">
+            <div class="padding-all-unit">
+                <div class="gba-kachel__titel"></div>
+                <div>
+                    <div class="warning" th:if="${param.error}">Falsche E-Mail oder Passwort.</div>
+                    <div class="logoutmsg" th:if="${param.logout}">Auf Wiedersehen.</div>
+                </div>
+                <form class="loginformular" name="f" th:action="@{/login}" method="post">
+                    <div class="form-group">
+                        <label for="username">E-Mail</label>
+                        <input type="text" class="form-control" id="username" name="username"
+                               placeholder="E-Mail">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" name="password"
+                               placeholder="Password">
+                    </div>
+                    <div class="form-actions" style="margin-top: 12px;">
+                        <button type="submit" class="button" onclick="validate()">Einloggen</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </main>
 <footer>

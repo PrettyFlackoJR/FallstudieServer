@@ -15,4 +15,9 @@ public class ProfilController {
     @Autowired
     private ProfilService profilService;
 
+    @GetMapping
+    public String viewProfile() {
+        return "profile";
+    }
+
 }

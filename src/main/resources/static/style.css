@@ -16,7 +16,7 @@ header {
 
 footer {
     padding: 2rem;
-    background-color: #7c8991;
+    background-color: #343a40;
     color: white;
     text-align: center;
 }
@@ -44,7 +44,6 @@ ul{
     color: white;
 }
 
-
 .button{
     padding: 8px 20px;
     display: inline-block;
@@ -65,24 +64,18 @@ td{
     padding: 1rem;
 }
 
-.container-fluid{
-    padding: 1rem;
-}
-
 /*index-Seite - Styling*/
 #first__section{
     padding: 2rem;
 }
 
-.container-fluid, img-fluid{
-    background-color: #7c8991;
-    color: white;
+.container-fluid{
     padding: 0rem;
     margin: 0;
 }
 
 /*Homepage-Styling*/
-@media (min-width: 1000px) {
+@media (max-width: 1000px) {
     a {
         text-decoration: none;
     }
@@ -91,57 +84,82 @@ td{
         display: grid;
     }
 
-    .home__Title {
-        text-align: center;
-        font-size: 20px;
+    #calendar{
+        height: 800px;
+        width: 800px;
     }
-}
-
-.leftPagePart, rightPagePart{
-    padding: 10px;
-    width: max-content;
 }
 
 #current{
     color: #e3001b;
 }
 
-.wrapper{
-    display: grid;
-    grid-template: "leftPagePart rightPagePart";
-}
-@supports (display: grid) {
-    .wrapper {
-        grid-column: auto/span 6;
-        width: auto;
-    }
-}
-
 .ueberKalender {
     margin-bottom: 1rem;
 }
-
-@media (min-width: 320px) {
+@media (max-width: 500px) {
     #main__home {
         display: grid;
-        grid-template: "leftPage__section" "rightPage__section";
     }
 
-    #header {
-        width: 300px;
-        height: 70px;
-        padding: 0.5rem;
+    .ueberKalender{
+        font-size: 13px;
+    }
+
+    #calendar{
+        height: 450px;
+        width: 450px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 768px) {
+    #main__home {
+        display: grid;
+    }
+
+    .ueberKalender{
         font-size: 14px;
-        font-weight: 100;
-        text-align: center;
-        margin: 0;
     }
 
-    .nav-item {
-        margin-top: 1rem;
-        text-align: left;
-        margin-inline-end: 5px;
-        margin-inline-start: 5px;
+    #calendar{
+        height: 700px;
+        width: 700px;
+        font-size: 14px;
+    }
+}
+
+
+
+@media (max-width: 320px) {
+    #main__home {
+        display: grid;
+    }
+
+    .ueberKalender{
+        font-size: 12px;
+    }
+
+    #calendar{
+        height: 300px;
+        width: 300px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 150px) {
+    #main__home {
+        display: grid;
+    }
+
+    .ueberKalender{
+        font-size: 10px;
+    }
+
+    #calendar{
+        height: 100px;
+        width: 100px;
+        font-size: 10px;
     }
 }
 
@@ -188,6 +206,7 @@ div {
 
 .loginformular {
     padding: 1rem;
+    width: 300px;
 }
 
 .d-flex flex-column text-center {
@@ -231,6 +250,17 @@ h4 {
 }
 #startPlanning:hover{
     color: #515151;
+}
+.btn-group{
+    color: #e3001b;
+    border-color: #e3001b;
+    background-color: white;
+}
+
+.btn-group:hover{
+    color: white;
+    background-color: #e3001b;
+
 }
 
 #saveSelection{
@@ -303,6 +333,7 @@ body {
 
 .gba-kachel--xs {
     flex: 1 0 auto;
+    text-align: left;
 }
 
 @media (min-width: 480px) {
@@ -483,11 +514,10 @@ ul li {
 }
 
 .registrationFormularHeaders {
-    font-size: 40px;
-    margin-top: 1.5rem;
+    font-size: 16px;
+    margin-top: 0.5rem;
     font-weight: bold;
     color: #7c8991;
-    margin-left: 1rem;
 }
 
 .container, d-flex, form-title{
