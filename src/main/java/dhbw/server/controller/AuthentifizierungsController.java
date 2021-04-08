@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class AuthentifizierungsController {
     public String login() {
         return "login";
     }
+
     @GetMapping("/register_success")
     public String registerSuccess() {
         return "register_success";
@@ -78,11 +80,10 @@ public class AuthentifizierungsController {
         return "signup_form_student";
     }
 
-    @Transactional
     @PostMapping("/vorlesungsplaner/admin/process_registerdozent")
-    public String processDozentRegister(Model model,
-                                  @RequestBody(required = false) RegisterForm registerForm) {
-        //!!!
+    @ResponseBody
+    public String processDozentRegister(HttpServletResponse response,
+                                        @RequestBody(required = false) RegisterForm registerForm) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(registerForm.getNut_passwort());
         registerForm.setNut_passwort(encodedPassword);
@@ -90,18 +91,18 @@ public class AuthentifizierungsController {
         try {
             userService.registerNewDozentAccount(registerForm);
         } catch (UserAlreadyExistsException e) {
-            model.addAttribute("errorMessage", "Error: " + e.getMessage());
-            return "signup_form";
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return "Error: " + e.getMessage();
         }
 
-        return "register_success";
+        return "";
     }
 
-    @Transactional
     @PostMapping("/vorlesungsplaner/admin/process_registerstudent")
+    @ResponseBody
     public String processStudentRegister(@RequestParam(name = "kursId") Integer kursId,
                                          @RequestBody(required = false) Nutzer nutzer,
-                                         Model model) {
+                                         HttpServletResponse response) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(nutzer.getNut_passwort());
         nutzer.setNut_passwort(encodedPassword);
@@ -109,12 +110,11 @@ public class AuthentifizierungsController {
         try {
             userService.registerNewStudentAccount(nutzer, kursId);
         } catch (UserAlreadyExistsException e) {
-            model.addAttribute("user", new Nutzer());
-            model.addAttribute("errorMessage", "Error: " + e.getMessage());
-            return "signup_form";
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            return "Error: " + e.getMessage();
         }
 
-        return "register_success";
+        return "";
     }
 
     @GetMapping("/accessdenied")

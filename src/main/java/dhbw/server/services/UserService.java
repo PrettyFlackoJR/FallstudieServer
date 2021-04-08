@@ -29,7 +29,7 @@ public class UserService {
     @Autowired
     Vorlesung_Von_NutzerRepository vorlesungVonNutzerRepository;
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = UserAlreadyExistsException.class)
     public void registerNewStudentAccount(Nutzer userDto, Integer kursId) throws UserAlreadyExistsException {
 
         if (emailExist(userDto.getNut_email())) {
@@ -42,7 +42,7 @@ public class UserService {
         }
     }
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = UserAlreadyExistsException.class)
     public void registerNewDozentAccount(RegisterForm registerForm) throws UserAlreadyExistsException {
 
         if (emailExist(registerForm.getNut_email())) {
@@ -62,7 +62,6 @@ public class UserService {
                     Kurs_Von_Nutzer kursVonNutzer = new Kurs_Von_Nutzer(nutzer_role.getNut_id(), obj.getKvn_kurs_id());
                     kursVonNutzerRepository.save(kursVonNutzer);
                 }
-                System.out.println("Vor_id: " + obj.getVvn_vor_id());
                 Vorlesung_Von_Nutzer vorlesungVonNutzer = new Vorlesung_Von_Nutzer(nutzer_role.getNut_id(), obj.getVvn_vor_id(),
                         obj.getVvn_stnd(), obj.getVvn_kurs_id());
                 vorlesungVonNutzerRepository.save(vorlesungVonNutzer);

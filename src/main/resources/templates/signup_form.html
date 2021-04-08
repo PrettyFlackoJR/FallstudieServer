@@ -46,10 +46,7 @@
     </nav>
 </header>
 <main id="main__home">
-    <form>
-        <div th:if="${errorMessage != null}"
-             th:utext="${errorMessage}" class="error">
-        </div>
+    <form onsubmit="event.preventDefault();">
         <div class="form-title text-center" id="adminDesign">
             <h4>Registrierung neuer Dozenten</h4>
         </div>
@@ -146,7 +143,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-10">
-                                <button type="submit" id="abschicken" class="button" href="register_success.html">Jetzt
+                                <button type="submit" onclick="register()" class="button" href="register_success.html">Jetzt
                                     registrieren
                                 </button>
                             </div>

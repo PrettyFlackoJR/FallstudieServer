@@ -1,9 +1,4 @@
-const abschickenStudent = document.getElementById("abschickenStudent");
-abschickenStudent.addEventListener("click", registerStudent);
-
-
-async function registerStudent(e) {
-    e.preventDefault();
+async function registerStudent() {
     if (document.getElementById("vorname").value == "" ||
         document.getElementById("nachname").value == "" ||
         document.getElementById("email").value == "" ||
@@ -46,7 +41,8 @@ async function registerStudent(e) {
         },
         body: jsonObject
     });
-    if(res.status == 200){
+    const text = await res.text();
+    if (res.status === 200) {
         location.href = "http://localhost:8080/register_success";
-    }
+    } else alert(text);
 }

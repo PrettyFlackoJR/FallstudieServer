@@ -1,15 +1,11 @@
 const addMore = document.getElementById("moreFields");
 const list = document.querySelector(".item-list");
-const abschicken = document.getElementById("abschicken");
 addMore.addEventListener("click", moreFields)
 list.addEventListener("click", trashErledigt);
-abschicken.addEventListener("click", register);
-let array= [];
+let array = [];
 let counter = 0;
 let jsonObject;
 let kvs;
-
-
 
 async function moreFields() {
     let kursValue = document.getElementById("kursListe").value;
@@ -17,7 +13,7 @@ async function moreFields() {
     let stundenValue = document.getElementById("stunden").value;
     let kursName = document.getElementById("kursListe").text;
     let vorlesungsName = document.getElementById("vorlesungsListe").innerHTML;
-    if(document.getElementById("kursListe").value.length == 0 || document.getElementById("vorlesungsListe").value.length == 0 || document.getElementById("stunden").value.length == 0) {
+    if (document.getElementById("kursListe").value.length == 0 || document.getElementById("vorlesungsListe").value.length == 0 || document.getElementById("stunden").value.length == 0) {
         alert("Sachen eingeben");
         return false;
     }
@@ -25,12 +21,13 @@ async function moreFields() {
         alert("Stunden dürfen nicht negativ oder 0 sein.");
         return false;
     }
-    for(const a of array) {
-        if(a.vvn_vor_id == vorlesungValue) {
+    for (const a of array) {
+        if (a.vvn_vor_id == vorlesungValue) {
             alert("Vorlesungen dürfen nicht doppelt vorkommen.");
             return false;
         }
     }
+
     function is_valid_datalist_value(idDataList, inputValue) {
 
         var option = document.querySelector("#" + idDataList + " option[value='" + inputValue + "']");
@@ -65,10 +62,9 @@ async function moreFields() {
     document.getElementById("stunden").value = "";
 
     loadItems();
-
-
 }
-async function register(e) {
+
+async function register() {
     if (document.getElementById("vorname").value == "" ||
         document.getElementById("nachname").value == "" ||
         document.getElementById("email").value == "" ||
@@ -78,7 +74,6 @@ async function register(e) {
         alert("Bitte alle Felder ausfüllen!");
         return false;
     }
-    e.preventDefault();
     kvs = JSON.stringify(array);
     kvs = array;
     jsonObject = {
@@ -92,19 +87,17 @@ async function register(e) {
     }
     jsonObject = JSON.stringify(jsonObject);
     console.log(jsonObject);
-       // const url = "http://localhost:8080/vorlesungsplaner/admin/process_registerdozent";
-        const res = await fetch("/vorlesungsplaner/admin/process_registerdozent", {
-       method: "POST",
-       headers: {
-           "Content-Type": "application/json"
-       },
-       body: jsonObject
-   });
-   if(res.status == 200){
-       location.href = "http://localhost:8080/register_success";
-   }
-
-
+    const res = await fetch("/vorlesungsplaner/admin/process_registerdozent", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: jsonObject
+    });
+    const text = await res.text();
+    if (res.status === 200) {
+        location.href = "http://localhost:8080/register_success";
+    } else alert(text);
 }
 
 async function loadItems() {
@@ -124,25 +117,25 @@ async function loadItems() {
         itemsDiv.classList.add("items")
         //Item erstellen
         const newItem = document.createElement("li");
-        for(const b of jsonk) {
-            if(b.kurs_id == a.kurs_id) {
-                newItem.innerText = "KursId: "+ b.kurs_name;
+        for (const b of jsonk) {
+            if (b.kurs_id == a.kurs_id) {
+                newItem.innerText = "KursId: " + b.kurs_name;
 
             }
         }
         newItem.classList.add("item");
         itemsDiv.appendChild(newItem);
         const newItem2 = document.createElement("li");
-        for(const c of jsonv) {
-            if(c.vor_id == a.vvn_vor_id) {
-                newItem2.innerText = "VorlesungsID: "+ c.vor_name;
+        for (const c of jsonv) {
+            if (c.vor_id == a.vvn_vor_id) {
+                newItem2.innerText = "VorlesungsID: " + c.vor_name;
             }
         }
 
         newItem2.classList.add("item");
         itemsDiv.appendChild(newItem2);
         const newItem3 = document.createElement("li");
-        newItem3.innerText = "Stunden: "+a.stnd;
+        newItem3.innerText = "Stunden: " + a.stnd;
         newItem3.classList.add("item");
         itemsDiv.appendChild(newItem3);
         //Loeschen Button
@@ -155,11 +148,13 @@ async function loadItems() {
 
     }
 }
+
 function clearChildren(element) {
     while (element.firstElementChild != null) {
         element.removeChild(element.firstElementChild);
     }
 }
+
 async function trashErledigt(e) {
     const item = e.target;
     //ITEM loeschen
@@ -171,7 +166,9 @@ async function trashErledigt(e) {
         eintrag.classList.add("fall");
 
 // get index of object with id:37
-        var removeIndex = array.map(function(item) { return item.vorlesungsId; }).indexOf(eintrag.childNodes[1].value);
+        var removeIndex = array.map(function (item) {
+            return item.vorlesungsId;
+        }).indexOf(eintrag.childNodes[1].value);
 
 // remove object
         array.splice(removeIndex, 1);
