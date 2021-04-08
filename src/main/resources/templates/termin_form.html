@@ -44,10 +44,14 @@
     </nav>
 </header>
 <main id="main__home">
-    <section id="first__section">
+    <form>
         <div class="form-title text-center" id="adminDesign">
             <h4>Vorlesungstermin hinzufügen</h4>
         </div>
+        <div class="page">
+            <div class="gba-kachel gba-kachel--l">
+                <div class="padding-all-unit">
+                    <div class="gba-kachel__titel"></div>
         <form name="f" th:action="@{/vorlesungsplaner/process_addTermin(kurs=${kurse.kurs_name})}"
               th:object="${termin}"
               onsubmit="return validateForm()"
@@ -97,12 +101,13 @@
                             <button type="submit" class="button">Termin zum Vorlesungsplan hinzufügen</button>
                         </td>
                     </tr>
-
                 </tbody>
-
             </table>
         </form>
-    </section>
+                </div>
+            </div>
+        </div>
+    </form>
 </main>
     <footer>
         © Vorlesungsplaner
