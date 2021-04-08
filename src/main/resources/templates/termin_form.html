@@ -44,7 +44,7 @@
     </nav>
 </header>
 <main id="main__home">
-    <form>
+    <section id="first__section">
         <div class="form-title text-center" id="adminDesign">
             <h4>Vorlesungstermin hinzufügen</h4>
         </div>
@@ -52,10 +52,10 @@
             <div class="gba-kachel gba-kachel--l">
                 <div class="padding-all-unit">
                     <div class="gba-kachel__titel"></div>
-        <form name="f" th:action="@{/vorlesungsplaner/process_addTermin(kurs=${kurse.kurs_name})}"
-              th:object="${termin}"
-              onsubmit="return validateForm()"
-              method="post" style="max-width: 600px; margin: 0 auto;">
+                    <form name="f" th:action="@{/vorlesungsplaner/process_addTermin(kurs=${kurse.kurs_name})}"
+                          th:object="${termin}"
+                          onsubmit="return validateForm()"
+              method="post">
             <table>
                 <tbody>
                 <tr>
@@ -103,11 +103,11 @@
                     </tr>
                 </tbody>
             </table>
-        </form>
+                    </form>
                 </div>
             </div>
         </div>
-    </form>
+    </section>
 </main>
     <footer>
         © Vorlesungsplaner

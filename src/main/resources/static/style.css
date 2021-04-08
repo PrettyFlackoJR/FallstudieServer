@@ -204,7 +204,8 @@ td{
 }
 
 .logoutmsg {
-    color: orange;
+    color: #e3001b;
+    font-weight: bold;
     position: center;
 }
 
