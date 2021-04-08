@@ -127,7 +127,7 @@ async function loadItems() {
         const newItem = document.createElement("li");
         for(const b of jsonk) {
             if(b.kurs_id == a.kurs_id) {
-                newItem.innerText = "KursId: "+ b.kurs_name;
+                newItem.innerText = "Kurs: "+ b.kurs_name;
 
             }
         }
@@ -137,7 +137,7 @@ async function loadItems() {
         const newItem2 = document.createElement("li");
         for(const c of jsonv) {
             if(c.vor_id == a.vvn_vor_id) {
-                newItem2.innerText = "VorlesungsID: "+ c.vor_name;
+                newItem2.innerText = "Vorlesungsname: "+ c.vor_name;
             }
         }
 
@@ -145,7 +145,7 @@ async function loadItems() {
         newItem2.setAttribute("id", "lectureId");
         itemsDiv.appendChild(newItem2);
         const newItem3 = document.createElement("li");
-        newItem3.innerText = "Stunden: "+a.stnd;
+        newItem3.innerText = "Anzahl Vorlesungsstunden: "+a.stnd;
         newItem3.classList.add("item");
         newItem3.setAttribute("id", "lectureHours")
         itemsDiv.appendChild(newItem3);

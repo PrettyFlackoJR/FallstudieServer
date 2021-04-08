@@ -220,7 +220,8 @@ td{
 
 .loginformular {
     padding: 1rem;
-    width: 300px;
+    width: 40%;
+    margin-left: calc(100% / 3);
 }
 
 .d-flex flex-column text-center {
