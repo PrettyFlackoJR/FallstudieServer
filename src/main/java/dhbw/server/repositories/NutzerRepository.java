@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 public interface NutzerRepository extends JpaRepository<Nutzer, Integer> {
 
     @Query("SELECT n FROM Nutzer n WHERE n.nut_email = ?1")
-    public Nutzer findByEmail(String email);
+    Nutzer findByEmail(String email);
 
     @Query("SELECT nut_id FROM Nutzer WHERE nut_email = ?1")
-    public Integer findIdByEmail(String email);
+    Integer findIdByEmail(String email);
 }

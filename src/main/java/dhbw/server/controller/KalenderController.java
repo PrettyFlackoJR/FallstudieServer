@@ -21,14 +21,14 @@ public class KalenderController {
     @Autowired
     private VorlesungsService vorlesungsService;
 
-    @GetMapping(path = "/process_kalender", produces = {"application/json", "text/json"})
+    @GetMapping(path = "/process_calendar", produces = {"application/json", "text/json"})
     @ResponseBody
-    public ArrayList<Event> processKalender(@RequestParam(name = "kurs") String kurs) {
+    public ArrayList<Event> processCalendar(@RequestParam(name = "kurs") String kurs) {
         return calendarService.showCalendar(kurs);
     }
 
     @GetMapping("/termin_add")
-    public String termin_add(@RequestParam(name = "kurs") String kurs, Model model) {
+    public String addTermin(@RequestParam(name = "kurs") String kurs, Model model) {
         model.addAttribute("termin", new Termin());
         model.addAttribute("vvn_namen", vorlesungsService.getVVNNamen(kurs));
         model.addAttribute("kurse", vorlesungsService.getKursByName(kurs));
@@ -37,8 +37,8 @@ public class KalenderController {
     }
 
     @GetMapping("/termin_modify")
-    public String termin_modify(@RequestParam(name = "terminId") Integer terminId,
-                                Model model) {
+    public String modifyTermin(@RequestParam(name = "terminId") Integer terminId,
+                               Model model) {
         Termin termin = calendarService.getTerminById(terminId).get();
         model.addAttribute("termin", termin);
         model.addAttribute("vorlesung", vorlesungsService.getVorName(termin.getTer_vvn_id()));
@@ -47,14 +47,13 @@ public class KalenderController {
         return "termin_modify_form";
     }
 
-    @PostMapping("/process_addTermin")
+    @PostMapping("/process_addtermin")
     public String processAddTermin(@RequestParam(name = "kurs") String kurs,
                                    Termin termin,
                                    Model model) {
         try {
             calendarService.addTermin(termin);
         } catch (TerminException e) {
-            System.out.println("test");
             model.addAttribute("termin", new Termin());
             model.addAttribute("vvn_namen", vorlesungsService.getVVNNamen(kurs));
             model.addAttribute("kurse", vorlesungsService.getKursByName(kurs));
@@ -65,7 +64,7 @@ public class KalenderController {
         return "redirect:/vorlesungsplaner";
     }
 
-    @PostMapping("/process_modifyTermin")
+    @PostMapping("/process_modifytermin")
     public String processModifyTermin(Termin termin, Model model) {
         try {
             calendarService.modifyTermin(termin);
@@ -80,16 +79,16 @@ public class KalenderController {
         return "redirect:/vorlesungsplaner";
     }
 
-    @DeleteMapping(value = "/process_deleteTermin/{id}")
+    @DeleteMapping(value = "/process_deletetermin/{id}")
     @ResponseBody
     public void processDeleteTermin(@PathVariable Integer id) {
         calendarService.deleteTermin(id);
     }
 
-    @GetMapping("/getStunden")
+    @GetMapping("/gethours")
     @ResponseBody
-    public double getStunden(@RequestParam(required = false,name= "vorlesung") Integer vvnId) {
-        return vorlesungsService.getStundenVonVorlesung(vvnId);
+    public double getHours(@RequestParam(required = false, name = "vorlesung") Integer vvnId) {
+        return vorlesungsService.getHoursOfVorlesung(vvnId);
     }
 }
 

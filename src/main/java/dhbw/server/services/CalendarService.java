@@ -17,7 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Optional;
 
 import static java.time.temporal.ChronoUnit.MINUTES;
 
@@ -43,27 +44,6 @@ public class CalendarService {
         return events;
     }
 
-    private int getNutzerId() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalEmail = authentication.getName();
-        int nutzerId = userService.getUserId(currentPrincipalEmail);
-
-        return nutzerId;
-    }
-
-    public ArrayList<Termin> getTermineOfCurrentUser(String kurs) {
-        // Nutzer ID mit E-Mail holen
-        int nutzerId = getNutzerId();
-        // VVN IDs mit Nutzer ID holen
-        ArrayList<Integer> vvnIds = getVvnIds(nutzerId, kurs);
-        // Alle Termine ermitteln
-        ArrayList<Termin> termine = new ArrayList<>();
-        for (Integer vvnId : vvnIds) {
-            termine.addAll(terminRepository.findAllByVvnId(vvnId));
-        }
-        return termine;
-    }
-
     public ArrayList<Termin> getTermineOfCurrentCourse(String course) {
         Integer courseId = kursRepository.findKursIdByName(course);
         return terminRepository.findAllByCourse(courseId);
@@ -78,12 +58,11 @@ public class CalendarService {
             try {
                 terminRepository.save(termin);
             } catch (Exception e) {
-                throw new TerminException("Bei der Eingabe ihrer Daten gab es einen Fehler und sie konnten nicht gespeichert werden.");
+                throw new TerminException("Bei der Eingabe Ihrer Daten gab es einen Fehler. Sie konnten nicht gespeichert werden.");
             }
             Optional<Vorlesung_Von_Nutzer> vorlesungVonNutzer = vorlesungVonNutzerRepository.
                     findById(termin.getTer_vvn_id());
             double delta = MINUTES.between(termin.getTer_start(), termin.getTer_ende()) / 60.0;
-            System.out.println(delta);
             if ((vorlesungVonNutzer.get().getVvn_stnd() - delta) < 0) {
                 throw new TerminException("Bitte beachten Sie die Anzahl der verfügbaren Stunden.");
             }
@@ -115,7 +94,7 @@ public class CalendarService {
             terminRepository.save(termin);
             vorlesungVonNutzerRepository.save(vorlesungVonNutzer);
         } catch (Exception e) {
-            throw new TerminException("Bei der Eingabe ihrer Daten gab es einen Fehler und sie konnten nicht gespeichert werden.");
+            throw new TerminException("Bei der Eingabe Ihrer Daten gab es einen Fehler. Sie konnten nicht gespeichert werden.");
         }
     }
 
@@ -131,8 +110,6 @@ public class CalendarService {
         ArrayList<Integer> vorlesungVonNutzerIds = vorlesungVonNutzerRepository.findIdsByNutzerId(userId, kursId);
 
         ArrayList<Event> events = new ArrayList<>();
-        String start = "";
-        String end = "";
 
         for (Termin termin : termine) {
             Event event = new Event();
@@ -143,11 +120,8 @@ public class CalendarService {
 
             event.setTitle(vorlesung.get().getVor_kuerzel());
 
-            start = termin.getTer_datum() + "T" + termin.getTer_start();
-            event.setStart(start);
-
-            end = termin.getTer_datum() + "T" + termin.getTer_ende();
-            event.setEnd(end);
+            event.setStart(termin.getTer_datum() + "T" + termin.getTer_start());
+            event.setEnd(termin.getTer_datum() + "T" + termin.getTer_ende());
 
             event.setTer_id(termin.getTer_id());
 
@@ -156,34 +130,16 @@ public class CalendarService {
                     event.setBackgroundColor("red");
                 }
             }
-
             events.add(event);
         }
 
         return events;
     }
 
-    private ArrayList<Integer> getVvnIds(Integer nutzerId, String kurs) {
-        Integer kursId = kursRepository.findKursIdByName(kurs);
-        ArrayList<Integer> vvnIds = vorlesungVonNutzerRepository.findIdsByNutzerId(nutzerId, kursId);
-
-        return vvnIds;
-    }
-
-    private ArrayList<Vorlesung_Von_Nutzer> getVvns(Integer nutzerId, String kurs) {
-        Integer kursId = kursRepository.findKursIdByName(kurs);
-        ArrayList<Vorlesung_Von_Nutzer> vvnVorIds = vorlesungVonNutzerRepository.findByNutzerId(nutzerId, kursId);
-
-        return vvnVorIds;
-    }
-
     private Boolean terminExists(LocalDate date, LocalTime start, LocalTime end, Integer kursId, Integer terminId) {
         Boolean b = false;
         ArrayList<Termin> termine = terminRepository.findAllByDate(date, kursId);
         for (Termin termin : termine) {
-            System.out.println("TerminDB: " + termin.getTer_id());
-            System.out.println("Termin: " + terminId);
-            System.out.println("-------------------");
             LocalTime dbStart = termin.getTer_start();
             LocalTime dbEnd = termin.getTer_ende();
             if (termin.getTer_id() != terminId && ((dbStart.isAfter(start) && dbStart.isBefore(end))
@@ -198,10 +154,6 @@ public class CalendarService {
             }
         }
         return b;
-    }
-
-    public List<Termin> getAllTermine() {
-        return terminRepository.findAll();
     }
 
     public Optional<Termin> getTerminById(Integer terminId) {

@@ -1,8 +1,6 @@
 package dhbw.server.entities;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 @Entity
 @Table(name = "vorlesung")

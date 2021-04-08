@@ -96,7 +96,7 @@ td{
         line-height: 1.2;
     }
 
-    .ueberKalender{
+    .aboveCalendar{
         font-size: 90%;
         width: 90%;
     }
@@ -121,7 +121,7 @@ td{
     color: #e3001b;
 }
 
-.ueberKalender {
+.aboveCalendar {
     margin-bottom: 1rem;
 }
 
@@ -130,7 +130,7 @@ td{
         display: grid;
     }
 
-    .ueberKalender, .fc-header-toolbar, .fc-toolbar-chunk, .fc-button-group, .fc-icon, .fc-toolbar-title{
+    .aboveCalendar, .fc-header-toolbar, .fc-toolbar-chunk, .fc-button-group, .fc-icon, .fc-toolbar-title{
         font-size: 14px;
     }
 
@@ -152,7 +152,7 @@ td{
         display: grid;
     }
 
-    .ueberKalender, .fc-header-toolbar, .fc-toolbar-chunk, .fc-button-group, .fc-icon, .fc-toolbar-title{
+    .aboveCalendar, .fc-header-toolbar, .fc-toolbar-chunk, .fc-button-group, .fc-icon, .fc-toolbar-title{
         font-size: 13px;
     }
 
@@ -168,7 +168,7 @@ td{
         display: grid;
     }
 
-    .ueberKalender, .fc-header-toolbar, .fc-toolbar-chunk, .fc-button-group, .fc-next-button, .fc-prev-button, .fc-icon, .fc-toolbar-title{
+    .aboveCalendar, .fc-header-toolbar, .fc-toolbar-chunk, .fc-button-group, .fc-next-button, .fc-prev-button, .fc-icon, .fc-toolbar-title{
         font-size: 12px;
     }
 
@@ -184,7 +184,7 @@ td{
         display: grid;
     }
 
-    .ueberKalender, .fc-header-toolbar, .fc-toolbar-chunk, .fc-button-group, .fc-icon, .fc-toolbar-title{
+    .aboveCalendar, .fc-header-toolbar, .fc-toolbar-chunk, .fc-button-group, .fc-icon, .fc-toolbar-title{
         font-size: 10px;
     }
 
@@ -195,11 +195,23 @@ td{
     }
 }
 
+/*Für den Kalender*/
+
+#calendar{
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+    max-width: 100%;
+    width: 100%;
+}
+
+th{
+    padding: 1.5rem;
+}
 
 .heading-sec{
     background-color: lightgrey;
 }
-
 
 .modal-body2 {
     margin-top: 50px;
@@ -568,7 +580,7 @@ ul li {
     border-radius: 5px;
 }
 
-.registrationFormularHeaders {
+.smallHeaders {
     font-size: 16px;
     margin-top: 0.5rem;
     font-weight: bold;
@@ -585,6 +597,25 @@ ul li {
 
 #calendar__newDate__modifyDate {
     margin-left: 2rem;
+}
+
+.terminModify{
+    width: 60%;
+    margin-left: calc((100% / 3) - 60px);
+}
+
+@media (max-width: 1000px) {
+    .terminModify{
+        width: 40%;
+        margin-left: calc(100% / 3) ;
+    }
+}
+
+@media (max-width: 320px) {
+    .terminModify{
+        width: 70%;
+        margin-left: calc(100% / 3);
+    }
 }
 
 .item-list,list-container, items, item{

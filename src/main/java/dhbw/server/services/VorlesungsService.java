@@ -3,8 +3,8 @@ package dhbw.server.services;
 
 import dhbw.server.entities.Kurs;
 import dhbw.server.entities.Vorlesung;
-import dhbw.server.helper.Vorlesung_Namen;
 import dhbw.server.entities.Vorlesung_Von_Nutzer;
+import dhbw.server.helper.Vorlesung_Namen;
 import dhbw.server.repositories.KursRepository;
 import dhbw.server.repositories.VorlesungRepository;
 import dhbw.server.repositories.Vorlesung_Von_NutzerRepository;
@@ -36,12 +36,10 @@ public class VorlesungsService {
     }
     public ArrayList<Vorlesung_Von_Nutzer> getVvns(String kurs) {
 
-        // Nutzer ID mit E-Mail holen
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalEmail = authentication.getName();
         int nutzerId = userService.getUserId(currentPrincipalEmail);
 
-        // VVN IDs mit Nutzer ID und Kurs ID holen
         Integer kursId = kursRepository.findKursIdByName(kurs);
         ArrayList<Vorlesung_Von_Nutzer> vvnIds = vorlesungVonNutzerRepository.findByNutzerId(nutzerId, kursId);
 
@@ -61,7 +59,7 @@ public class VorlesungsService {
         return vvn_namen;
     }
 
-    public Double getStundenVonVorlesung(Integer vvnId) {
+    public Double getHoursOfVorlesung(Integer vvnId) {
         return vorlesungVonNutzerRepository.findById(vvnId).get().getVvn_stnd();
     }
 

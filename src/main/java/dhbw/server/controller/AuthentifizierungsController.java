@@ -1,20 +1,19 @@
 package dhbw.server.controller;
 
 import dhbw.server.entities.Kurs;
+import dhbw.server.entities.Nutzer;
 import dhbw.server.entities.Vorlesung;
 import dhbw.server.exceptions.UserAlreadyExistsException;
 import dhbw.server.helper.Kurs_Vorlesung_Stunden;
 import dhbw.server.helper.RegisterForm;
 import dhbw.server.services.KursService;
 import dhbw.server.services.UserService;
-import dhbw.server.entities.Nutzer;
 import dhbw.server.services.VorlesungsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +32,7 @@ public class AuthentifizierungsController {
     private VorlesungsService vorlesungsService;
 
     @GetMapping
-    public String viewHomePage() {
+    public String viewHomepage() {
         return "index";
     }
 
@@ -52,22 +51,22 @@ public class AuthentifizierungsController {
         return "login";
     }
 
-    @GetMapping("/vorlesungsplaner/kursNamen")
+    @GetMapping("/vorlesungsplaner/kursnamen")
     @ResponseBody
-    public List<Kurs> kursnamen() {
-        return kursService.getAlleKurseMitNamen();
+    public List<Kurs> getCourseNames() {
+        return kursService.getAllKurseWithNames();
     }
 
-    @GetMapping("/vorlesungsplaner/vorlesungsNamen")
+    @GetMapping("/vorlesungsplaner/vorlesungsnamen")
     @ResponseBody
-    public List<Vorlesung> vorlesungsNamen() {
+    public List<Vorlesung> getLectureNames() {
         return vorlesungsService.getAllVorNamen();
     }
 
     @GetMapping("/vorlesungsplaner/admin/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new Nutzer());
-        model.addAttribute("kurse", kursService.getAlleKurseMitNamen());
+        model.addAttribute("kurse", kursService.getAllKurseWithNames());
         model.addAttribute("vor_namen", vorlesungsService.getAllVorNamen());
         model.addAttribute("kvs", new ArrayList<Kurs_Vorlesung_Stunden>());
         return "signup_form";
@@ -75,24 +74,24 @@ public class AuthentifizierungsController {
 
     @GetMapping("/vorlesungsplaner/admin/register_student")
     public String showRegistrationFormStudent(Model model) {
-        model.addAttribute("kurse", kursService.getAlleKurseMitNamen());
+        model.addAttribute("kurse", kursService.getAllKurseWithNames());
         model.addAttribute("user", new Nutzer());
         return "signup_form_student";
     }
 
-    @PostMapping("/vorlesungsplaner/admin/process_registerdozent")
+    @PostMapping("/vorlesungsplaner/admin/process_registerlecturer")
     @ResponseBody
-    public String processDozentRegister(HttpServletResponse response,
+    public String processLecturerRegister(HttpServletResponse response,
                                         @RequestBody(required = false) RegisterForm registerForm) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(registerForm.getNut_passwort());
         registerForm.setNut_passwort(encodedPassword);
 
         try {
-            userService.registerNewDozentAccount(registerForm);
+            userService.registerNewLecturerAccount(registerForm);
         } catch (UserAlreadyExistsException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return "Error: " + e.getMessage();
+            return e.getMessage();
         }
 
         return "";
@@ -111,7 +110,7 @@ public class AuthentifizierungsController {
             userService.registerNewStudentAccount(nutzer, kursId);
         } catch (UserAlreadyExistsException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return "Error: " + e.getMessage();
+            return e.getMessage();
         }
 
         return "";

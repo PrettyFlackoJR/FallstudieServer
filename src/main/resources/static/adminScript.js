@@ -15,18 +15,18 @@ async function startPlanning() {
 async function setPeriod() {
     const start = document.getElementById("start").value;
     const end = document.getElementById("end").value;
-    const course = document.getElementById("course1");
-    const coursValue = course.options[course.selectedIndex].value;
+    const kurs = document.getElementById("course1");
+    const kursValue = kurs.options[kurs.selectedIndex].value;
 
     const url = baseURL + "/admin/process_setperiod";
     const obj = {
-        kurs: coursValue,
+        kurs: kursValue,
         start: start,
         end: end
     }
 
     const body = JSON.stringify(obj);
-    const res = await fetch(url,{
+    const res = await fetch(url, {
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
@@ -35,6 +35,8 @@ async function setPeriod() {
     })
     const text = await res.text();
     if (res.status === 200) {
-        alert("Zeitraum wurde für Kurs " + coursValue + " gesetzt.");
-    } else alert(text);
+        alert("Der angegebene Zeitraum wurde für Kurs " + kursValue + " gesetzt.");
+    } else {
+        alert(text);
+    }
 }

@@ -1,7 +1,7 @@
 const addMore = document.getElementById("moreFields");
 const list = document.querySelector(".item-list");
 addMore.addEventListener("click", moreFields)
-list.addEventListener("click", trashErledigt);
+list.addEventListener("click", trashAndDone);
 let array = [];
 let counter = 0;
 let jsonObject;
@@ -13,14 +13,19 @@ async function moreFields() {
     let stundenValue = document.getElementById("stunden").value;
     let kursName = document.getElementById("kursListe").text;
     let vorlesungsName = document.getElementById("vorlesungsListe").innerHTML;
-    if (document.getElementById("kursListe").value.length == 0 || document.getElementById("vorlesungsListe").value.length == 0 || document.getElementById("stunden").value.length == 0) {
-        alert("Bitte geben Sie die nötigen Daten an.");
+
+    if (document.getElementById("kursListe").value.length == 0 ||
+        document.getElementById("vorlesungsListe").value.length == 0 ||
+        document.getElementById("stunden").value.length == 0) {
+        alert("Bitte geben Sie Kurs, Vorlesung und auch die Stunden an.");
         return false;
     }
+
     if (stundenValue < 1) {
         alert("Die Anzahl an Vorlesungsstunden darf nicht negativ oder 0 sein.");
         return false;
     }
+
     for (const a of array) {
         if (a.vvn_vor_id == vorlesungValue) {
             alert("Vorlesungen dürfen nicht doppelt vorkommen.");
@@ -30,7 +35,7 @@ async function moreFields() {
 
     function is_valid_datalist_value(idDataList, inputValue) {
 
-        var option = document.querySelector("#" + idDataList + " option[value='" + inputValue + "']");
+        let option = document.querySelector("#" + idDataList + " option[value='" + inputValue + "']");
         if (option != null) {
             return option.value.length > 0;
         }
@@ -39,7 +44,7 @@ async function moreFields() {
 
     if (is_valid_datalist_value('kurs', document.getElementById('kursListe').value) && is_valid_datalist_value('vorlesungen', document.getElementById('vorlesungsListe').value)) {
     } else {
-        alert("Invalid");
+        alert("Der angegebene Kurs/Vorlesung existiert nicht.");
         return false;
     }
 
@@ -55,8 +60,6 @@ async function moreFields() {
         vor_name: vorlesungsName,
         stnd: stundenValue
     }
-    console.log(helpObj);
-
     document.getElementById("kursListe").value = "";
     document.getElementById("vorlesungsListe").value = "";
     document.getElementById("stunden").value = "";
@@ -86,8 +89,7 @@ async function register() {
         kvs: kvs
     }
     jsonObject = JSON.stringify(jsonObject);
-    console.log(jsonObject);
-    const res = await fetch("/vorlesungsplaner/admin/process_registerdozent", {
+    const res = await fetch("/vorlesungsplaner/admin/process_registerlecturer", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -101,15 +103,13 @@ async function register() {
 }
 
 async function loadItems() {
-    const urlk = "http://localhost:8080/vorlesungsplaner/kursNamen";
+    const urlk = "http://localhost:8080/vorlesungsplaner/kursnamen";
     const resk = await fetch(urlk);
     const jsonk = await resk.json();
-    console.log(jsonk)
 
-    const urlv = "http://localhost:8080/vorlesungsplaner/vorlesungsNamen";
+    const urlv = "http://localhost:8080/vorlesungsplaner/vorlesungsnamen";
     const resv = await fetch(urlv);
     const jsonv = await resv.json();
-    console.log(jsonv);
 
     clearChildren(list);
     for (const a of array) {
@@ -155,9 +155,8 @@ function clearChildren(element) {
     }
 }
 
-async function trashErledigt(e) {
+async function trashAndDone(e) {
     const item = e.target;
-    //ITEM loeschen
     if (item.classList[0] == "trash-btn" || item.classList.value == "fas fa-trash") {
         let eintrag = item.parentElement;
         if (item.classList.value == "fas fa-trash") {
@@ -165,12 +164,10 @@ async function trashErledigt(e) {
         }
         eintrag.classList.add("fall");
 
-// get index of object with id:37
-        var removeIndex = array.map(function (item) {
+        let removeIndex = array.map(function (item) {
             return item.vorlesungsId;
         }).indexOf(eintrag.childNodes[1].value);
 
-// remove object
         array.splice(removeIndex, 1);
         eintrag.addEventListener("transitionend", async function () {
             eintrag.remove();

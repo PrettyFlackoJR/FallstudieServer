@@ -24,17 +24,14 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/vorlesungsplaner">
+                    <a class="nav-link" th:href="@{/vorlesungsplaner}">
                         Vorlesungsplaner
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="vorlesungsplaner/admin" id="current">
+                    <a class="nav-link" th:href="@{/vorlesungsplaner/admin}" id="current">
                         Administrationsbereich
                     </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/vorlesungsplaner/profile}">Mein Profil</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">

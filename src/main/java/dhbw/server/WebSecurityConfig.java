@@ -1,7 +1,5 @@
 package dhbw.server;
 
-import javax.sql.DataSource;
-
 import dhbw.server.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,11 +12,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private DataSource dataSource;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -48,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/vorlesungsplaner/admin/**").hasAuthority("ADMIN")
-                //.antMatchers("/vorlesungsplaner/termin_add").hasAuthority("EDITOR")
+                .antMatchers("/vorlesungsplaner/termin_add").hasAuthority("EDITOR")
                 .antMatchers("/vorlesungsplaner/**").hasAnyAuthority("ADMIN", "USER", "STUDENT")
                 .antMatchers("/css/**").permitAll()
                 .anyRequest().permitAll()
