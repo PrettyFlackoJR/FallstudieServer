@@ -1,6 +1,7 @@
 body {
     margin: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding-bottom: 3em;
 }
 
 main {
@@ -12,13 +13,29 @@ header {
     font-weight: bold;
     color: white;
     background-color: #7c8991;
+    top:0;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
 }
 
 footer {
-    padding: 2rem;
+    padding: 1rem;
     background-color: #343a40;
     color: white;
     text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+.form-title{
+    margin-top: 5em;
+}
+
+#first__section{
+    margin-top: 4em;
 }
 
 a{
@@ -107,28 +124,13 @@ td{
 .ueberKalender {
     margin-bottom: 1rem;
 }
-@media (max-width: 500px) {
-    #main__home {
-        display: grid;
-    }
-
-    .ueberKalender{
-        font-size: 13px;
-    }
-
-    #calendar{
-        height: 450px;
-        width: 450px;
-        font-size: 13px;
-    }
-}
 
 @media (max-width: 768px) {
     #main__home {
         display: grid;
     }
 
-    .ueberKalender {
+    .ueberKalender, .fc-header-toolbar, .fc-toolbar-chunk, .fc-button-group, .fc-icon, .fc-toolbar-title{
         font-size: 14px;
     }
 
@@ -145,14 +147,28 @@ td{
     }
 }
 
+@media (max-width: 500px) {
+    #main__home {
+        display: grid;
+    }
 
+    .ueberKalender, .fc-header-toolbar, .fc-toolbar-chunk, .fc-button-group, .fc-icon, .fc-toolbar-title{
+        font-size: 13px;
+    }
+
+    #calendar{
+        height: 550px;
+        width: 90%;
+        font-size: 13px;
+    }
+}
 
 @media (max-width: 320px) {
     #main__home {
         display: grid;
     }
 
-    .ueberKalender{
+    .ueberKalender, .fc-header-toolbar, .fc-toolbar-chunk, .fc-button-group, .fc-next-button, .fc-prev-button, .fc-icon, .fc-toolbar-title{
         font-size: 12px;
     }
 
@@ -168,7 +184,7 @@ td{
         display: grid;
     }
 
-    .ueberKalender{
+    .ueberKalender, .fc-header-toolbar, .fc-toolbar-chunk, .fc-button-group, .fc-icon, .fc-toolbar-title{
         font-size: 10px;
     }
 
@@ -203,11 +219,6 @@ td{
     position: center;
 }
 
-.logoutmsg {
-    color: #e3001b;
-    font-weight: bold;
-    position: center;
-}
 
 .label {
     text-align: left;
@@ -223,10 +234,35 @@ td{
     align-content: flex-start;
 }
 
+/*Login-Page*/
+
 .loginformular {
     padding: 1rem;
     width: 40%;
     margin-left: calc(100% / 3);
+}
+
+@media (max-width: 1000px) {
+    .loginformular {
+        padding: 1rem;
+        width: 60%;
+        margin-left: calc(100% / 3.33);
+    }
+}
+
+@media (max-width: 320px) {
+    .loginformular {
+        padding: 1rem;
+        width: 80%;
+        height: 90%;
+        margin-left: calc(100% / 3.33);
+    }
+}
+
+.logoutmsg {
+    color: #e3001b;
+    font-weight: bold;
+    text-align: center;
 }
 
 .d-flex flex-column text-center {

@@ -47,36 +47,36 @@
     </nav>
 </header>
 <main id="main__home">
-    <div class="form-title text-center" id="adminDesign">
-        <h4>Vorlesungsplaner</h4>
-    </div>
-    <div class="page">
-        <div class="gba-kachel gba-kachel--l">
-            <div class="padding-all-unit">
-                <div class="gba-kachel__titel"></div>
-                <div class="gba-kachel__body">
-                    <div class="ueberKalender">
-                        <select id="kurs1" onchange="kursNeuladen()">
-                            <option th:each="kvn_name: ${kvn_namen}" th:value="${kvn_name.kurs_name}"
-                                    th:text="${kvn_name.kurs_name}"></option>
-                        </select>
-                        <button class="button btn-responsive" id="add">Termin
-                            hinzufügen
-                        </button>
-                        <button class="button btn-responsive" id="endPlanningtime" onclick="endPlanning()">Planung
-                            beenden
-                        </button>
-                        <button class="button btn-responsive" id="printCourseplan">Vorlesungsplan drucken</button>
+    <section id="first__section">
+        <div class="form-title text-center" id="adminDesign">
+            <h4>Vorlesungsplaner</h4>
+        </div>
+        <div class="page">
+            <div class="gba-kachel gba-kachel--l">
+                <div class="padding-all-unit">
+                    <div class="gba-kachel__titel"></div>
+                    <div class="gba-kachel__body">
+                        <div class="ueberKalender">
+                            <select id="kurs1" onchange="kursNeuladen()">
+                                <option th:each="kvn_name: ${kvn_namen}" th:value="${kvn_name.kurs_name}"
+                                        th:text="${kvn_name.kurs_name}"></option>
+                            </select>
+                            <button class="button btn-responsive" id="add">Termin
+                                hinzufügen
+                            </button>
+                            <button class="button btn-responsive" id="endPlanningtime" onclick="endPlanning()">Planung
+                                beenden
+                            </button>
+                            <button class="button btn-responsive" id="printCourseplan">Vorlesungsplan drucken</button>
+                        </div>
+                        <section id="calendar__section">
+                            <div id='calendar'></div>
+                        </section>
                     </div>
-                    <section id="calendar__section">
-                        <div id='calendar'></div>
-                    </section>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-    </div>
+    </section>
 </main>
 <footer id="footer">
     © Vorlesungsplaner
