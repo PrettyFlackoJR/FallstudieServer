@@ -1,6 +1,7 @@
 package dhbw.server.helper;
 
 public class Kurs_Vorlesung_Stunden {
+
     private Integer kurs_id;
     private Integer vvn_vor_id;
     private Double stnd;

@@ -20,12 +20,12 @@
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <form th:action="@{/login}" method="get">
+        <form class="form-inline my-2 my-lg-0" th:action="@{/login}" method="get">
             <input class="button" type="submit" value="Login"/>
         </form>
-        </div>
     </nav>
 </header>
+
 <main>
     <section id="first__section">
         <table>
@@ -71,7 +71,7 @@
                                 <input type="password" class="form-control" id="password" name="password"
                                        placeholder="Password">
                             </div>
-                            <div class="form-actions" style="margin-top: 12px;">
+                            <div class="form-actions">
                                 <button type="submit" class="btn btn-success">Log in</button>
                             </div>
                         </form>

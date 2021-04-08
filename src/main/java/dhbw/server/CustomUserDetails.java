@@ -60,8 +60,4 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-    public String getFullName() {
-        return nutzer.getNut_vorname() + " " + nutzer.getNut_nachname();
-    }
 }

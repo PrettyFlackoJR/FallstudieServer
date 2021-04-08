@@ -12,12 +12,12 @@ import java.util.ArrayList;
 public interface TerminRepository extends JpaRepository<Termin, Integer> {
 
     @Query("SELECT t FROM Termin t WHERE t.ter_vvn_id = ?1")
-    public ArrayList<Termin> findAllByVvnId(Integer vvnId);
+    ArrayList<Termin> findAllByVvnId(Integer vvnId);
 
     @Query("SELECT t FROM Termin t WHERE t.ter_datum = ?1 AND t.ter_kurs_id = ?2")
-    public ArrayList<Termin> findAllByDate(LocalDate date, Integer kursId);
+    ArrayList<Termin> findAllByDate(LocalDate date, Integer kursId);
 
     @Query("SELECT t FROM Termin t WHERE t.ter_kurs_id = ?1")
-    public ArrayList<Termin> findAllByCourse(Integer courseId);
+    ArrayList<Termin> findAllByCourse(Integer courseId);
 
 }

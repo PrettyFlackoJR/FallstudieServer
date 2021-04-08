@@ -1,10 +1,10 @@
 const addButton = document.getElementById("add");
-addButton.addEventListener("click", weiterleitenZuTermin)
+addButton.addEventListener("click", redirectToTermin)
 const endButton = document.getElementById("endPlanningtime");
 
 async function onLoad() {
     const roles = await getRoles();
-    await kursNeuladen(roles);
+    await reloadKurs(roles);
     showButtons(roles);
 }
 
@@ -22,18 +22,18 @@ function showButtons(roles) {
     }
 }
 
-async function kursNeuladen(roles) {
+async function reloadKurs(roles) {
     let url;
     let kurs = document.getElementById("kurs1");
     let kursValue = kurs.options[kurs.selectedIndex].value;
-    url = "http://localhost:8080/vorlesungsplaner/process_kalender?kurs=" + kursValue;
+    url = "http://localhost:8080/vorlesungsplaner/process_calendar?kurs=" + kursValue;
 
     const res = await fetch(url);
     const json = await res.json();
 
-    var calendarEl = document.getElementById('calendar');
+    let calendarEl = document.getElementById('calendar');
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    let calendar = new FullCalendar.Calendar(calendarEl, {
         timeZone: 'CET',
         themeSystem: 'standard',
         headerToolbar: {
@@ -42,7 +42,7 @@ async function kursNeuladen(roles) {
             right: 'dayGridMonth,timeGridWeek,listMonth'
         },
         weekNumbers: true,
-        dayMaxEvents: true, // allow "more" link when too many events
+        dayMaxEvents: true,
         events: json,
         eventClick: function (info) {
             if (roles.includes(3)) {
@@ -57,7 +57,7 @@ async function kursNeuladen(roles) {
     calendar.render();
 }
 
-async function weiterleitenZuTermin() {
+async function redirectToTermin() {
     let kurs = document.getElementById("kurs1");
     let kursValue = kurs.options[kurs.selectedIndex].value;
     if (kursValue == 0) {

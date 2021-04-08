@@ -43,7 +43,7 @@ public class UserService {
     }
 
     @Transactional(rollbackFor = UserAlreadyExistsException.class)
-    public void registerNewDozentAccount(RegisterForm registerForm) throws UserAlreadyExistsException {
+    public void registerNewLecturerAccount(RegisterForm registerForm) throws UserAlreadyExistsException {
 
         if (emailExist(registerForm.getNut_email())) {
             throw new UserAlreadyExistsException(
@@ -88,7 +88,7 @@ public class UserService {
         return nutzer.getNut_id();
     }
 
-    public ArrayList<Nutzer> getAllDozenten() {
+    public ArrayList<Nutzer> getAllLecturers() {
         ArrayList<Integer> ids = nutzerRolesRepository.findAllDozenten();
         return (ArrayList<Nutzer>) nutzerRepository.findAllById(ids);
     }

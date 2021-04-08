@@ -11,5 +11,5 @@ import java.util.ArrayList;
 public interface Kurs_Von_NutzerRepository extends JpaRepository<Kurs_Von_Nutzer, Integer> {
 
     @Query("SELECT k FROM Kurs_Von_Nutzer k WHERE k.kvn_nut_id = ?1")
-    public ArrayList<Kurs_Von_Nutzer> findByNutzerId(Integer nutzerId);
+    ArrayList<Kurs_Von_Nutzer> findByNutzerId(Integer nutzerId);
 }

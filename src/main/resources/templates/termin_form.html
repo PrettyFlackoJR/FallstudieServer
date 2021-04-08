@@ -24,17 +24,14 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/vorlesungsplaner" id="current">
+                    <a class="nav-link" th:href="@{/vorlesungsplaner}" id="current">
                         Vorlesungsplaner
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="vorlesungsplaner/admin">
+                    <a class="nav-link" th:href="@{/vorlesungsplaner/admin}">
                         Administrationsbereich
                     </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/vorlesungsplaner/profile">Mein Profil</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
@@ -52,20 +49,21 @@
             <div class="gba-kachel gba-kachel--l">
                 <div class="padding-all-unit">
                     <div class="gba-kachel__titel"></div>
-                    <form name="f" th:action="@{/vorlesungsplaner/process_addTermin(kurs=${kurse.kurs_name})}"
+                    <form name="f" th:action="@{/vorlesungsplaner/process_addtermin(kurs=${kurse.kurs_name})}"
                           th:object="${termin}"
                           onsubmit="return validateForm()"
-              method="post">
-            <table>
-                <tbody>
-                <tr>
-                    <div th:if="${errorMessage != null}"
-                         th:utext="${errorMessage}" class="error">
-                    </div>
-                        <td><label class="label">Vorlesung: </label></td>
+                          method="post">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <div th:if="${errorMessage != null}"
+                                     th:utext="${errorMessage}" class="error">
+                                </div>
+                                <td><label class="label">Vorlesung: </label></td>
                         <td><select th:field="*{ter_vvn_id}" required>
                             <option value="0">Vorlesungsfach auswählen</option>
-                            <option onclick="ladeStunden(this)" th:each="vvn_name: ${vvn_namen}" th:value="${vvn_name.getVvn_id()}"
+                            <option onclick="loadHours(this)" th:each="vvn_name: ${vvn_namen}"
+                                    th:value="${vvn_name.getVvn_id()}"
                                     th:text="${vvn_name.vor_name}"></option>
                         </select>
                         </td>

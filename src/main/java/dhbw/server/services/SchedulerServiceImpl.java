@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.Properties;
 import java.util.concurrent.ScheduledFuture;
 
-
 @Component
 public class SchedulerServiceImpl {
 
@@ -69,8 +68,7 @@ public class SchedulerServiceImpl {
                 Nutzer nutzer = nutzerArrayList.get(0);
                 userService.addEditorRole(nutzer.getNut_id());
                 initial = false;
-                String name = nutzer.getNut_vorname() + " " + nutzer.getNut_nachname();
-               // sendEmail(nutzer.getNut_email(), nutzer.getNut_anrede(), name);
+               //sendEmail(nutzer.getNut_email(), nutzer.getNut_anrede(), nutzer.getNut_nachname());
             } else {
                 Integer nutzerId = nutzerArrayList.get(0).getNut_id();
                 userService.removeEditorRole(nutzerId);
@@ -78,10 +76,8 @@ public class SchedulerServiceImpl {
 
                 Nutzer newNutzer = nutzerArrayList.get(0);
                 userService.addEditorRole(newNutzer.getNut_id());
-                String name = newNutzer.getNut_vorname() + " " + newNutzer.getNut_nachname();
-               // sendEmail(newNutzer.getNut_email(), newNutzer.getNut_anrede(), name);
+               //sendEmail(newNutzer.getNut_email(), newNutzer.getNut_anrede(), newNutzer.getNut_nachname());
             }
-            System.out.println(nutzerArrayList.get(0).getNut_email());
         } catch (IndexOutOfBoundsException e) {
             job1.cancel(true);
         }
@@ -133,18 +129,18 @@ public class SchedulerServiceImpl {
         });
 
         Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress("from@gmail.com"));
+        message.setFrom(new InternetAddress("dhbwplanner@gmail.com"));
         message.setRecipients(
                 Message.RecipientType.TO, InternetAddress.parse(email));
-        message.setSubject("Beginnen Sie mit der Vorlesungsplanung");
+        message.setSubject("Bitte beginnen Sie mit der Vorlesungsplanung");
 
         String localDate = LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         String localTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
 
         String msg = "Sehr geehrte/r " + anrede + " " + name + "," + "<br>" + "<br>"
-                + "bitte beginnen Sie mit ihrer Planung: " + "<a href='http://localhost:8080'>Vorlesungsplaner</a>."
+                + "bitte beginnen Sie mit ihrer Vorlesungsplanung: " + "<a href='http://localhost:8080'>Vorlesungsplaner</a>."
                 + "<br>" + "<br>" + "Ihr Planungsfenster schließt sich am "
-                + localDate + " um " + localTime + ".";
+                + localDate + " um " + localTime + "." + "<br>" +"Bei Fragen wenden Sie sich bitte an den Admin.";
 
         MimeBodyPart mimeBodyPart = new MimeBodyPart();
         mimeBodyPart.setContent(msg, "text/html");
@@ -156,10 +152,6 @@ public class SchedulerServiceImpl {
 
         Transport.send(message);
 
-    }
-
-    public ArrayList<Nutzer> getNutzerArrayList() {
-        return nutzerArrayList;
     }
 
     public void setNutzerArrayList(ArrayList<Nutzer> nutzerArrayList) {

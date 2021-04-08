@@ -7,7 +7,6 @@
     <title>DH-Planner</title>
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/kalender.css}">
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.css' rel='stylesheet'/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
@@ -27,17 +26,14 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/vorlesungsplaner" id="current">
+                    <a class="nav-link" th:href="@{/vorlesungsplaner}" id="current">
                         Vorlesungsplaner
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="vorlesungsplaner/admin">
+                    <a class="nav-link" th:href="@{/vorlesungsplaner/admin}">
                         Administrationsbereich
                     </a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/vorlesungsplaner/profile">Mein Profil</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
@@ -56,8 +52,8 @@
                 <div class="padding-all-unit">
                     <div class="gba-kachel__titel"></div>
                     <div class="gba-kachel__body">
-                        <div class="ueberKalender">
-                            <select id="kurs1" onchange="kursNeuladen()">
+                        <div class="aboveCalendar">
+                            <select id="kurs1" onchange="reloadKurs()">
                                 <option th:each="kvn_name: ${kvn_namen}" th:value="${kvn_name.kurs_name}"
                                         th:text="${kvn_name.kurs_name}"></option>
                             </select>
@@ -67,7 +63,9 @@
                             <button class="button btn-responsive" id="endPlanningtime" onclick="endPlanning()">Planung
                                 beenden
                             </button>
-                            <button class="button btn-responsive" id="printCourseplan">Vorlesungsplan drucken</button>
+                            <button class="button btn-responsive" id="printCourseplan" onclick="window.print();">
+                                Vorlesungsplan drucken
+                            </button>
                         </div>
                         <section id="calendar__section">
                             <div id='calendar'></div>
@@ -83,10 +81,7 @@
 </footer>
 </body>
 <script src="homeScript.js"></script>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://code.jquery.com/jquery.js"></script>
-<!-- Include all compiled plugins (below), or include individual files
-      as needed -->
 <script src="js/bootstrap.min.js"></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.js'></script>
 </html>

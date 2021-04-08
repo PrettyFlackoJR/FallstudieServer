@@ -1,6 +1,5 @@
 package dhbw.server.controller;
 
-import dhbw.server.services.CalendarService;
 import dhbw.server.services.KursService;
 import dhbw.server.services.SchedulerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ public class AnwendungsController {
     private SchedulerServiceImpl schedulerService;
 
     @GetMapping
-    public String viewVorlesungsplaner(Model model) {
+    public String viewPlanner(Model model) {
         model.addAttribute("kvn_namen", kursService.getKursNamen());
         return "homepage";
     }

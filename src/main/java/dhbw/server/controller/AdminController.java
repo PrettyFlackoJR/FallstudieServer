@@ -19,7 +19,7 @@ public class AdminController {
 
     @GetMapping
     public String viewAdmin(Model model) {
-        model.addAttribute("kurse", kursService.getAlleKurseMitNamen());
+        model.addAttribute("kurse", kursService.getAllKurseWithNames());
         return "admin";
     }
 
@@ -30,7 +30,7 @@ public class AdminController {
             kursService.setPeriod(kursZeitraum);
         } catch (TimeframeException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return "Error: " + e.getMessage();
+            return e.getMessage();
         }
         return "";
     }

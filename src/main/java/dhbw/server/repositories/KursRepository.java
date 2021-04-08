@@ -11,11 +11,11 @@ import java.util.ArrayList;
 public interface KursRepository extends JpaRepository<Kurs, Integer> {
 
     @Query("SELECT kurs_id FROM Kurs WHERE kurs_name = ?1")
-    public Integer findKursIdByName(String kurs);
+    Integer findKursIdByName(String kurs);
 
     @Query("SELECT k FROM Kurs k WHERE k.kurs_name = ?1")
-    public Kurs findKursByName(String kurs);
+    Kurs findKursByName(String kurs);
 
     @Query("SELECT k FROM Kurs k WHERE k.kurs_id = ?1")
-    public ArrayList<Kurs> findByKvns(Integer kvns);
+    ArrayList<Kurs> findByKursId(Integer kursId);
 }

@@ -10,9 +10,10 @@ async function registerStudent() {
         alert("Kurs eingeben");
         return false;
     }
+
     function is_valid_datalist_value(idDataList, inputValue) {
 
-        var option = document.querySelector("#" + idDataList + " option[value='" + inputValue + "']");
+        let option = document.querySelector("#" + idDataList + " option[value='" + inputValue + "']");
         if (option != null) {
             return option.value.length > 0;
         }
@@ -21,9 +22,10 @@ async function registerStudent() {
 
     if (is_valid_datalist_value('kurs', document.getElementById('kursListe').value)) {
     } else {
-        alert("Invalid");
+        alert("Dieser Kurs existiert nicht.");
         return false;
     }
+
     jsonObject = {
         nut_vorname: document.getElementById("vorname").value,
         nut_nachname: document.getElementById("nachname").value,
