@@ -7,8 +7,10 @@
     <link rel="stylesheet" type="text/css" href="http://localhost:8080/style.css">
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
     <link rel="shortcut icon" type="image/jpg" href="/images/DHBWLogo.jpg">
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/10fd971787.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <header>
@@ -44,11 +46,24 @@
 </header>
 <main>
     <section id="first__section">
-        <div class="container text-center">
-            <div>
-                <p>
-                    Ihr Profil: <b>[[${#request.userPrincipal.principal.fullName}]]</b>
-                </p>
+        <div class="form-title text-center" id="adminDesign">
+            <h4>Profilinformationen</h4>
+        </div>
+        <div class="page">
+            <div class="gba-kachel gba-kachel--l">
+                <div class="padding-all-unit">
+                    <div class="gba-kachel__titel"></div>
+                    <p>
+                        Ihr Profil: <b>[[${#request.userPrincipal.principal.fullName}]]</b>
+                    </p>
+                    <p>Passwort:<i class="fas fa-pencil-square"></i></p>
+                    <div class="heading-sec text-center">
+                        <div class="col-lg-8 col-md-12 mx-auto">
+                            <h1 class="text-uppercase">Coming Soon</h1>
+                            <p>Our website is under construction.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
