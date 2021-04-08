@@ -38,11 +38,6 @@ ul{
     color: #e3001b;
 }
 
-.navbar{
-    background: #7c8991;
-    padding: 0;
-    color: white;
-}
 
 .button{
     padding: 8px 20px;
@@ -53,6 +48,7 @@ ul{
     border: 1px black;
     border-radius: 25px;
     margin-right: 1rem;
+    margin-top: 0.5rem;
     text-align: right;
 }
 
@@ -65,16 +61,30 @@ td{
 }
 
 /*index-Seite - Styling*/
-#first__section{
+#first__section {
     padding: 2rem;
 }
 
-.container-fluid{
+.container-fluid {
     padding: 0rem;
     margin: 0;
 }
 
 /*Homepage-Styling*/
+
+@media (min-width: 769px) and (max-width: 992px) {
+    .btn-responsive {
+        padding: 4px 9px;
+        font-size: 90%;
+        line-height: 1.2;
+    }
+
+    .ueberKalender{
+        font-size: 90%;
+        width: 90%;
+    }
+}
+
 @media (max-width: 1000px) {
     a {
         text-decoration: none;
@@ -84,7 +94,7 @@ td{
         display: grid;
     }
 
-    #calendar{
+    #calendar {
         height: 800px;
         width: 800px;
     }
@@ -118,14 +128,20 @@ td{
         display: grid;
     }
 
-    .ueberKalender{
+    .ueberKalender {
         font-size: 14px;
     }
 
-    #calendar{
+    #calendar {
         height: 700px;
         width: 700px;
         font-size: 14px;
+    }
+
+    .btn-responsive {
+        padding: 2px 4px;
+        font-size: 80%;
+        line-height: 1;
     }
 }
 
@@ -163,9 +179,7 @@ td{
     }
 }
 
-div {
-    display: block;
-}
+
 
 .modal-body2 {
     margin-top: 50px;
@@ -206,7 +220,8 @@ div {
 
 .loginformular {
     padding: 1rem;
-    width: 300px;
+    width: 40%;
+    margin-left: calc(100% / 3);
 }
 
 .d-flex flex-column text-center {
@@ -289,7 +304,6 @@ body {
     line-height: 1.538461538;
     /* 20px / 13px */
     color: #161616;
-    background: #bfbfbf;
 }
 
 .page {
@@ -532,28 +546,47 @@ ul li {
     margin-left: 2rem;
 }
 
+.item-list,list-container, items, item{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 12px;
+    border-radius: 2px;
+    border-color: #7c8991;
+}
 
-.list-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/*Liste hinzugefügter Vorlesungen - Formatierung*/
+
+#existingLectures{
+    text-align: left;
+
+}
+
+#courseId{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14px;
+}
+
+#lectureId{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14px;
+}
+
+#lectureHours{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14px;
 }
 
 .list-input {
     font-family: 'B612';
 }
 
-.item-list {
+.addedCoursesList {
     min-width: 30%;
     list-style: none;
 }
 
+
 .items {
-    font-family: 'B612';
     margin: 0.5rem;
-    background: white;
-    color: black;
-    font-size: 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -565,10 +598,9 @@ ul li {
 }
 
 .trash-btn, .erledigt-btn {
-    background: #6c7b7f;
-    color: white;
+    color: #7c8991;
     border: none;
-    padding: 1rem;
+    padding: 0.5rem;
     cursor: pointer;
     font-size: 1rem;
     transition: all 0.3s ease;

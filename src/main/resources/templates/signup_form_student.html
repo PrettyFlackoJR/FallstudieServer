@@ -15,8 +15,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/vorlesungsplaner">
-            <img th:src="@{/images/DHPlannerKlein.PNG}" width="100" height="70" class="d-inline-block align-top"
-                 alt="DH-Planner Logo">
+            <img th:src="@{/images/DHPlannerKlein.PNG}" width="100" height="70" class="d-inline-block align-top" alt="DH-Planner Logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
                 aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,77 +44,78 @@
     </nav>
 </header>
 <main id="main__home">
-    <form onsubmit="event.preventDefault();">
-        <div class="form-title text-center" id="adminDesign">
-            <h4>Registrierung neuer Studenten</h4>
-        </div>
-        <div class="page">
-            <div class="gba-kachel gba-kachel--l">
-                <div class="padding-all-unit">
-                    <div class="gba-kachel__titel"></div>
-                    <form name="registerForm" th:object="${user}">
-                        <div class="form-group row">
-                            <label for="anrede" class="col-sm-2 col-form-label">Anrede</label>
-                            <div class="col-sm-10">
-                                <select id="anrede" th:field="*{nut_anrede}" required>
-                                    <option value="0"> Bitte wählen</option>
-                                    <option th:value="'Herr'" th:text="Herr"></option>
-                                    <option th:value="'Frau'" th:text="Frau"></option>
-                                    <option th:value="'Divers'" th:text="Divers"></option>
-                                </select>
+    <form>
+            <div th:if="${errorMessage != null}"
+                 th:utext="${errorMessage}" class="error">
+            </div>
+            <div class="form-title text-center" id="adminDesign">
+                <h4>Registrierung neuer Studenten</h4>
+            </div>
+            <div class="page">
+                <div class="gba-kachel gba-kachel--l">
+                    <div class="padding-all-unit">
+                        <div class="gba-kachel__titel"></div>
+                        <form name="registerForm" th:object="${user}" >
+                            <div class="form-group row">
+                                <label for="anrede" class="col-sm-2 col-form-label">Anrede</label>
+                                <div class="col-sm-10">
+                                    <select id="anrede" th:field="*{nut_anrede}" required>
+                                        <option value="0"> Bitte wählen</option>
+                                        <option th:value="'Herr'" th:text="Herr"></option>
+                                        <option th:value="'Frau'" th:text="Frau"></option>
+                                        <option th:value="'Divers'" th:text="Divers"></option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="vorname" class="col-sm-2 col-form-label">Vorname</label>
-                            <div class="col-sm-10">
-                                <input type="text" th:field="*{nut_vorname}" class="form-control"
-                                       required minlength="2" maxlength="20" id="vorname" th:placeholder="Vorname">
+                            <div class="form-group row">
+                                <label for="vorname" class="col-sm-2 col-form-label">Vorname</label>
+                                <div class="col-sm-10">
+                                    <input type="text" th:field="*{nut_vorname}" class="form-control"
+                                           required minlength="2" maxlength="20" id="vorname" th:placeholder="Vorname">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="nachname" class="col-sm-2 col-form-label">Nachname</label>
-                            <div class="col-sm-10">
-                                <input type="text" th:field="*{nut_nachname}" class="form-control"
-                                       required minlength="2" maxlength="20" id="nachname" placeholder="Nachname">
+                            <div class="form-group row">
+                                <label for="nachname" class="col-sm-2 col-form-label">Nachname</label>
+                                <div class="col-sm-10">
+                                    <input type="text" th:field="*{nut_nachname}" class="form-control"
+                                           required minlength="2" maxlength="20" id="nachname" placeholder="Nachname">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="email" class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10">
-                                <input type="email" class="form-control" id="email" th:field="*{nut_email}"
-                                       placeholder="Email"
-                                       required>
+                            <div class="form-group row">
+                                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="email" th:field="*{nut_email}"
+                                           placeholder="Email"
+                                           required>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="passwort" class="col-sm-2 col-form-label">Passwort</label>
-                            <div class="col-sm-10">
-                                <input type="password" class="form-control" id="passwort" th:placeholder="Password"
-                                       th:field="*{nut_passwort}" required minlength="6" maxlength="10">
+                            <div class="form-group row">
+                                <label for="passwort" class="col-sm-2 col-form-label">Passwort</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="passwort" th:placeholder="Password"
+                                           th:field="*{nut_passwort}" required minlength="6" maxlength="10">
+                                </div>
                             </div>
-                        </div>
-                        <p id="registrationFormularHeaders">Kurs definieren:</p>
-                        <div class="form-group row">
-                            <label for="kurs" class="col-sm-2 col-form-label">Kurs</label>
-                            <div class="col-sm-10">
-                                <input list="kurs" id="kursListe">
-                                <datalist id="kurs">
-                                    <option th:each="kurs: ${kurse}" th:value="${kurs.kurs_id}"
-                                            th:text="${kurs.kurs_name}"></option>
-                                </datalist>
+                            <div class="form-group row">
+                                <label for="kurs" class="col-sm-2 col-form-label">Kurs</label>
+                                <div class="col-sm-10">
+                                    <input list="kurs" id="kursListe">
+                                    <datalist id="kurs">
+                                        <option th:each="kurs: ${kurse}" th:value="${kurs.kurs_id}"
+                                                th:text="${kurs.kurs_name}"></option>
+                                    </datalist>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-10">
-                                <button type="submit" onclick="registerStudent()" id="abschickenStudent" class="button">
-                                    Jetzt
-                                    registrieren
-                                </button>
+                            <div class="form-group row">
+                                <div class="col-sm-10">
+                                    <button type="submit" id="abschickenStudent" class="button">
+                                        Jetzt registrieren
+                                    </button>
+                                </div>
                             </div>
-                        </div>
 
 
-                    </form>
+                        </form>
 
                 </div>
             </div>

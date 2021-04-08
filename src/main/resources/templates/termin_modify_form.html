@@ -44,64 +44,71 @@
     </nav>
 </header>
 <main id="main__home">
-    <section id="first__section">
+    <form>
         <div class="form-title text-center" id="adminDesign">
             <h4>Termin modifizieren</h4>
         </div>
-        <form name="f" th:action="@{/vorlesungsplaner/process_modifyTermin}" th:object="${termin}"
-              onsubmit="return validateForm()"
-              method="post" style="max-width: 600px; margin: 0 auto;">
-            <table>
-                <tbody>
-                <tr>
-                    <div th:if="${errorMessage != null}"
-                         th:utext="${errorMessage}" class="error">
-                    </div>
-                    <td><label class="label">Vorlesung: </label></td>
-                    <td><select required>
-                        <option id="lecture" th:field="*{ter_vvn_id}" th:value="${termin.ter_vvn_id}"
-                                th:text="${vorlesung}"></option>
-                    </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>Anzahl verbleibender Vorlesungsstunden: </p></td>
-                    <td><p id="hours"></p></td>
-                </tr>
+        <div class="page">
+            <div class="gba-kachel gba-kachel--l">
+                <div class="padding-all-unit">
+                    <div class="gba-kachel__titel"></div>
+                    <form name="f" th:action="@{/vorlesungsplaner/process_modifyTermin}" th:object="${termin}"
+                          onsubmit="return validateForm()"
+                          method="post" style="max-width: 600px; margin: 0 auto;">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <div th:if="${errorMessage != null}"
+                                     th:utext="${errorMessage}" class="error">
+                                </div>
+                                <td><label class="label">Vorlesung: </label></td>
+                                <td><select required>
+                                    <option id="lecture" th:field="*{ter_vvn_id}" th:value="${termin.ter_vvn_id}"
+                                            th:text="${vorlesung}"></option>
+                                </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p>Anzahl verbleibender Vorlesungsstunden: </p></td>
+                                <td><p id="hours"></p></td>
+                            </tr>
 
-                <td><label for="start">Datum:</label></td>
+                            <td><label for="start">Datum:</label></td>
 
-                <td><input type="date" th:field="*{ter_datum}" onload="getDate()" id="date" name="trip-start"
-                           th:min="${kurs.kurs_start}" th:max="${kurs.kurs_ende}" required></td>
+                            <td><input type="date" th:field="*{ter_datum}" onload="getDate()" id="date" name="trip-start"
+                                       th:min="${kurs.kurs_start}" th:max="${kurs.kurs_ende}" required></td>
 
-                </tr>
-                <tr>
-                    <td><label for="end">Startzeit:</label></td>
+                            </tr>
+                            <tr>
+                                <td><label for="end">Startzeit:</label></td>
 
-                    <td><input type="time" id="start" th:field="*{ter_start}" name="trip-end" required></td>
-                </tr>
-                <tr>
-                    <td><label for="end">Endzeit:</label></td>
+                                <td><input type="time" id="start" th:field="*{ter_start}" name="trip-end" required></td>
+                            </tr>
+                            <tr>
+                                <td><label for="end">Endzeit:</label></td>
 
-                    <td><input type="time" th:field="*{ter_ende}" id="end" name="trip-end" required></td>
-                </tr>
-                <input id="ter_id" th:field="*{ter_id}" type="hidden">
-                <input th:field="*{ter_kurs_id}" type="hidden">
-                <input th:field="*{ter_vvn_id}" type="hidden">
-                <tr>
-                    <td>
-                        <button type="button" class="button" onclick="deleteTermin()">Termin löschen</button>
-                    </td>
-                    <td>
-                        <button type="submit" class="button">Änderungen speichern</button>
-                    </td>
-                </tr>
-                </tbody>
-
-            </table>
-        </form>
-    </section>
-    </main>
+                                <td><input type="time" th:field="*{ter_ende}" id="end" name="trip-end" required></td>
+                            </tr>
+                            <input id="ter_id" th:field="*{ter_id}" type="hidden">
+                            <input th:field="*{ter_kurs_id}" type="hidden">
+                            <input th:field="*{ter_vvn_id}" type="hidden">
+                            <tr>
+                                <td>
+                                    <button type="button" class="button" onclick="deleteTermin()">Termin löschen
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="submit" class="button">Änderungen speichern</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </form>
+</main>
     <footer>
         © Vorlesungsplaner
     </footer>
