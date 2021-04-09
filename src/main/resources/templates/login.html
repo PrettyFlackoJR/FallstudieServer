@@ -14,14 +14,21 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/vorlesungsplaner">Loginseite DH-Planner</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <ul class="nav navbar-nav navbar-right">
-                <form class="form-inline" method="get" th:action="@{/}">
-                    <input class="button" type="submit" value="Zurück zur Startseite"/>
-                </form>
+                <div class="collapse navbar-collapse" id="navbarText">
+                    <form class="form-inline" method="get" th:action="@{/}">
+                        <input class="button" type="submit" value="Zurück zur Startseite"/>
+                    </form>
+                </div>
             </ul>
         </div>
     </nav>
 </header>
+
 <main>
     <div class="form-title text-center" id="adminDesign">
         <h4>Login</h4>
