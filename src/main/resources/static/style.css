@@ -82,9 +82,35 @@ td{
     padding: 2rem;
 }
 
-.container-fluid {
-    padding: 0rem;
-    margin: 0;
+.homeImage{
+    margin-left: calc((100% / 2) - 120px);
+}
+
+#homeText{
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+}
+
+@media (max-width: 1000px) {
+    #homeText{
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    .homeImage{
+        margin-left: calc((100% / 2) - 90px);
+    }
+}
+
+@media (max-width: 320px) {
+    #homeText{
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+
+    .homeImage{
+        margin-left: calc((100% / 2) - 90px);
+    }
 }
 
 /*Homepage-Styling*/
@@ -711,10 +737,6 @@ ul li {
     opacity: 0;
 }
 
-#title {
-    font-family: 'B612';
-    color: #ff003b;
-}
 
 #backBtn {
     position: absolute;
