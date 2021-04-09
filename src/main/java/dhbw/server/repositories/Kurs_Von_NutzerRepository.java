@@ -10,6 +10,6 @@ import java.util.ArrayList;
 @Component
 public interface Kurs_Von_NutzerRepository extends JpaRepository<Kurs_Von_Nutzer, Integer> {
 
-    @Query("SELECT k FROM Kurs_Von_Nutzer k WHERE k.kvn_nut_id = ?1")
+    @Query("SELECT kvn FROM Kurs_Von_Nutzer kvn INNER JOIN Kurs k ON k.kurs_id = kvn.kvn_kurs_id WHERE kvn.kvn_nut_id = ?1 ORDER BY k.kurs_name")
     ArrayList<Kurs_Von_Nutzer> findByNutzerId(Integer nutzerId);
 }

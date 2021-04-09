@@ -17,5 +17,8 @@ public interface KursRepository extends JpaRepository<Kurs, Integer> {
     Kurs findKursByName(String kurs);
 
     @Query("SELECT k FROM Kurs k WHERE k.kurs_id = ?1")
-    ArrayList<Kurs> findByKursId(Integer kursId);
+    Kurs findByKursId(Integer kursId);
+
+    @Query("SELECT k FROM Kurs k ORDER BY k.kurs_name")
+    ArrayList<Kurs> findAll();
 }
