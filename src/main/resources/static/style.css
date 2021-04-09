@@ -300,6 +300,7 @@ button:hover {
 
 @media (max-width: 320px) {
     .loginformular {
+        margin-top: 3em;
         padding: 1rem;
         width: 80%;
         height: 90%;
