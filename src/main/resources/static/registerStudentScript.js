@@ -46,5 +46,8 @@ async function registerStudent() {
     const text = await res.text();
     if (res.status === 200) {
         location.href = "http://localhost:8080/register_success";
-    } else alert(text);
+    } else {
+        document.getElementById("error").style.display="block";
+        document.getElementById("error").innerHTML=text;
+    }
 }
