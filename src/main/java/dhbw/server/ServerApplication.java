@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @EnableScheduling
 @SpringBootApplication
@@ -23,6 +24,11 @@ public class ServerApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        schedulerService.setNutzerArrayList(userService.getAllLecturers());
+        /*if(!userService.getAllLecturers().isEmpty()){
+            schedulerService.setNutzerArrayList(userService.getAllLecturers());
+        }*/
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        System.out.println(passwordEncoder.encode("testaccess"));
     }
 }
