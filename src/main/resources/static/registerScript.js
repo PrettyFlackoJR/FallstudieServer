@@ -68,11 +68,11 @@ async function moreFields() {
 }
 
 async function register() {
-    if (document.getElementById("vorname").value == "" ||
-        document.getElementById("nachname").value == "" ||
+    if (document.getElementById("name").value == "" ||
+        document.getElementById("surname").value == "" ||
         document.getElementById("email").value == "" ||
-        document.getElementById("anrede").value == "" ||
-        document.getElementById("passwort").value == "" ||
+        document.getElementById("title").value == "" ||
+        document.getElementById("password").value == "" ||
         array.length < 1) {
         alert("Bitte alle Felder ausfüllen!");
         return false;
@@ -80,12 +80,12 @@ async function register() {
     kvs = JSON.stringify(array);
     kvs = array;
     jsonObject = {
-        nut_vorname: document.getElementById("vorname").value,
-        nut_nachname: document.getElementById("nachname").value,
+        nut_vorname: document.getElementById("name").value,
+        nut_nachname: document.getElementById("surname").value,
         nut_email: document.getElementById("email").value,
-        nut_anrede: document.getElementById("anrede").value,
-        nut_titel: document.getElementById("titel").value,
-        nut_passwort: document.getElementById("passwort").value,
+        nut_anrede: document.getElementById("title").value,
+        nut_titel: document.getElementById("academicTitle").value,
+        nut_passwort: document.getElementById("password").value,
         kvs: kvs
     }
     jsonObject = JSON.stringify(jsonObject);

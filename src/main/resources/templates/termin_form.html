@@ -60,9 +60,9 @@
                                      th:utext="${errorMessage}" class="error">
                                 </div>
                                 <td><label class="label">Vorlesung: </label></td>
-                        <td><select th:field="*{ter_vvn_id}" required>
+                        <td><select th:field="*{ter_vvn_id}" onchange="loadHours(this)" required>
                             <option value="0">Vorlesungsfach auswählen</option>
-                            <option onclick="loadHours(this)" th:each="vvn_name: ${vvn_namen}"
+                            <option th:each="vvn_name: ${vvn_namen}"
                                     th:value="${vvn_name.getVvn_id()}"
                                     th:text="${vvn_name.vor_name}"></option>
                         </select>

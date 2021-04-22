@@ -76,7 +76,7 @@ public class SchedulerServiceImpl {
                 Nutzer nutzer = nutzerArrayList.get(0);
                 userService.addEditorRole(nutzer.getNut_id());
                 initial = false;
-                //sendEmail(nutzer.getNut_email(), nutzer.getNut_anrede(), nutzer.getNut_nachname());
+                sendEmail(nutzer.getNut_email(), nutzer.getNut_anrede(), nutzer.getNut_nachname());
             } else {
                 Integer nutzerId = nutzerArrayList.get(0).getNut_id();
                 userService.removeEditorRole(nutzerId);
@@ -84,7 +84,7 @@ public class SchedulerServiceImpl {
 
                 Nutzer newNutzer = nutzerArrayList.get(0);
                 userService.addEditorRole(newNutzer.getNut_id());
-                //sendEmail(newNutzer.getNut_email(), newNutzer.getNut_anrede(), newNutzer.getNut_nachname());
+                sendEmail(newNutzer.getNut_email(), newNutzer.getNut_anrede(), newNutzer.getNut_nachname());
             }
         } catch (IndexOutOfBoundsException e) {
             job1.cancel(true);
