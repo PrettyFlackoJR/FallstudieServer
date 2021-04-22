@@ -2,6 +2,7 @@ package dhbw.server.entities;
 
 import javax.persistence.*;
 import java.util.Comparator;
+import java.util.Objects;
 
 @Entity
 @Table(name = "vorlesungvonnutzer")
@@ -36,10 +37,10 @@ public class Vorlesung_Von_Nutzer {
     public static Comparator<Vorlesung_Von_Nutzer> ascendingComp = new Comparator<Vorlesung_Von_Nutzer>() {
         @Override
         public int compare(Vorlesung_Von_Nutzer o1, Vorlesung_Von_Nutzer o2) {
-                double stnd1 = o1.getVvn_stnd();
-                double stnd2 = o2.getVvn_stnd();
+            double stnd1 = o1.getVvn_stnd();
+            double stnd2 = o2.getVvn_stnd();
 
-                return (int) (stnd1-stnd2);
+            return (int) (stnd1 - stnd2);
         }
     };
 
@@ -49,9 +50,17 @@ public class Vorlesung_Von_Nutzer {
             double stnd1 = o1.getVvn_stnd();
             double stnd2 = o2.getVvn_stnd();
 
-            return (int) (stnd2-stnd1);
+            return (int) (stnd2 - stnd1);
         }
     };
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vorlesung_Von_Nutzer that = (Vorlesung_Von_Nutzer) o;
+        return Objects.equals(vvn_nut_id, that.vvn_nut_id);
+    }
 
     public Integer getVvn_id() {
         return vvn_id;

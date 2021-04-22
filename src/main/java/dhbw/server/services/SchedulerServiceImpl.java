@@ -42,6 +42,11 @@ public class SchedulerServiceImpl {
     private boolean initial = true;
 
     public synchronized void scheduleJob(int period, String order) throws NoSuchMethodException {
+
+        if (nutzerArrayList.isEmpty()) {
+            setNutzerArrayList(userService.getAllLecturers());
+        }
+
         if (job1 != null) {
             job1.cancel(true);
         }
@@ -68,7 +73,7 @@ public class SchedulerServiceImpl {
                 Nutzer nutzer = nutzerArrayList.get(0);
                 userService.addEditorRole(nutzer.getNut_id());
                 initial = false;
-               //sendEmail(nutzer.getNut_email(), nutzer.getNut_anrede(), nutzer.getNut_nachname());
+                //sendEmail(nutzer.getNut_email(), nutzer.getNut_anrede(), nutzer.getNut_nachname());
             } else {
                 Integer nutzerId = nutzerArrayList.get(0).getNut_id();
                 userService.removeEditorRole(nutzerId);
@@ -76,7 +81,7 @@ public class SchedulerServiceImpl {
 
                 Nutzer newNutzer = nutzerArrayList.get(0);
                 userService.addEditorRole(newNutzer.getNut_id());
-               //sendEmail(newNutzer.getNut_email(), newNutzer.getNut_anrede(), newNutzer.getNut_nachname());
+                //sendEmail(newNutzer.getNut_email(), newNutzer.getNut_anrede(), newNutzer.getNut_nachname());
             }
         } catch (IndexOutOfBoundsException e) {
             job1.cancel(true);
@@ -84,15 +89,33 @@ public class SchedulerServiceImpl {
     }
 
     public void jobAscending() {
-        ArrayList<Vorlesung_Von_Nutzer> vorlesungVonNutzerList = (ArrayList<Vorlesung_Von_Nutzer>) vorlesungVonNutzerRepository.findAll();
+        ArrayList<Vorlesung_Von_Nutzer> vorlesungVonNutzerList = getSummedUpList();
         Collections.sort(vorlesungVonNutzerList, Vorlesung_Von_Nutzer.ascendingComp);
         updateList(vorlesungVonNutzerList);
     }
 
     public void jobDescending() {
-        ArrayList<Vorlesung_Von_Nutzer> vorlesungVonNutzerList = (ArrayList<Vorlesung_Von_Nutzer>) vorlesungVonNutzerRepository.findAll();
+        ArrayList<Vorlesung_Von_Nutzer> vorlesungVonNutzerList = getSummedUpList();
         Collections.sort(vorlesungVonNutzerList, Vorlesung_Von_Nutzer.descendingComp);
         updateList(vorlesungVonNutzerList);
+    }
+
+    private ArrayList<Vorlesung_Von_Nutzer> getSummedUpList() {
+        ArrayList<Vorlesung_Von_Nutzer> vorlesungVonNutzerList = (ArrayList<Vorlesung_Von_Nutzer>) vorlesungVonNutzerRepository.findAll();
+        ArrayList<Vorlesung_Von_Nutzer> sumVorlesungVonNutzerList = new ArrayList<>();
+        for (Vorlesung_Von_Nutzer vvn : vorlesungVonNutzerList) {
+            if (!sumVorlesungVonNutzerList.contains(vvn)) {
+                sumVorlesungVonNutzerList.add(vvn);
+            } else {
+                for (int i = 0; i < sumVorlesungVonNutzerList.size(); i++) {
+                    if (sumVorlesungVonNutzerList.get(i).getVvn_nut_id() == vvn.getVvn_nut_id()) {
+                        sumVorlesungVonNutzerList.get(i).setVvn_stnd(
+                                sumVorlesungVonNutzerList.get(i).getVvn_stnd() + vvn.getVvn_stnd());
+                    }
+                }
+            }
+        }
+        return sumVorlesungVonNutzerList;
     }
 
     private void updateList(ArrayList<Vorlesung_Von_Nutzer> vvns) {
@@ -140,7 +163,7 @@ public class SchedulerServiceImpl {
         String msg = "Sehr geehrte/r " + anrede + " " + name + "," + "<br>" + "<br>"
                 + "bitte beginnen Sie mit ihrer Vorlesungsplanung: " + "<a href='http://localhost:8080'>Vorlesungsplaner</a>."
                 + "<br>" + "<br>" + "Ihr Planungsfenster schließt sich am "
-                + localDate + " um " + localTime + "." + "<br>" +"Bei Fragen wenden Sie sich bitte an den Admin.";
+                + localDate + " um " + localTime + "." + "<br>" + "Bei Fragen wenden Sie sich bitte an den Admin.";
 
         MimeBodyPart mimeBodyPart = new MimeBodyPart();
         mimeBodyPart.setContent(msg, "text/html");

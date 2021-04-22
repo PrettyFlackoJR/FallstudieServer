@@ -31,11 +31,11 @@ public class KursService {
         String currentPrincipalEmail = authentication.getName();
         int nutzerId = userService.getUserId(currentPrincipalEmail);
 
-        ArrayList<Kurs_Von_Nutzer> kvnIds = kursVonNutzerRepository.findByNutzerId(nutzerId);
-        return kvnIds;
+        ArrayList<Kurs_Von_Nutzer> kvns = kursVonNutzerRepository.findByNutzerId(nutzerId);
+        return kvns;
     }
 
-    public List<Kurs> getKurse(Integer kursId) {
+    public Kurs getKurs(Integer kursId) {
         return kursRepository.findByKursId(kursId);
     }
 
@@ -48,7 +48,7 @@ public class KursService {
         List<Kurs> kurse = new ArrayList<>();
         for (Kurs_Von_Nutzer kvn : kvns) {
             Integer id = kvn.getKvn_kurs_id();
-            kurse = getKurse(id);
+            kurse.add(getKurs(id));
         }
         ArrayList<Kurs_Namen> kurs_namen = new ArrayList<>();
         for (Kurs_Von_Nutzer kvn : kvns) {
