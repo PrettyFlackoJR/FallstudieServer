@@ -35,6 +35,10 @@ footer {
     margin-top: 5em;
 }
 
+.form-title-success{
+    margin-top:1rem;
+}
+
 /*Unterüberschriften, hervorgehobene Textabschnitte*/
 .smallHeaders {
     font-size: 16px;
@@ -261,6 +265,19 @@ button:hover {
 /*Erfolgreiches Termin- oder Dozent/Student-Anlegen - Infoseite*/
 .modal-body2 {
     margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 35%;
+    margin-left: 35%;
+    border-color: black;
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 5px;
+    box-shadow: black;
+    padding: 1rem;
+}
+
+.modal-body2-success{
+    margin-top: 200px;
     margin-bottom: 50px;
     margin-right: 35%;
     margin-left: 35%;
