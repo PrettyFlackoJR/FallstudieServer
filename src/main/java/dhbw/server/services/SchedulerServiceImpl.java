@@ -42,6 +42,11 @@ public class SchedulerServiceImpl {
     private boolean initial = true;
 
     public synchronized void scheduleJob(int period, String order) throws NoSuchMethodException {
+
+        if (nutzerArrayList.isEmpty()) {
+            setNutzerArrayList(userService.getAllLecturers());
+        }
+
         if (job1 != null) {
             job1.cancel(true);
         }
