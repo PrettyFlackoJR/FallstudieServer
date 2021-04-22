@@ -29,7 +29,10 @@ public class AnwendungsController {
 
     @GetMapping("/process_endplanning")
     @ResponseBody
-    public void endPlanning(@RequestParam(name = "order") String order, HttpServletResponse response) throws NoSuchMethodException {
+    public void endPlanning(@RequestParam(required = false, name = "order") String order, HttpServletResponse response) throws NoSuchMethodException {
+        if (order == null) {
+            order = "X";
+        }
         int i = schedulerService.scheduleJob(172800000, order);
         if (i == 0) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
