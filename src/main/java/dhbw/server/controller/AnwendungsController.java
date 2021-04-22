@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
+
 @Controller
 @RequestMapping("/vorlesungsplaner")
 public class AnwendungsController {
@@ -27,8 +29,11 @@ public class AnwendungsController {
 
     @GetMapping("/process_endplanning")
     @ResponseBody
-    public void endPlanning(@RequestParam(name = "order") String order) throws NoSuchMethodException {
-        schedulerService.scheduleJob(172800000, order);
+    public void endPlanning(@RequestParam(name = "order") String order, HttpServletResponse response) throws NoSuchMethodException {
+        int i = schedulerService.scheduleJob(172800000, order);
+        if (i == 0) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
     }
 
 }

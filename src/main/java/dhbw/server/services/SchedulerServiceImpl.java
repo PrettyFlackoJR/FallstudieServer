@@ -41,10 +41,12 @@ public class SchedulerServiceImpl {
     private ScheduledFuture job1;
     private boolean initial = true;
 
-    public synchronized void scheduleJob(int period, String order) throws NoSuchMethodException {
+    public synchronized int scheduleJob(int period, String order) throws NoSuchMethodException {
 
         if (nutzerArrayList.isEmpty()) {
-            setNutzerArrayList(userService.getAllLecturers());
+            if (!userService.getAllLecturers().isEmpty()) {
+                setNutzerArrayList(userService.getAllLecturers());
+            } else return 0;
         }
 
         if (job1 != null) {
@@ -65,6 +67,7 @@ public class SchedulerServiceImpl {
 
         job1 = taskScheduler.scheduleAtFixedRate(new ScheduledMethodRunnable(
                 schedulerService, "job"), period);
+        return 1;
     }
 
     public void job() throws MessagingException {

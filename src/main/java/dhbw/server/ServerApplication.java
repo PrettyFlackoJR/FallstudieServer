@@ -3,14 +3,13 @@ package dhbw.server;
 import dhbw.server.services.SchedulerServiceImpl;
 import dhbw.server.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
 @SpringBootApplication
-public class ServerApplication implements CommandLineRunner {
+public class ServerApplication {
 
     @Autowired
     SchedulerServiceImpl schedulerService;
@@ -21,8 +20,4 @@ public class ServerApplication implements CommandLineRunner {
         SpringApplication.run(ServerApplication.class, args);
     }
 
-    @Override
-    public void run(String... args) {
-        schedulerService.setNutzerArrayList(userService.getAllLecturers());
-    }
 }

@@ -8,8 +8,14 @@ async function startPlanning() {
 
     const url = baseURL + "/process_endplanning?order=" + order;
     const res = await fetch(url);
-    alert("Die Planung wurde gestartet.");
-    document.getElementById("startPlanning").onclick = function() { alert("Die Planung wurde bereits gestartet."); }
+    if (res.status == 200) {
+        alert("Die Planung wurde gestartet.");
+        document.getElementById("startPlanning").onclick = function () {
+            alert("Die Planung wurde bereits gestartet.");
+        }
+    } else {
+        alert("Bitte registrieren Sie die Dozenten bevor Sie die Planung starten.");
+    }
 }
 
 async function setPeriod() {
