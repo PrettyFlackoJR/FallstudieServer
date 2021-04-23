@@ -42,7 +42,6 @@ public class SchedulerServiceImpl {
     private boolean initial = true;
 
     public synchronized int scheduleJob(int period, String order) throws NoSuchMethodException {
-
         if (nutzerArrayList.isEmpty()) {
             if (!userService.getAllLecturers().isEmpty()) {
                 setNutzerArrayList(userService.getAllLecturers());
@@ -88,6 +87,8 @@ public class SchedulerServiceImpl {
             }
         } catch (IndexOutOfBoundsException e) {
             job1.cancel(true);
+            nutzerArrayList.clear();
+            initial = true;
         }
     }
 
@@ -182,5 +183,9 @@ public class SchedulerServiceImpl {
 
     public void setNutzerArrayList(ArrayList<Nutzer> nutzerArrayList) {
         this.nutzerArrayList = nutzerArrayList;
+    }
+
+    public boolean isInitial() {
+        return initial;
     }
 }

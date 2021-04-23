@@ -6,15 +6,20 @@ async function startPlanning() {
         order = "A";
     } else order = "D";
 
-    const url = baseURL + "/process_endplanning?order=" + order;
-    const res = await fetch(url);
+    let url = baseURL + "/admin/process_checkinitial"
+    let res = await fetch(url);
+
     if (res.status == 200) {
-        alert("Die Planung wurde gestartet.");
-        document.getElementById("startPlanning").onclick = function () {
-            alert("Die Planung wurde bereits gestartet.");
+        url = baseURL + "/process_endplanning?order=" + order;
+        res = await fetch(url);
+
+        if (res.status == 200) {
+            alert("Die Planung wurde gestartet.");
+        } else {
+            alert("Bitte registrieren Sie die Dozenten bevor Sie die Planung starten.");
         }
     } else {
-        alert("Bitte registrieren Sie die Dozenten bevor Sie die Planung starten.");
+        alert("Die Planung läuft bereits.");
     }
 }
 
