@@ -38,3 +38,8 @@ $ npm install
     - Außerhalb des Planungszeitraumes von 2 Tagen: Dozent kann seine Vorlesungstermine einsehen.
 
 - Studenten können sich in der Webanwendung anmelden und ihren Vorlesungsplan einsehen.
+
+## Änderungen nach Präsentation
+***
+Die Planung kann nun erneut gestartet werden, ohne dass der Server dafür einen Neustart benötigt.
+Die Dozenten müssen dafür alle ihre Planung beendet haben.
