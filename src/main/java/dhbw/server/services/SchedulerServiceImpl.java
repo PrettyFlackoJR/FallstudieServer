@@ -41,6 +41,13 @@ public class SchedulerServiceImpl {
     private ScheduledFuture job1;
     private boolean initial = true;
 
+    /**
+     * Scheduled einen Job mit dem angegebenen Intervall und Reihenfolge der Dozenten.
+     * @param period
+     * @param order
+     * @return
+     * @throws NoSuchMethodException
+     */
     public synchronized int scheduleJob(int period, String order) throws NoSuchMethodException {
         if (nutzerArrayList.isEmpty()) {
             if (!userService.getAllLecturers().isEmpty()) {
@@ -69,6 +76,13 @@ public class SchedulerServiceImpl {
         return 1;
     }
 
+    /**
+     * Der Job, der gescheduled wird.
+     * Hier werden die Nutzer, die mit der Planung fertig sind, aus der Liste entfernt.
+     * Die Nutzer, die jetzt mit der Planung dran sind, bekommen eine Email.
+     * Zusätzlich werden hier die Editor-Rollen verteilt und entfernt.
+     * @throws MessagingException
+     */
     public void job() throws MessagingException {
         try {
             if (initial) {
@@ -92,12 +106,20 @@ public class SchedulerServiceImpl {
         }
     }
 
+    /**
+     * Sortiert die Liste der Nutzer.
+     * Hier: Aufsteigend bezogen auf die Anzahl an Vorlesungsstunden.
+     */
     public void jobAscending() {
         ArrayList<Vorlesung_Von_Nutzer> vorlesungVonNutzerList = getSummedUpList();
         Collections.sort(vorlesungVonNutzerList, Vorlesung_Von_Nutzer.ascendingComp);
         updateList(vorlesungVonNutzerList);
     }
 
+    /**
+     * Sortiert die Liste der Nutzer.
+     * Hier: Absteigend bezogen auf die Anzahl an Vorlesungsstunden.
+     */
     public void jobDescending() {
         ArrayList<Vorlesung_Von_Nutzer> vorlesungVonNutzerList = getSummedUpList();
         Collections.sort(vorlesungVonNutzerList, Vorlesung_Von_Nutzer.descendingComp);

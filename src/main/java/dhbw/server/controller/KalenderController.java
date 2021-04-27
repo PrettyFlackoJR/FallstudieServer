@@ -21,12 +21,23 @@ public class KalenderController {
     @Autowired
     private VorlesungsService vorlesungsService;
 
+    /**
+     * Liefert die Events für den Kalender im Frontend.
+     * @param kurs
+     * @return
+     */
     @GetMapping(path = "/process_calendar", produces = {"application/json", "text/json"})
     @ResponseBody
     public ArrayList<Event> processCalendar(@RequestParam(name = "kurs") String kurs) {
         return calendarService.showCalendar(kurs);
     }
 
+    /**
+     * Gibt Formular zurück, um  einen Termin erstellen zu können.
+     * @param kurs
+     * @param model
+     * @return template 'termin_form'
+     */
     @GetMapping("/termin_add")
     public String addTermin(@RequestParam(name = "kurs") String kurs, Model model) {
         model.addAttribute("termin", new Termin());
@@ -36,6 +47,12 @@ public class KalenderController {
         return "termin_form";
     }
 
+    /**
+     * Gibt Formular zurück, um  einen Termin modifizieren zu können.
+     * @param terminId
+     * @param model
+     * @return template 'termin_modify_form'
+     */
     @GetMapping("/termin_modify")
     public String modifyTermin(@RequestParam(name = "terminId") Integer terminId,
                                Model model) {
@@ -47,6 +64,15 @@ public class KalenderController {
         return "termin_modify_form";
     }
 
+    /**
+     * Startet Prozess, um einen Termin hinzuzufügen.
+     * Wenn ein Fehler auftritt, wird dieser im Formular ausgegeben.
+     * Bei Erfolg kommt es zur Weiterleitung auf die Homepage.
+     * @param kurs
+     * @param termin
+     * @param model
+     * @return
+     */
     @PostMapping("/process_addtermin")
     public String processAddTermin(@RequestParam(name = "kurs") String kurs,
                                    Termin termin,
@@ -64,6 +90,14 @@ public class KalenderController {
         return "redirect:/vorlesungsplaner";
     }
 
+    /**
+     * Startet Prozess, um einen Termin zu modifizieren.
+     * Wenn ein Fehler auftritt, wird dieser im Formular ausgegeben.
+     * Bei Erfolg kommt es zur Weiterleitung auf die Homepage.
+     * @param termin
+     * @param model
+     * @return
+     */
     @PostMapping("/process_modifytermin")
     public String processModifyTermin(Termin termin, Model model) {
         try {
@@ -79,12 +113,21 @@ public class KalenderController {
         return "redirect:/vorlesungsplaner";
     }
 
+    /**
+     * Löscht den Termin mit der angegebenen ID.
+     * @param id
+     */
     @DeleteMapping(value = "/process_deletetermin/{id}")
     @ResponseBody
     public void processDeleteTermin(@PathVariable Integer id) {
         calendarService.deleteTermin(id);
     }
 
+    /**
+     * Liefert die verbleibenden Stunden der Vorlesung eines Dozenten.
+     * @param vvnId
+     * @return
+     */
     @GetMapping("/gethours")
     @ResponseBody
     public double getHours(@RequestParam(required = false, name = "vorlesung") Integer vvnId) {

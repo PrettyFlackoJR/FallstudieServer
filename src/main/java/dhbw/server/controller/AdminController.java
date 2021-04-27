@@ -20,12 +20,21 @@ public class AdminController {
     @Autowired
     private SchedulerServiceImpl schedulerService;
 
+    /**
+     * Route für Admin-Template
+     * @param model
+     * @return template 'admin'
+     */
     @GetMapping
     public String viewAdmin(Model model) {
         model.addAttribute("kurse", kursService.getAllKurseWithNames());
         return "admin";
     }
 
+    /**
+     * Prüft, ob Planung bereits läuft.
+     * @param response
+     */
     @GetMapping("/process_checkinitial")
     @ResponseBody
     public void isInitial(HttpServletResponse response) {
@@ -36,6 +45,12 @@ public class AdminController {
         }
     }
 
+    /**
+     * Setzt den Zeitraum für einen Kurs.
+     * @param kursZeitraum
+     * @param response
+     * @return
+     */
     @PostMapping("/process_setperiod")
     @ResponseBody
     public String setPeriod(@RequestBody KursZeitraum kursZeitraum, HttpServletResponse response) {

@@ -21,12 +21,25 @@ public class AnwendungsController {
     @Autowired
     private SchedulerServiceImpl schedulerService;
 
+    /**
+     * Route für Homepage-Template
+     * @param model
+     * @return template 'homepage'
+     */
     @GetMapping
     public String viewPlanner(Model model) {
         model.addAttribute("kvn_namen", kursService.getKursNamen());
         return "homepage";
     }
 
+    /**
+     * Wird von Admin aufgerufen, um Planung zu beginnen.
+     * Wird von einzelnen Dozenten aufgerufen, um die jeweilige Planung abzuschließen,
+     * und den nächsten Dozenten zu berechtigen.
+     * @param order
+     * @param response
+     * @throws NoSuchMethodException
+     */
     @GetMapping("/process_endplanning")
     @ResponseBody
     public void endPlanning(@RequestParam(required = false, name = "order") String order, HttpServletResponse response) throws NoSuchMethodException {

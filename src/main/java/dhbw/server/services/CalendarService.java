@@ -37,6 +37,11 @@ public class CalendarService {
     @Autowired
     private UserService userService;
 
+    /**
+     * Liefert die Events für den Kalender.
+     * @param kurs
+     * @return
+     */
     public ArrayList<Event> showCalendar(String kurs) {
         ArrayList<Termin> termine = getTermineOfCurrentCourse(kurs);
         ArrayList<Event> events = getEvents(termine, kurs);
@@ -44,11 +49,23 @@ public class CalendarService {
         return events;
     }
 
+    /**
+     * Liefert alle Termine des angeforderten Kurses.
+     * @param course
+     * @return
+     */
     public ArrayList<Termin> getTermineOfCurrentCourse(String course) {
         Integer courseId = kursRepository.findKursIdByName(course);
         return terminRepository.findAllByCourse(courseId);
     }
 
+    /**
+     * Fügt einen Termin in der Datenbank hinzu.
+     * Dabei wird überprüft, ob der Zeitraum frei ist,
+     * und ob die Stundenzahl nicht überschritten wird.
+     * @param termin
+     * @throws TerminException
+     */
     @Transactional(rollbackFor = TerminException.class)
     public void addTermin(Termin termin) throws TerminException {
         if (terminExists(termin.getTer_datum(), termin.getTer_start(), termin.getTer_ende(),
@@ -71,6 +88,13 @@ public class CalendarService {
         }
     }
 
+    /**
+     * Modifiziert einen Termin in der Datenbank.
+     * Dabei wird überprüft, ob der Zeitraum frei ist,
+     * und ob die Stundenzahl nicht überschritten wird.
+     * @param termin
+     * @throws TerminException
+     */
     @Transactional(rollbackFor = TerminException.class)
     public void modifyTermin(Termin termin) throws TerminException {
         if (terminExists(termin.getTer_datum(), termin.getTer_start(), termin.getTer_ende(),
@@ -98,10 +122,23 @@ public class CalendarService {
         }
     }
 
+    /**
+     * Löscht den Termin mit der angegebenen ID aus der Datenbank.
+     * @param id
+     */
     public void deleteTermin(Integer id) {
         terminRepository.deleteById(id);
     }
 
+    /**
+     * Stellt die Events für den Kalender zusammen.
+     * Dafür werden alle Termine aus der Datenbank überprüft.
+     * Wenn der Termin zu dem derzeit eingeloggten User gehört,
+     * wird er rot im Kalender angezeigt.
+     * @param termine
+     * @param kurs
+     * @return
+     */
     private ArrayList<Event> getEvents(ArrayList<Termin> termine, String kurs) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalEmail = authentication.getName();
@@ -136,6 +173,15 @@ public class CalendarService {
         return events;
     }
 
+    /**
+     * Überprüft, ob der Zeitraum für den Termin frei ist.
+     * @param date
+     * @param start
+     * @param end
+     * @param kursId
+     * @param terminId
+     * @return
+     */
     private Boolean terminExists(LocalDate date, LocalTime start, LocalTime end, Integer kursId, Integer terminId) {
         Boolean b = false;
         ArrayList<Termin> termine = terminRepository.findAllByDate(date, kursId);
@@ -156,6 +202,11 @@ public class CalendarService {
         return b;
     }
 
+    /**
+     * Liefert den Termin mit der angegebenen ID.
+     * @param terminId
+     * @return
+     */
     public Optional<Termin> getTerminById(Integer terminId) {
         return terminRepository.findById(terminId);
     }

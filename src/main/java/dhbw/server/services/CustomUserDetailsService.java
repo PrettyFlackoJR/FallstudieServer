@@ -13,6 +13,13 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private NutzerRepository nutzerRepository;
 
+    /**
+     * Wird für Login mit Spring Security benötigt.
+     * Hier wird überprüft, ob der User existiert.
+     * @param email
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Nutzer nutzer = nutzerRepository.findByEmail(email);

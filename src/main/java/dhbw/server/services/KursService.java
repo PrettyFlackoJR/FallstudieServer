@@ -26,6 +26,10 @@ public class KursService {
     @Autowired
     KursRepository kursRepository;
 
+    /**
+     * Gibt alle Kurse des angemeldeten Nutzer zurück.
+     * @return
+     */
     public ArrayList<Kurs_Von_Nutzer> getKvns() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalEmail = authentication.getName();
@@ -35,14 +39,29 @@ public class KursService {
         return kvns;
     }
 
+    /**
+     * Gibt Kurs mit angegebener ID zurück.
+     * @param kursId
+     * @return
+     */
     public Kurs getKurs(Integer kursId) {
         return kursRepository.findByKursId(kursId);
     }
 
+    /**
+     * Gibt Kurs mit angegebenem Namen zurück.
+     * @param name
+     * @return
+     */
     public Kurs getKursByName(String name) {
         return kursRepository.findKursByName(name);
     }
 
+    /**
+     * Erstellt ein Objekt mit den Kurs-IDs des angemeldeten Nutzers und den
+     * dazugehörigen Kursnamen.
+     * @return
+     */
     public ArrayList<Kurs_Namen> getKursNamen() {
         ArrayList<Kurs_Von_Nutzer> kvns = getKvns();
         List<Kurs> kurse = new ArrayList<>();
@@ -63,10 +82,21 @@ public class KursService {
         return kurs_namen;
     }
 
+    /**
+     * Liefert alle Kurse zurück.
+     * @return
+     */
     public List<Kurs> getAllKurseWithNames() {
         return kursRepository.findAll();
     }
 
+    /**
+     * Setzt den Zeitraum eines Kurses in der Datenbank.
+     * Dabei wird überprüft, ob der Startpunkt in der Zukunft ist,
+     * und ob das Enddatum nach dem Startdatum liegt.
+     * @param kursZeitraum
+     * @throws TimeframeException
+     */
     public void setPeriod(KursZeitraum kursZeitraum) throws TimeframeException {
         if (kursZeitraum == null || kursZeitraum.getStart() == null
                 || kursZeitraum.getEnd() == null || kursZeitraum.getKurs() == null) {

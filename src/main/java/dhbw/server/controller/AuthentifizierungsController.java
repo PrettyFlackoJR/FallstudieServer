@@ -63,6 +63,11 @@ public class AuthentifizierungsController {
         return vorlesungsService.getAllVorNamen();
     }
 
+    /**
+     * Ruft Formular für Dozent auf.
+     * @param model
+     * @return template 'signup_form'
+     */
     @GetMapping("/vorlesungsplaner/admin/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new Nutzer());
@@ -72,6 +77,11 @@ public class AuthentifizierungsController {
         return "signup_form";
     }
 
+    /**
+     * Ruft Formular für Student auf.
+     * @param model
+     * @return template 'signup_form_student'
+     */
     @GetMapping("/vorlesungsplaner/admin/register_student")
     public String showRegistrationFormStudent(Model model) {
         model.addAttribute("kurse", kursService.getAllKurseWithNames());
@@ -79,6 +89,13 @@ public class AuthentifizierungsController {
         return "signup_form_student";
     }
 
+    /**
+     * Startet Prozess, um Dozenten zu registrieren.
+     * Wenn ein Fehler auftritt, wird dieser zurück gemeldet.
+     * @param response
+     * @param registerForm
+     * @return
+     */
     @PostMapping("/vorlesungsplaner/admin/process_registerlecturer")
     @ResponseBody
     public String processLecturerRegister(HttpServletResponse response,
@@ -97,6 +114,14 @@ public class AuthentifizierungsController {
         return "";
     }
 
+    /**
+     * Startet Prozess, um Studenten zu registrieren.
+     * Wenn ein Fehler auftritt, wird dieser zurück gemeldet.
+     * @param kursId
+     * @param nutzer
+     * @param response
+     * @return
+     */
     @PostMapping("/vorlesungsplaner/admin/process_registerstudent")
     @ResponseBody
     public String processStudentRegister(@RequestParam(name = "kursId") Integer kursId,
@@ -121,6 +146,10 @@ public class AuthentifizierungsController {
         return "access_denied";
     }
 
+    /**
+     * Liefert Array mit den Rollen des derzeitigen Nutzers.
+     * @return
+     */
     @GetMapping("/process_role")
     @ResponseBody
     public ArrayList<Integer> checkRole() {
