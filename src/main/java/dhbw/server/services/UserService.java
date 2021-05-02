@@ -29,7 +29,16 @@ public class UserService {
     @Autowired
     Vorlesung_Von_NutzerRepository vorlesungVonNutzerRepository;
 
-    @Transactional(rollbackFor = UserAlreadyExistsException.class)
+    /**
+     * Registriert einen Nutzer (Student) in der Datenbank.
+     * Diesem Nutzer wird die Rolle "Student" mit der ID 2 zugewiesen.
+     * Zum Schluss wird der Nutzer noch einem Kurs zugewiesen.
+     * Bei einer Exception kommt es zum Rollback.
+     * @param userDto
+     * @param kursId
+     * @throws UserAlreadyExistsException
+     */
+    @Transactional(rollbackFor = Exception.class)
     public void registerNewStudentAccount(Nutzer userDto, Integer kursId) throws UserAlreadyExistsException {
 
         if (emailExist(userDto.getNut_email())) {
@@ -42,7 +51,15 @@ public class UserService {
         }
     }
 
-    @Transactional(rollbackFor = UserAlreadyExistsException.class)
+    /**
+     * Registriert einen Nutzer (Dozent) in der Datenbank.
+     * Dem Dozent wird die Rolle "User" mit der ID 1 zugewiesen.
+     * Außerdem bekommt er die angegebenen Kurse und Vorlesungen zugewiesen.
+     * Bei einer Exception kommt es zum Rollback.
+     * @param registerForm
+     * @throws UserAlreadyExistsException
+     */
+    @Transactional(rollbackFor = Exception.class)
     public void registerNewLecturerAccount(RegisterForm registerForm) throws UserAlreadyExistsException {
 
         if (emailExist(registerForm.getNut_email())) {
@@ -70,7 +87,7 @@ public class UserService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public Nutzer_Role saveNutzer(Nutzer nutzer, Integer role_id) {
+    private Nutzer_Role saveNutzer(Nutzer nutzer, Integer role_id) {
         nutzerRepository.save(nutzer);
         Nutzer_Role nutzer_role = new Nutzer_Role(nutzerRepository
                 .findIdByEmail(nutzer.getNut_email()), role_id);
@@ -83,26 +100,48 @@ public class UserService {
         return nutzerRepository.findByEmail(email) != null;
     }
 
+    /**
+     * Liefert die Nutzer ID anhand der Email-Adresse.
+     * @param email
+     * @return
+     */
     public int getUserId(String email) {
         Nutzer nutzer = nutzerRepository.findByEmail(email);
         return nutzer.getNut_id();
     }
 
+    /**
+     * Liefert alle Nutzer, die als Dozent registriert sind.
+     * @return
+     */
     public ArrayList<Nutzer> getAllLecturers() {
         ArrayList<Integer> ids = nutzerRolesRepository.findAllDozenten();
         return (ArrayList<Nutzer>) nutzerRepository.findAllById(ids);
     }
 
+    /**
+     * Fügt dem Nutzer mit der angegebenen ID die Rolle "Editor" hinzu.
+     * @param nutzerId
+     */
     public void addEditorRole(Integer nutzerId) {
         Nutzer_Role nutzer_role = new Nutzer_Role(nutzerId, 3);
         nutzerRolesRepository.save(nutzer_role);
     }
 
+    /**
+     * Entfernt die "Editor" Rolle des Nutzers mit der angegebenen ID.
+     * @param nutzerId
+     */
     public void removeEditorRole(Integer nutzerId) {
         Nutzer_Role nutzer_role = nutzerRolesRepository.findEditorByNutzerId(nutzerId);
         nutzerRolesRepository.delete(nutzer_role);
     }
 
+    /**
+     * Liefert alle Rollen des Nutzers mit der angegebenen ID.
+     * @param id
+     * @return
+     */
     public ArrayList<Integer> getRoles(Integer id) {
         ArrayList<Integer> nutzer_roles = nutzerRolesRepository.findRolesByNutzerId(id);
         return nutzer_roles;

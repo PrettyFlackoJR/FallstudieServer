@@ -15,7 +15,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     /**
      * Wird für Login mit Spring Security benötigt.
-     * Hier wird überprüft, ob der User existiert.
+     * Hier wird überprüft, ob der angegebene User existiert.
      * @param email
      * @return
      * @throws UsernameNotFoundException

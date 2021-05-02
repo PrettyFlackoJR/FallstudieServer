@@ -134,7 +134,7 @@ public class CalendarService {
      * Stellt die Events für den Kalender zusammen.
      * Dafür werden alle Termine aus der Datenbank überprüft.
      * Wenn der Termin zu dem derzeit eingeloggten User gehört,
-     * wird er rot im Kalender angezeigt.
+     * wird er mit "setBackgroundColor('red')" rot im Kalender angezeigt.
      * @param termine
      * @param kurs
      * @return

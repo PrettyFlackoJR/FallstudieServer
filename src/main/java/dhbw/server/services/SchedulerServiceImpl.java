@@ -126,6 +126,13 @@ public class SchedulerServiceImpl {
         updateList(vorlesungVonNutzerList);
     }
 
+    /**
+     * Liefert eine Liste, welche die Dozenten mit ihren jeweiligen Vorlesungsstunden enthält.
+     * Dabei werden die Stunden der einzelnen Vorlesungen für jeden Dozenten aufsummiert,
+     * um einen Vergleich zu ermöglichen.
+     * Diese Liste wird für die Planungsreihenfolge benötigt.
+     * @return
+     */
     private ArrayList<Vorlesung_Von_Nutzer> getSummedUpList() {
         ArrayList<Vorlesung_Von_Nutzer> vorlesungVonNutzerList = (ArrayList<Vorlesung_Von_Nutzer>) vorlesungVonNutzerRepository.findAll();
         ArrayList<Vorlesung_Von_Nutzer> sumVorlesungVonNutzerList = new ArrayList<>();
@@ -144,6 +151,11 @@ public class SchedulerServiceImpl {
         return sumVorlesungVonNutzerList;
     }
 
+    /**
+     * Aktualisiert die Liste, welche vom Job für die Planungsreihenfolge verwendet wird.
+     * Dies erfolgt nachdem ab- oder aufsteigend sortiert wurde.
+     * @param vvns
+     */
     private void updateList(ArrayList<Vorlesung_Von_Nutzer> vvns) {
         ArrayList<Nutzer> newList = new ArrayList<>();
 

@@ -19,6 +19,10 @@ public class CustomUserDetails implements UserDetails {
         this.nutzer = nutzer;
     }
 
+    /**
+     * Fügt dem Nutzer die Autoritäten hinzu.
+     * @return
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<Role> roles = nutzer.getRoles();

@@ -42,6 +42,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
+    /**
+     * Wird verwendet, um den Zugriff auf den Vorlesungsplaner zu managen.
+     * Dafür werden die Rollen verwendet.
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
