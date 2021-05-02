@@ -87,7 +87,7 @@ public class UserService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    private Nutzer_Role saveNutzer(Nutzer nutzer, Integer role_id) {
+    Nutzer_Role saveNutzer(Nutzer nutzer, Integer role_id) {
         nutzerRepository.save(nutzer);
         Nutzer_Role nutzer_role = new Nutzer_Role(nutzerRepository
                 .findIdByEmail(nutzer.getNut_email()), role_id);
